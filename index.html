@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Provincial Grand Lodge of the South Eastern Counties</title>
+<meta name="description" content="The Provincial Grand Lodge of the South Eastern Counties, under the Grand Lodge of Ancient Free and Accepted Masons of Ireland.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --midnight:#0a1526;--navy:#12233f;--navy-2:#1b3055;
+    --gold:#c6a25c;--gold-soft:#e2cd97;--gold-dim:rgba(198,162,92,.32);
+    --ivory:#f4efe3;--parchment:#ece3d0;--parchment-2:#f6f1e6;
+    --ink:#211a10;--ink-soft:#5b5241;--line:rgba(198,162,92,.28);
+    --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+    --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;--wrap:1160px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--midnight);color:var(--ivory);font-family:var(--sans);
+    font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.12;margin:0}
+  a{color:inherit}img{max-width:100%}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+
+  .ribbon{background:var(--midnight);border-bottom:1px solid rgba(198,162,92,.15);
+    font-size:12.5px;letter-spacing:.14em;color:var(--gold-soft);text-align:center;padding:7px 12px;font-weight:500}
+
+  header{position:sticky;top:0;z-index:40;background:rgba(10,21,38,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid rgba(198,162,92,.18)}
+  .bar{display:flex;align-items:center;gap:16px;height:74px}
+  .brand{display:flex;align-items:center;gap:13px;text-decoration:none;margin-right:auto}
+  .brand .emblem{width:38px;height:38px;flex:none}
+  .brand b{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.01em;color:var(--ivory)}
+  .brand span{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;color:var(--gold-soft);text-transform:uppercase;margin-top:2px}
+  nav.main{display:flex;gap:22px;align-items:center}
+  nav.main a{text-decoration:none;font-size:14px;color:var(--ivory);opacity:.82;letter-spacing:.02em;transition:opacity .2s,color .2s;padding:4px 0}
+  nav.main a:hover{opacity:1;color:var(--gold-soft)}
+  .btn{font-family:var(--sans);cursor:pointer;border:none;font-size:14px;letter-spacing:.04em;padding:10px 20px;border-radius:2px;transition:.2s;text-decoration:none;display:inline-block}
+  .btn-gold{background:linear-gradient(180deg,var(--gold-soft),var(--gold));color:#241c0c;font-weight:600}
+  .btn-gold:hover{filter:brightness(1.07)}
+  .btn-ghost{background:transparent;color:var(--gold-soft);border:1px solid var(--gold-dim)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--ivory)}
+  .menu-toggle{display:none;background:none;border:1px solid var(--gold-dim);color:var(--gold-soft);width:42px;height:38px;border-radius:2px;cursor:pointer;font-size:17px}
+
+  .hero{position:relative;padding:96px 24px 104px;text-align:center;overflow:hidden;
+    background:radial-gradient(120% 80% at 50% -10%, rgba(198,162,92,.16), transparent 60%),linear-gradient(180deg,#0c1a30,#0a1526 70%)}
+  .frame{max-width:820px;margin:0 auto;position:relative;padding:54px 40px 48px;border:1px solid var(--gold-dim)}
+  .frame:before{content:"";position:absolute;inset:8px;border:1px solid rgba(198,162,92,.16);pointer-events:none}
+  .hero .crest{width:104px;height:104px;margin:0 auto 22px;display:block}
+  .kicker{font-family:var(--sans);font-size:12px;letter-spacing:.32em;color:var(--gold-soft);text-transform:uppercase;margin-bottom:20px}
+  .hero h1{font-size:clamp(34px,6vw,62px);font-weight:500;letter-spacing:.005em}
+  .hero h1 em{font-style:italic;color:var(--gold-soft)}
+  .hero .sub{font-family:var(--serif);font-size:clamp(18px,2.4vw,23px);font-style:italic;color:rgba(244,239,227,.82);margin:18px auto 0;max-width:560px}
+  .rule{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:30px auto}
+  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+  .estd{margin-top:30px;font-size:12px;letter-spacing:.28em;color:rgba(198,162,92,.7);text-transform:uppercase}
+
+  section{position:relative}
+  .light{background:var(--parchment-2);color:var(--ink)}
+  .light h2,.light h3{color:var(--navy)}
+  .dark2{background:linear-gradient(180deg,#0a1526,#0d1b31)}
+  .pad{padding:88px 0}
+  .eyebrow{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--gold);margin-bottom:8px}
+  .light .eyebrow{color:#a6813a}
+  .h-lead{font-size:clamp(28px,4vw,42px);max-width:20ch}
+  .lead-row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:44px}
+  .lead-row p{max-width:44ch;margin:0;color:var(--ink-soft)}
+  .dark2 .lead-row p{color:rgba(244,239,227,.72)}
+
+  .welcome{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:start}
+  .welcome p{margin:0 0 18px;color:var(--ink-soft);max-width:60ch}
+  .welcome .drop:first-letter{font-family:var(--serif);font-size:62px;float:left;line-height:.72;padding:8px 12px 0 0;color:var(--gold);font-weight:600}
+  .pgm-card{border:1px solid var(--line);background:#fff;overflow:hidden}
+  .pgm-card .portrait{aspect-ratio:3/3.4;background:radial-gradient(90% 70% at 50% 24%, #21365c, #101f38);display:flex;align-items:center;justify-content:center}
+  .pgm-card .portrait svg{width:78px;height:78px;opacity:.5}
+  .pgm-card .cap{padding:20px 22px}
+  .pgm-card .cap .role{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#a6813a}
+  .pgm-card .cap .name{font-family:var(--serif);font-size:24px;color:var(--navy);margin-top:4px}
+  .pgm-card .cap .name small{display:block;font-family:var(--sans);font-size:13px;letter-spacing:normal;color:var(--ink-soft);margin-top:6px;font-style:normal}
+
+  .tenets{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+  .tenet{padding:30px 26px 30px 0;border-right:1px solid var(--line)}
+  .tenet:last-child{border-right:none;padding-right:0}
+  .tenet .g{color:var(--gold);font-family:var(--serif);font-size:30px;font-style:italic}
+  .dark2 .tenet h4{color:var(--ivory)}
+  .tenet h4{font-size:21px;margin:10px 0 8px}
+  .tenet p{font-size:14.5px;margin:0;color:rgba(244,239,227,.7)}
+  details.about{border-top:1px solid var(--line);padding:20px 0}
+  details.about summary{cursor:pointer;list-style:none;font-family:var(--serif);font-size:23px;color:var(--ivory);display:flex;justify-content:space-between;align-items:center}
+  details.about summary::-webkit-details-marker{display:none}
+  details.about summary .plus{color:var(--gold);font-size:26px;transition:transform .25s}
+  details.about[open] summary .plus{transform:rotate(45deg)}
+  details.about p{color:rgba(244,239,227,.72);max-width:74ch;margin:16px 0 4px}
+
+  .register{border-top:1px solid var(--line)}
+  .lodge{display:grid;grid-template-columns:88px 1fr auto;gap:26px;align-items:center;padding:26px 6px;border-bottom:1px solid var(--line);transition:background .2s}
+  .lodge:hover{background:rgba(198,162,92,.05)}
+  .lodge .no{font-family:var(--serif);font-size:40px;color:#a6813a;text-align:center;font-style:italic}
+  .lodge .info h3{font-size:24px;color:var(--navy)}
+  .lodge .info .meta{font-size:13.5px;color:var(--ink-soft);margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .chip{font-size:11px;letter-spacing:.08em;border:1px solid var(--gold-dim);color:#a6813a;padding:2px 9px;border-radius:20px}
+  .lodge .act a{font-size:13px;color:#a6813a;text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:2px}
+  .lodge .act a:hover{color:var(--navy)}
+  .schedule-note{margin-top:34px;padding:22px 26px;border:1px solid var(--line);background:#fff;font-size:14.5px;color:var(--ink-soft);display:flex;gap:16px;align-items:flex-start}
+  .schedule-note svg{flex:none;width:26px;height:26px;color:var(--gold)}
+  .pointer{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:19px;color:#a6813a}
+  .pointer a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold-dim)}
+
+  /* ---------- orders ---------- */
+  .orders{border-top:1px solid var(--line)}
+  .order{display:grid;grid-template-columns:130px 1fr;gap:32px;padding:36px 0;border-bottom:1px solid var(--line);align-items:start}
+  .order .sigil{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+  .order .sigil svg{width:66px;height:66px;color:var(--gold)}
+  .order .sigil .colour{font-size:11px;letter-spacing:.06em;color:rgba(244,239,227,.7);display:flex;align-items:center;gap:7px}
+  .order .sigil .dot{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(255,255,255,.25)}
+  .order .step{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gold-soft);opacity:.8}
+  .order h3{font-size:27px;color:var(--ivory)}
+  .order .govern{font-size:12.5px;letter-spacing:.03em;color:var(--gold-soft);margin-top:4px}
+  .order p{color:rgba(244,239,227,.74);max-width:72ch;margin:12px 0 0;font-size:15px}
+  .order .degrees{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+  .order .degrees span{font-size:12px;border:1px solid var(--gold-dim);color:var(--gold-soft);padding:3px 12px;border-radius:20px}
+  .order .local{margin-top:14px;font-size:13.5px;color:rgba(244,239,227,.62);border-left:2px solid var(--gold-dim);padding-left:14px}
+
+  .cal-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+  .upcoming{list-style:none;margin:0;padding:0}
+  .upcoming li{display:grid;grid-template-columns:66px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid rgba(198,162,92,.18);align-items:center}
+  .upcoming .date{text-align:center;border:1px solid var(--gold-dim);padding:8px 4px}
+  .upcoming .date .d{font-family:var(--serif);font-size:26px;color:var(--gold-soft);line-height:1}
+  .upcoming .date .m{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,227,.6);margin-top:3px}
+  .upcoming .what{font-family:var(--serif);font-size:20px;color:var(--ivory)}
+  .upcoming .what small{display:block;font-family:var(--sans);font-size:13px;color:rgba(244,239,227,.62);margin-top:3px}
+  .cal-embed{border:1px solid var(--gold-dim);background:rgba(255,255,255,.02);aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px;gap:14px}
+  .cal-embed svg{width:52px;height:52px;color:var(--gold);opacity:.8}
+  .cal-embed p{color:rgba(244,239,227,.72);max-width:34ch;margin:0;font-size:14.5px}
+  .cal-embed code{font-size:12px;color:var(--gold-soft);background:rgba(198,162,92,.1);padding:2px 6px}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  .fund{border-left:2px solid var(--gold);padding-left:24px;margin-bottom:30px}
+  .fund h4{font-size:22px;color:var(--navy);margin-bottom:6px}
+  .fund p{margin:0;color:var(--ink-soft);font-size:14.5px}
+  .event{border:1px solid var(--line);background:#fff;padding:26px;margin-bottom:22px}
+  .event .when{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a6813a}
+  .event h4{font-size:23px;color:var(--navy);margin:8px 0 12px}
+  .event dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px}
+  .event dt{color:#a6813a;font-weight:600}
+  .event dd{margin:0;color:var(--ink-soft)}
+
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:180px;gap:14px}
+  .gallery figure{margin:0;position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--gold-dim)}
+  .gallery figure.tall{grid-row:span 2}
+  .gallery figure.wide{grid-column:span 2}
+  .gallery .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#16294a,#0e1d36)}
+  .gallery .ph svg{width:44px;height:44px;color:rgba(198,162,92,.5)}
+  .gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px;font-size:12.5px;color:var(--ivory);background:linear-gradient(0deg,rgba(8,16,30,.88),transparent);opacity:0;transition:opacity .25s}
+  .gallery figure:hover figcaption{opacity:1}
+  .gallery figure:hover .ph svg{color:var(--gold-soft)}
+
+  /* ---------- brethren ---------- */
+  .brethren{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .bro{border:1px solid var(--line);background:#fff;padding:28px 24px;display:flex;flex-direction:column}
+  .bro .medallion{width:108px;height:108px;margin:0 auto 18px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 34%, #1f3860, #0e1d34);position:relative;flex:none}
+  .bro .medallion:before{content:"";position:absolute;inset:6px;border:1px solid rgba(198,162,92,.3);border-radius:50%}
+  .bro .medallion .mono{font-family:var(--serif);font-style:italic;font-size:34px;color:var(--gold-soft)}
+  .bro h4{font-size:22px;color:var(--navy);text-align:center}
+  .bro .dates{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a6813a;text-align:center;margin-top:4px}
+  .bro .lodge-line{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft);text-align:center;margin:8px 0 14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .bro p{font-size:13.5px;color:var(--ink-soft);margin:0}
+
+  .contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--line);background:var(--line)}
+  .contacts .c{background:var(--parchment-2);padding:24px}
+  .contacts .c .who{font-family:var(--serif);font-size:20px;color:var(--navy)}
+  .contacts .c a{display:inline-block;margin-top:8px;font-size:13.5px;color:#a6813a;text-decoration:none;border-bottom:1px solid var(--gold-dim);word-break:break-all}
+  .contacts .c a:hover{color:var(--navy)}
+
+  footer{background:var(--midnight);border-top:1px solid rgba(198,162,92,.18);padding:56px 0 40px}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+  footer .emblem{width:44px;height:44px;margin-bottom:16px}
+  footer p{color:rgba(244,239,227,.6);font-size:14px;max-width:38ch}
+  footer h5{font-family:var(--serif);font-size:18px;color:var(--gold-soft);margin:0 0 14px;font-weight:500}
+  footer ul{list-style:none;margin:0;padding:0}
+  footer ul li{margin-bottom:9px}
+  footer ul a{color:rgba(244,239,227,.66);text-decoration:none;font-size:14px}
+  footer ul a:hover{color:var(--gold-soft)}
+  .foot-base{margin-top:44px;padding-top:22px;border-top:1px solid rgba(198,162,92,.12);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:rgba(244,239,227,.45);letter-spacing:.03em}
+
+  .overlay{position:fixed;inset:0;background:rgba(6,12,22,.72);backdrop-filter:blur(4px);z-index:90;display:none;align-items:center;justify-content:center;padding:20px}
+  .overlay.on{display:flex}
+  .modal{background:linear-gradient(180deg,#132644,#0e1d34);border:1px solid var(--gold-dim);width:100%;max-width:430px;position:relative;padding:38px 36px 32px}
+  .modal:before{content:"";position:absolute;inset:7px;border:1px solid rgba(198,162,92,.14);pointer-events:none}
+  .modal .x{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--gold-soft);font-size:22px;cursor:pointer;line-height:1}
+  .modal .crest{width:52px;height:52px;display:block;margin:0 auto 14px}
+  .modal h3{text-align:center;font-size:27px;color:var(--ivory)}
+  .modal .tag{text-align:center;font-size:13px;color:rgba(244,239,227,.62);margin:6px 0 22px}
+  .tabs{display:flex;border:1px solid var(--gold-dim);margin-bottom:22px}
+  .tabs button{flex:1;background:none;border:none;color:rgba(244,239,227,.6);padding:10px;cursor:pointer;font-family:var(--sans);font-size:13.5px;letter-spacing:.06em}
+  .tabs button.active{background:rgba(198,162,92,.16);color:var(--gold-soft)}
+  .field{margin-bottom:15px}
+  .field label{display:block;font-size:12px;letter-spacing:.08em;color:var(--gold-soft);margin-bottom:6px}
+  .field input,.field select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:11px 13px;font-family:var(--sans);font-size:14px;border-radius:2px}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--gold)}
+  .modal .btn-gold{width:100%;margin-top:6px;padding:12px}
+  .demo-hint{margin-top:18px;font-size:12px;color:rgba(244,239,227,.5);text-align:center;line-height:1.5}
+  .demo-hint b{color:var(--gold-soft);font-weight:500}
+  .note{font-size:12px;color:rgba(244,239,227,.55);background:rgba(198,162,92,.08);border:1px solid rgba(198,162,92,.2);padding:11px 13px;margin-bottom:20px;line-height:1.5}
+  #reg-form{display:none}
+
+  #members{display:none;padding:40px 0 20px}
+  .member-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border:1px solid var(--gold-dim);padding:20px 24px;background:linear-gradient(180deg,#132644,#0e1d34);margin-bottom:26px}
+  .member-bar .who .n{font-family:var(--serif);font-size:24px;color:var(--ivory)}
+  .member-bar .who .r{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);margin-top:3px}
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tile{border:1px solid var(--line);background:rgba(255,255,255,.02);padding:22px}
+  .tile .lvl{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:10px}
+  .tile h4{font-family:var(--serif);font-size:21px;color:var(--ivory);margin-bottom:8px}
+  .tile p{font-size:13.5px;color:rgba(244,239,227,.66);margin:0}
+  .tile.locked{opacity:.4;filter:grayscale(.3)}
+  .tile.locked .lvl{color:rgba(244,239,227,.5)}
+
+  .lightbox{position:fixed;inset:0;background:rgba(6,10,18,.94);z-index:95;display:none;align-items:center;justify-content:center;flex-direction:column;padding:30px}
+  .lightbox.on{display:flex}
+  .lightbox .frame-lb{width:min(760px,90vw);aspect-ratio:16/10;border:1px solid var(--gold-dim);background:linear-gradient(135deg,#16294a,#0e1d36);display:flex;align-items:center;justify-content:center}
+  .lightbox .frame-lb svg{width:80px;height:80px;color:rgba(198,162,92,.5)}
+  .lightbox .cap{color:var(--gold-soft);margin-top:18px;font-family:var(--serif);font-size:20px}
+  .lightbox .x{position:absolute;top:20px;right:26px;color:var(--gold-soft);font-size:30px;background:none;border:none;cursor:pointer}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+  @media(max-width:980px){nav.main{gap:16px;font-size:13px}}
+  @media(max-width:880px){
+    nav.main{display:none}
+    nav.main.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:var(--midnight);border-bottom:1px solid var(--gold-dim);padding:18px 24px;gap:18px;align-items:flex-start}
+    .menu-toggle{display:block}
+    .header-cta{display:none}
+    .welcome,.cal-grid,.split,.foot{grid-template-columns:1fr;gap:36px}
+    .tenets{grid-template-columns:1fr 1fr}
+    .tenet{border-right:none;border-bottom:1px solid var(--line);padding:24px 0}
+    .tenet:nth-child(odd){padding-right:20px;border-right:1px solid var(--line)}
+    .gallery{grid-template-columns:repeat(2,1fr)}
+    .contacts,.brethren,.tiles{grid-template-columns:1fr}
+    .lodge{grid-template-columns:56px 1fr;gap:16px}
+    .lodge .act{grid-column:1/-1}.lodge .no{font-size:32px}
+    .order{grid-template-columns:1fr;gap:18px}
+    .order .sigil{flex-direction:row;justify-content:flex-start;gap:18px}
+  }
+
+  /* ---------- preloader ---------- */
+  #loader{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+    background:radial-gradient(120% 90% at 50% 42%, #0e1d33, #070f1e 72%);transition:opacity .8s ease,visibility .8s ease}
+  #loader.done{opacity:0;visibility:hidden;pointer-events:none}
+  .ld-svg{width:136px;height:136px;overflow:visible}
+  .loader-emblem{animation:ld-pulse 2.6s ease-in-out 1.5s infinite}
+  .ld-ring{fill:none;stroke:var(--gold);stroke-width:1.4;opacity:.4;stroke-linecap:round;stroke-dasharray:64 260;transform-origin:60px 60px;animation:ld-spin 1.5s linear infinite}
+  .ld-draw{fill:none;stroke:var(--gold);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:200;stroke-dashoffset:200;animation:ld-draw 1s ease forwards}
+  .ld-c1,.ld-c2{animation-delay:.1s}
+  .ld-sq{animation-delay:.55s}
+  .ld-sq2{stroke-width:2;opacity:.55;animation-delay:.85s}
+  .ld-hinge{fill:var(--gold);opacity:0;animation:ld-fade .4s ease .45s forwards}
+  .ld-g{fill:var(--gold);font-family:var(--serif);font-style:italic;font-size:30px;opacity:0;animation:ld-fade .6s ease 1.15s forwards}
+  .loader-emblem{filter:drop-shadow(0 0 16px rgba(198,162,92,.28))}
+  .loader-text{font-family:var(--serif);font-size:21px;letter-spacing:.12em;color:var(--gold-soft);opacity:0;animation:ld-fade .8s ease 1.25s forwards}
+  .loader-motto{font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:rgba(198,162,92,.55);opacity:0;animation:ld-fade .8s ease 1.55s forwards}
+  @keyframes ld-spin{to{transform:rotate(360deg)}}
+  @keyframes ld-draw{to{stroke-dashoffset:0}}
+  @keyframes ld-fade{to{opacity:1}}
+  @keyframes ld-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+  @media(prefers-reduced-motion:reduce){
+    .ld-ring,.loader-emblem{animation:none}
+    .ld-draw{animation:none;stroke-dashoffset:0}
+    .ld-hinge,.ld-g,.loader-text,.loader-motto{animation:none;opacity:1}
+  }
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-emblem">
+    <svg viewBox="0 0 120 120" class="ld-svg">
+      <circle class="ld-ring" cx="60" cy="60" r="54"/>
+      <path class="ld-draw ld-c1" d="M60 20 L96 96"/>
+      <path class="ld-draw ld-c2" d="M60 20 L24 96"/>
+      <circle class="ld-hinge" cx="60" cy="20" r="4.2"/>
+      <path class="ld-draw ld-sq" d="M26 58 L60 104 L94 58"/>
+      <path class="ld-draw ld-sq2" d="M33 58 L60 92 L87 58"/>
+      <text class="ld-g" x="60" y="82" text-anchor="middle">G</text>
+    </svg>
+  </div>
+  <div class="loader-text">Provincial Grand Lodge</div>
+  <div class="loader-motto">Audi &middot; Vide &middot; Tace</div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="sc">
+    <path d="M50 8 L86 74 M50 8 L14 74" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="50" cy="10" r="4" fill="currentColor"/>
+    <path d="M20 44 L50 92 L80 44" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 44 L50 62 L80 44" fill="none" stroke="currentColor" stroke-width="2.4" opacity=".7"/>
+    <text x="50" y="66" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="26" font-style="italic" fill="currentColor">G</text>
+  </g>
+  <!-- Royal Arch: triple tau within triangle & circle -->
+  <g id="tau">
+    <circle cx="50" cy="52" r="40" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/>
+    <path d="M24 74 L50 30 L76 74 Z" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/>
+    <path d="M34 48 H66 M50 48 V74" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"/>
+    <path d="M38 62 H62 M38 62 V74 M62 62 V74" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"/>
+  </g>
+  <!-- Knight Masons: crossed swords -->
+  <g id="swords">
+    <path d="M28 22 L64 58" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M72 22 L36 58" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M64 58 L74 68 M60 72 L70 62" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M36 58 L26 68 M40 72 L30 62" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+    <circle cx="76" cy="70" r="3.4" fill="currentColor"/><circle cx="24" cy="70" r="3.4" fill="currentColor"/>
+  </g>
+  <!-- Ancient & Accepted Rite: double-headed eagle, crowned -->
+  <g id="eagle">
+    <path d="M40 15 L44 20 L50 12 L56 20 L60 15 L60 21 L40 21 Z" fill="currentColor"/>
+    <circle cx="40" cy="28" r="5.5" fill="currentColor"/><path d="M35 26 L28 24 L35 30 Z" fill="currentColor"/>
+    <circle cx="60" cy="28" r="5.5" fill="currentColor"/><path d="M65 26 L72 24 L65 30 Z" fill="currentColor"/>
+    <path d="M40 33 Q47 41 50 41 Q53 41 60 33" fill="none" stroke="currentColor" stroke-width="4"/>
+    <path d="M50 41 L45 72 L50 80 L55 72 Z" fill="currentColor"/>
+    <path d="M50 45 C34 45 24 55 22 74 C35 65 43 61 50 61 Z" fill="currentColor"/>
+    <path d="M50 45 C66 45 76 55 78 74 C65 65 57 61 50 61 Z" fill="currentColor"/>
+  </g>
+  <!-- Great Priory: cross patee (Knights Templar) -->
+  <g id="cross">
+    <path d="M43 43 L36 16 L64 16 L57 43 L84 36 L84 64 L57 57 L64 84 L36 84 L43 57 L16 64 L16 36 Z" fill="currentColor"/>
+  </g>
+</defs></svg>
+
+<div class="ribbon">Under the Grand Lodge of Ancient Free &amp; Accepted Masons of Ireland</div>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top">
+      <svg class="emblem" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg>
+      <span style="line-height:1.1"><b>South Eastern Counties</b><span>Provincial Grand Lodge</span></span>
+    </a>
+    <nav class="main" id="nav">
+      <a href="#welcome">Home</a>
+      <a href="#about">About</a>
+      <a href="#lodges">Lodges</a>
+      <a href="#orders">The Orders</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#events">Events</a>
+      <a href="#brethren">Brethren</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="btn btn-ghost header-cta" onclick="openModal('login')">Members</button>
+    <button class="menu-toggle" onclick="document.getElementById('nav').classList.toggle('open')" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<section class="hero">
+  <div class="frame reveal">
+    <svg class="crest" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg>
+    <div class="kicker">Freemasons of Ireland</div>
+    <h1>Provincial Grand Lodge of the<br><em>South Eastern Counties</em></h1>
+    <div class="rule"></div>
+    <p class="sub">Carlow &middot; Kilkenny &middot; Tipperary &middot; Waterford — five lodges united in one ancient and honourable fraternity.</p>
+    <div class="cta" style="margin-top:34px">
+      <a class="btn btn-gold" href="#about">About Freemasonry</a>
+      <a class="btn btn-ghost" href="#lodges">Find a Lodge</a>
+    </div>
+    <div class="estd">Constituted 1870</div>
+  </div>
+</section>
+
+<section class="light pad" id="welcome">
+  <div class="wrap">
+    <div class="welcome">
+      <div class="reveal">
+        <div class="eyebrow">A word of welcome</div>
+        <h2 class="h-lead" style="margin-bottom:26px">From the Provincial Grand Master</h2>
+        <p class="drop">Welcome to the Provincial Grand Lodge of the South Eastern Counties. Within these pages you will find the five lodges meeting in this Province, our forthcoming meetings and events, and a doorway to the further Orders of Irish Freemasonry.</p>
+        <p>The Provincial Grand Lodge meets four times a year, once each quarter, and every Brother who has received his Master Mason degree is welcome to attend. I encourage the brethren to enjoy the opportunity of visiting other lodges, within this Province and beyond it — for the visitor is always made welcome.</p>
+        <p>We were to celebrate our 150th anniversary in 2020. The pandemic set that celebration aside, but against the distress of those years it was a small price to bear. If you are reading this with the thought of joining our fraternity, the pages that follow give an honest outline of who we are and what we believe.</p>
+      </div>
+      <div class="pgm-card reveal">
+        <div class="portrait"><svg viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg></div>
+        <div class="cap">
+          <div class="role">Rt. Worshipful Provincial Grand Master</div>
+          <div class="name">Ian Devonport<small>Presiding over the Province and its five constituent lodges.</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark2 pad" id="about">
+  <div class="wrap">
+    <div class="lead-row reveal">
+      <div><div class="eyebrow">About the Craft</div><h2 class="h-lead">An ancient fraternity, plainly explained</h2></div>
+      <p>Freemasonry teaches morality through the tools and traditions of the medieval builder. Below is a candid account of our origins, our relationship to faith and politics, and the truth about our so-called secrets.</p>
+    </div>
+    <div class="tenets reveal">
+      <div class="tenet"><div class="g">i.</div><h4>Brotherly Love</h4><p>Every true Mason regards the whole human species as one family, and extends courtesy and concern to all.</p></div>
+      <div class="tenet"><div class="g">ii.</div><h4>Relief</h4><p>To soothe the unhappy and relieve those in distress is the chief business of the fraternity.</p></div>
+      <div class="tenet"><div class="g">iii.</div><h4>Truth</h4><p>Truth is the foundation of every virtue; to be good and true is our first lesson.</p></div>
+      <div class="tenet"><div class="g">iv.</div><h4>Faith</h4><p>A belief in a Supreme Being is the one unalterable requirement of membership.</p></div>
+    </div>
+    <div style="margin-top:20px">
+      <details class="about" open><summary>Origins <span class="plus">+</span></summary><p>Freemasonry is many centuries old, and most scholars trace it to the great cathedral-builders of medieval Europe. The skilled travelling craftsmen who raised those structures formed themselves into Guilds — professional societies that maintained the standard of their work and protected the secrets of their trade. In the 17th century, leading citizens who were not stonemasons began to be admitted as honorary, or "speculative", members. As their numbers grew, the lodges came to be composed entirely of such Freemasons. All regular Grand Lodges in the world descend from the three "Mother" Grand Lodges — Ireland, England and Scotland.</p></details>
+      <details class="about"><summary>Religion &amp; Politics <span class="plus">+</span></summary><p>Freemasonry is neither anti-religious nor politically orientated. A belief in a Supreme Being is required of every member without exception, and in every lodge the Volume of the Sacred Law lies open. Yet a Mason's relationship with his God is held to be a purely personal matter: the Craft never enquires into it, and no discussion of religion or politics is permitted at a Masonic gathering. Our meetings open and close with prayer that, though sincere, is non-denominational. Freemasonry asks only that its members be peaceable, law-abiding citizens.</p></details>
+      <details class="about"><summary>Membership &amp; "Secrecy" <span class="plus">+</span></summary><p>A candidate is admitted by degrees, each a colourful ceremony handed down from the distant past, and each accompanied by a solemn promise. What is genuinely secret is only the means by which one Mason may prove himself to another — a survival from the days when membership cards did not exist and men relied on word and sign. Freemasonry is therefore a society <em>with</em> secrets, not a "secret society": its constitution, rules, meeting places and members are well known, and its headquarters in Molesworth Street, Dublin, stand within a hundred yards of the seat of government.</p></details>
+      <details class="about"><summary>What &amp; Who <span class="plus">+</span></summary><p>Freemasons are ordinary people who try to live by high moral principles and to be good citizens. The Craft teaches kindness, honesty, decency, courtesy, fairness and concern, and holds above all that we are part of the Brotherhood of Man under the Fatherhood of God. Its members are drawn from every walk of life and every social station — men, in other words, perhaps much like yourself.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="light pad" id="lodges">
+  <div class="wrap">
+    <div class="lead-row reveal">
+      <div><div class="eyebrow">The Province</div><h2 class="h-lead">The Craft lodges</h2></div>
+      <p>Click a lodge to reach its Secretary. Visitors holding the Master Mason degree are welcome at every meeting.</p>
+    </div>
+    <div class="register reveal">
+      <div class="lodge"><div class="no">V</div><div class="info"><h3>Masonic Lodge No. V</h3><div class="meta"><span>Waterford</span> · <span>1 Waterside, Waterford X91&nbsp;VN84</span></div></div><div class="act"><a href="mailto:secretary@lodgev.com">Contact Secretary</a></div></div>
+      <div class="lodge"><div class="no">32</div><div class="info"><h3>Royal Shamrock Lodge No. 32</h3><div class="meta"><span>Waterford</span> · <span>1 Waterside, Waterford X91&nbsp;VN84</span> <span class="chip">R.A. Chapter 32</span></div></div><div class="act"><a href="mailto:Waterford.Lodge32@gmail.com">Contact Secretary</a></div></div>
+      <div class="lodge"><div class="no">44</div><div class="info"><h3>Donoughmore Lodge No. 44</h3><div class="meta"><span>Clonmel</span> · <span>12 Nelson St., Clonmel E91&nbsp;V2R6</span> <span class="chip">R.A. Chapter 44</span></div></div><div class="act"><a href="mailto:Ian.Devonport@gmail.com">Contact Secretary</a></div></div>
+      <div class="lodge"><div class="no">116</div><div class="info"><h3>Unity Lodge No. 116</h3><div class="meta"><span>Carlow</span> · <span>Athy Road, Carlow R93&nbsp;VW67</span></div></div><div class="act"><a href="mailto:carlowunitylodge116@gmail.com">Contact Secretary</a></div></div>
+      <div class="lodge"><div class="no">642</div><div class="info"><h3>Masonic Lodge No. 642</h3><div class="meta"><span>Kilkenny</span> · <span>The Maltings, Kiln House, Tilbury Lane, Kilkenny R95&nbsp;T97W</span> <span class="chip">R.A. Chapter 642</span></div></div><div class="act"><a href="mailto:kilkennymasons@gmail.com">Contact Secretary</a></div></div>
+    </div>
+    <div class="schedule-note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <div><b style="color:var(--navy)">Provincial meetings</b> are held on the last Thursday of January, April, June and October — in the Waterford Lodge Rooms in January and June, and rotating through Carlow, Clonmel and Kilkenny in April and October. The <b style="color:var(--navy)">Little School of Ritual</b> meets at 1 Waterside, Waterford.</div>
+    </div>
+    <p class="pointer reveal">Beyond the Craft, a Brother may progress through the further Orders of Irish Freemasonry — <a href="#orders">explored below</a>.</p>
+  </div>
+</section>
+
+<!-- ===== THE ORDERS ===== -->
+<section class="dark2 pad" id="orders">
+  <div class="wrap">
+    <div class="lead-row reveal">
+      <div><div class="eyebrow">The path of the Mason</div><h2 class="h-lead">The Orders of Irish Freemasonry</h2></div>
+      <p>In Ireland the Craft is the foundation. From it a Brother may progress, by degrees, through five further Orders — each self-governing, each with its own colour and symbol, all in harmony with the Grand Lodge.</p>
+    </div>
+    <div class="orders reveal">
+
+      <div class="order">
+        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#sc"/></svg><span class="colour"><span class="dot" style="background:#4f79b8"></span>Blue</span></div>
+        <div>
+          <div class="step">The foundation</div>
+          <h3>The Craft &mdash; Blue Masonry</h3>
+          <div class="govern">Governed by the Grand Lodge of Ireland</div>
+          <p>The three symbolic degrees worked in every lodge, and the doorway to all that follows. Every Freemason begins here, and no further Order may be entered without it. The square and compasses is its emblem; blue, its signature colour.</p>
+          <div class="degrees"><span>Entered Apprentice</span><span>Fellow Craft</span><span>Master Mason</span></div>
+          <div class="local">The Province's five Craft lodges are listed above.</div>
+        </div>
+      </div>
+
+      <div class="order">
+        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#tau"/></svg><span class="colour"><span class="dot" style="background:#b23b34"></span>Red</span></div>
+        <div>
+          <div class="step">The completion of the Craft</div>
+          <h3>Mark &amp; Royal Arch</h3>
+          <div class="govern">Governed by the Supreme Grand Royal Arch Chapter of Ireland</div>
+          <p>Regarded as the completion of pure ancient Masonry. A candidate is first advanced as a Mark Master Mason, then exalted to the Holy Royal Arch — a Chapter uniquely and directly recognised by the Grand Lodge of Ireland. Chapters are led not by a single Master but by three Principals, and members are styled Companions. The triple tau is its emblem; red, its colour.</p>
+          <div class="degrees"><span>Mark Master Mason</span><span>Excellent Master</span><span>Royal Arch</span></div>
+          <div class="local">District Grand Royal Arch Chapter of South Eastern — meets in March (Waterford), September (Kilkenny) and November (Clonmel). Chapters: <b>No. 32</b> Waterford · <b>No. 44</b> Clonmel · <b>No. 642</b> Ormond, Kilkenny.</div>
+        </div>
+      </div>
+
+      <div class="order">
+        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#swords"/></svg><span class="colour"><span class="dot" style="background:#3f7a4f"></span>Green</span></div>
+        <div>
+          <div class="step">An Order peculiar to Ireland</div>
+          <h3>Knight Masonry</h3>
+          <div class="govern">Governed by the Grand Council of Knight Masons of Ireland</div>
+          <p>Three remarkably elaborate degrees, distinctly Old Testament in character and built upon the legend of Zerubbabel and the return from Babylon. Long conferred in various bodies, they were normalised in 1923 under a Grand Council, and the Irish working is held to be the most complete in the world. Its members are Knights; green, its colour.</p>
+          <div class="degrees"><span>Knight of the Sword</span><span>Knight of the East</span><span>Knight of the East &amp; West</span></div>
+        </div>
+      </div>
+
+      <div class="order">
+        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#eagle"/></svg><span class="colour"><span class="dot" style="background:#6e2320"></span>Black &amp; Red</span></div>
+        <div>
+          <div class="step">The philosophic degrees</div>
+          <h3>Ancient &amp; Accepted Rite</h3>
+          <div class="govern">Governed by the Supreme Council for Ireland</div>
+          <p>A progressive series of degrees from the eighteenth to the thirty-third, of which the Rose Croix (18°) is the best known. Christian in character and entered by invitation, it develops the moral and philosophical lessons of the Craft. The double-headed eagle is its emblem.</p>
+          <div class="degrees"><span>Rose Croix 18°</span><span>&hellip; to 30°</span><span>33° Supreme</span></div>
+        </div>
+      </div>
+
+      <div class="order">
+        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#cross"/></svg><span class="colour"><span class="dot" style="background:#c0392b"></span>White &amp; Red</span></div>
+        <div>
+          <div class="step">The chivalric Orders</div>
+          <h3>Knights Templar &amp; Malta</h3>
+          <div class="govern">Governed by the Great Priory of Ireland</div>
+          <p>The Christian chivalric Orders of the Temple and of Malta, worked in Preceptories. Admission is by invitation only, open to those who profess the Christian faith and a belief in the Holy Trinity. In Ireland a candidate must be a subscribing Master Mason of at least five years' standing and a Royal Arch Companion of at least two. The cross patée is its emblem — <em>In Hoc Signo Vinces</em>.</p>
+          <div class="degrees"><span>Knight Templar</span><span>Knight of Malta</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="light pad" id="calendar">
+  <div class="wrap">
+    <div class="lead-row reveal">
+      <div><div class="eyebrow">Diary of the Province</div><h2 class="h-lead">Forthcoming meetings</h2></div>
+      <p>Provincial and District dates, generated automatically. On the live site these sync from a shared Google Calendar the Secretary keeps up to date.</p>
+    </div>
+    <div class="cal-grid">
+      <ul class="upcoming reveal" id="upcoming"></ul>
+      <div class="cal-embed reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <p style="color:var(--ink-soft)">The full month view embeds a shared <b style="color:#a6813a">Google Calendar</b>. Brethren can tap <em>+ Add</em> to subscribe on their own phone.</p>
+        <p style="font-size:12.5px;color:var(--ink-soft)">Drop the Secretary's calendar ID into <code style="color:#8a6a2a">&lt;iframe src="calendar.google.com/…"&gt;</code> and it appears here.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark2 pad" id="charities">
+  <div class="wrap">
+    <div class="split">
+      <div class="reveal">
+        <div class="eyebrow">Relief</div>
+        <h2 class="h-lead" style="margin-bottom:24px;color:var(--ivory)">Charities &amp; festivals</h2>
+        <p style="color:rgba(244,239,227,.74);max-width:52ch">Lodges of the Province support both the Grand Lodge charities and a local provincial fund, raising money quietly throughout the year. Grand Lodge works with the Charity Regulator in Dublin and the Charity Commission of Northern Ireland to keep every Masonic charity fully compliant.</p>
+      </div>
+      <div class="reveal">
+        <div class="fund" style="border-color:var(--gold)"><h4 style="color:var(--ivory)">The Milne Watt Boyce Fund</h4><p style="color:rgba(244,239,227,.7)">Made up of donations from the brethren of the Province, this fund assists Brethren or their dependents in distress and provides Christmas gifts to our annuitants. Cases of need are brought to the Provincial Grand Almoner by the Lodge Almoner, once the lodge has first granted aid from its own funds.</p></div>
+        <div class="fund"><h4 style="color:var(--ivory)">Grand Lodge Charities</h4><p style="color:rgba(244,239,227,.7)">Information on the national charities and special fund-raising sits with Grand Lodge. See <a href="http://freemason.ie/charity/" style="color:var(--gold-soft)">The Grand Lodge Charities</a> and <a href="http://grandmastersfestival.ie/" style="color:var(--gold-soft)">The Grand Master's Festival</a>.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="light pad" id="events">
+  <div class="wrap">
+    <div class="lead-row reveal">
+      <div><div class="eyebrow">Fellowship</div><h2 class="h-lead">Special events</h2></div>
+      <p>Throughout the year lodges hold events open to the brethren, their partners and friends. A selection for the current year.</p>
+    </div>
+    <div class="split">
+      <div class="event reveal">
+        <div class="when">Saturday 15 August 2026 · Tee-off 9:00 am</div>
+        <h4>Masonic Girls &amp; Boys Fund — Golf Tournament</h4>
+        <dl><dt>Venue</dt><dd>Faithlegg House Hotel Golf Club, Co. Waterford, X91 H008</dd>
+        <dt>Cost</dt><dd>€35 per player · teams of 3 (capped at 15 teams)</dd>
+        <dt>Open to</dt><dd>Brethren, partners, friends &amp; juniors from age 14 (with handicap)</dd>
+        <dt>Book</dt><dd>Gerry Maguire · <a href="mailto:patrickgermag69@gmail.com" style="color:#a6813a">patrickgermag69@gmail.com</a> · 086 051 2303</dd>
+        <dt>Deadline</dt><dd>5 pm, Friday 31 July 2026</dd></dl>
+      </div>
+      <div class="event reveal">
+        <div class="when">Saturday 30 May</div>
+        <h4>Waterford Masonic Summer BBQ</h4>
+        <dl><dt>Venue</dt><dd>The Lodge Rooms, 1 Waterside, Waterford X91 VN84</dd>
+        <dt>Cost</dt><dd>Minimum donation €15 · children free</dd>
+        <dt>Music</dt><dd>Live traditional Irish music by <em>Up She Flew</em></dd>
+        <dt>Raffle</dt><dd>€5 a strip, or 3 strips for €10 — quality prizes</dd>
+        <dt>RSVP</dt><dd>By 25 May, to gauge numbers</dd></dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark2 pad" id="gallery">
+  <div class="wrap">
+    <div class="lead-row reveal">
+      <div><div class="eyebrow">The Province in pictures</div><h2 class="h-lead" style="color:var(--ivory)">Gallery</h2></div>
+      <p>Regalia, lodge rooms, installations and fellowship. Replace these tiles with the Province's own photographs.</p>
+    </div>
+    <div class="gallery reveal">
+      <figure class="wide tall" data-cap="Installation of the Provincial Grand Master"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Installation of the Provincial Grand Master</figcaption></figure>
+      <figure data-cap="Lodge V regalia"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Lodge V regalia</figcaption></figure>
+      <figure data-cap="The Waterford Lodge Rooms"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>The Waterford Lodge Rooms</figcaption></figure>
+      <figure data-cap="Summer BBQ, 2025"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Summer BBQ, 2025</figcaption></figure>
+      <figure class="tall" data-cap="The Provincial Standard"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>The Provincial Standard</figcaption></figure>
+      <figure data-cap="Charity golf day"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Charity golf day</figcaption></figure>
+      <figure class="wide" data-cap="District Grand Chapter, Kilkenny"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>District Grand Chapter, Kilkenny</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NOTABLE BRETHREN ===== -->
+<section class="light pad" id="brethren">
+  <div class="wrap">
+    <div class="lead-row reveal">
+      <div><div class="eyebrow">A distinguished company</div><h2 class="h-lead">Notable Irish Freemasons</h2></div>
+      <p>Across three centuries, the Craft in Ireland has counted soldiers, statesmen, writers and explorers among its brethren — and one remarkable lady.</p>
+    </div>
+    <div class="brethren reveal">
+      <div class="bro">
+        <div class="medallion"><span class="mono">EA</span></div>
+        <h4>The Hon. Elizabeth Aldworth</h4>
+        <div class="dates">1695 – 1775</div>
+        <div class="lodge-line">Lodge No. 44, Doneraile Court, 1712</div>
+        <p>Born Elizabeth St Leger, daughter of the 1st Viscount Doneraile of Co. Cork. Having watched a lodge held in her father's house through a gap in the wall, she was discovered — and the brethren resolved to initiate her. "The Lady Freemason" remains the only woman ever admitted to regular Freemasonry, and became a lifelong patroness of the Craft.</p>
+      </div>
+      <div class="bro">
+        <div class="medallion"><span class="mono">R</span></div>
+        <h4>Richard Parsons, Earl of Rosse</h4>
+        <div class="dates">c. 1682 – 1741</div>
+        <div class="lodge-line">First Grand Master of Ireland, 1725</div>
+        <p>Installed as the first recorded Grand Master of the Grand Lodge of Ireland in June 1725 — the moment organised Freemasonry in Ireland steps into the historical record. His election marks the beginning of the second-oldest Grand Lodge in the world.</p>
+      </div>
+      <div class="bro">
+        <div class="medallion"><span class="mono">W</span></div>
+        <h4>The Duke of Wellington</h4>
+        <div class="dates">1769 – 1852</div>
+        <div class="lodge-line">Lodge No. 494, Trim, Co. Meath, 1790</div>
+        <p>Arthur Wellesley, born in Dublin, was initiated in his family's lodge at Trim under the Irish Constitution. Victor of Waterloo and twice Prime Minister of Britain, he stands among the most consequential figures ever raised in an Irish lodge.</p>
+      </div>
+      <div class="bro">
+        <div class="medallion"><span class="mono">O'C</span></div>
+        <h4>Daniel O'Connell</h4>
+        <div class="dates">1775 – 1847</div>
+        <div class="lodge-line">Lodge No. 189, Dublin, 1799</div>
+        <p>"The Liberator", who won Catholic Emancipation for Ireland. Initiated in Dublin and briefly Master of his lodge, he later withdrew from the Craft following the Church's condemnation — yet the fraternity long toasted his memory.</p>
+      </div>
+      <div class="bro">
+        <div class="medallion"><span class="mono">OW</span></div>
+        <h4>Oscar Wilde</h4>
+        <div class="dates">1854 – 1900</div>
+        <div class="lodge-line">Apollo University Lodge No. 357, Oxford, 1875</div>
+        <p>The Dublin-born poet and playwright was initiated while a student at Oxford and took the Mark degree soon after. He is said to have relished the ceremony and its regalia as much as any of his celebrated wit.</p>
+      </div>
+      <div class="bro">
+        <div class="medallion"><span class="mono">S</span></div>
+        <h4>Sir Ernest Shackleton</h4>
+        <div class="dates">1874 – 1922</div>
+        <div class="lodge-line">Navy Lodge No. 2612, London, 1901</div>
+        <p>Born at Kilkea, Co. Kildare, the great Antarctic explorer was made a Mason on the eve of his years of polar exploration — endurance, leadership and loyalty being virtues the Craft and the ice alike demand.</p>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-soft);margin-top:22px">Portrait medallions are placeholders. Public-domain likenesses of each Brother are freely available on Wikimedia Commons to drop in.</p>
+  </div>
+</section>
+
+<section class="dark2" id="members">
+  <div class="wrap" style="padding-bottom:60px;padding-top:40px">
+    <div class="member-bar">
+      <div class="who"><div class="n" id="m-name">Welcome, Brother</div><div class="r" id="m-rank">Master Mason</div></div>
+      <button class="btn btn-ghost" onclick="signOut()">Sign out</button>
+    </div>
+    <div class="tiles" id="m-tiles"></div>
+    <p style="font-size:12.5px;color:rgba(244,239,227,.45);margin-top:22px">Access shown here is illustrative. On the live site each tile is gated server-side by your rank, so restricted material never reaches a browser that isn't entitled to it.</p>
+  </div>
+</section>
+
+<section class="light pad" id="contact">
+  <div class="wrap">
+    <div class="lead-row reveal">
+      <div><div class="eyebrow">How to reach us</div><h2 class="h-lead">Contact</h2></div>
+      <p>Any non-member wishing to contact a lodge may write directly, or through the Provincial Grand Secretary.</p>
+    </div>
+    <div class="contacts reveal">
+      <div class="c"><div class="who">Provincial Grand Secretary</div><a href="mailto:marcusnotley@gmail.com">marcusnotley@gmail.com</a></div>
+      <div class="c"><div class="who">Waterford — Lodge V</div><a href="mailto:secretary@lodgev.com">secretary@lodgev.com</a></div>
+      <div class="c"><div class="who">Waterford — Lodge 32</div><a href="mailto:Waterford.Lodge32@gmail.com">Waterford.Lodge32@gmail.com</a></div>
+      <div class="c"><div class="who">Clonmel — Lodge 44</div><a href="mailto:Ian.Devonport@gmail.com">Ian.Devonport@gmail.com</a></div>
+      <div class="c"><div class="who">Carlow — Lodge 116</div><a href="mailto:carlowunitylodge116@gmail.com">carlowunitylodge116@gmail.com</a></div>
+      <div class="c"><div class="who">Kilkenny — Lodge 642</div><a href="mailto:kilkennymasons@gmail.com">kilkennymasons@gmail.com</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <svg class="emblem" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg>
+        <p>The Provincial Grand Lodge of the South Eastern Counties, under the Grand Lodge of Ancient Free &amp; Accepted Masons of Ireland.</p>
+      </div>
+      <div><h5>The Province</h5><ul>
+        <li><a href="#about">About Freemasonry</a></li>
+        <li><a href="#lodges">Craft Lodges</a></li>
+        <li><a href="#orders">The Orders</a></li>
+        <li><a href="#brethren">Notable Brethren</a></li>
+      </ul></div>
+      <div><h5>Beyond the Province</h5><ul>
+        <li><a href="https://freemason.ie" target="_blank" rel="noopener">Grand Lodge of Ireland</a></li>
+        <li><a href="http://freemason.ie/charity/" target="_blank" rel="noopener">Grand Lodge Charities</a></li>
+        <li><a href="http://grandmastersfestival.ie/" target="_blank" rel="noopener">Grand Master's Festival</a></li>
+        <li><a href="#contact">Contact us</a></li>
+      </ul></div>
+    </div>
+    <div class="foot-base">
+      <span>© <span id="yr"></span> Provincial Grand Lodge, South Eastern Counties.</span>
+      <span>Audi · Vide · Tace</span>
+    </div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="x" onclick="closeModal()" aria-label="Close">×</button>
+    <svg class="crest" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg>
+    <h3 id="modal-title">Members' Area</h3>
+    <div class="tag" id="modal-tag">Sign in to reach the private pages of the Province.</div>
+    <div class="tabs">
+      <button id="tab-login" class="active" onclick="switchTab('login')">Sign in</button>
+      <button id="tab-reg" onclick="switchTab('reg')">Request access</button>
+    </div>
+    <form id="login-form" onsubmit="return doLogin(event)">
+      <div class="field"><label>Email</label><input type="email" id="li-email" placeholder="brother@lodge.ie" required></div>
+      <div class="field"><label>Password</label><input type="password" id="li-pass" placeholder="••••••••" required></div>
+      <button class="btn btn-gold" type="submit">Enter</button>
+      <div class="demo-hint">Demo sign-ins — password is anything:<br><b>bro@demo</b> · Master Mason &nbsp;|&nbsp; <b>officer@demo</b> · Provincial Officer &nbsp;|&nbsp; <b>admin@demo</b> · Webmaster</div>
+    </form>
+    <form id="reg-form" onsubmit="return doRegister(event)">
+      <div class="note">New requests are held for approval. A Secretary or the Webmaster confirms your lodge and rank before access is granted.</div>
+      <div class="field"><label>Full name</label><input type="text" required placeholder="Bro. John Smith"></div>
+      <div class="field"><label>Email</label><input type="email" required placeholder="you@example.ie"></div>
+      <div class="field"><label>Your lodge</label><select required><option value="">Select…</option><option>Lodge V — Waterford</option><option>Lodge 32 — Waterford</option><option>Lodge 44 — Clonmel</option><option>Lodge 116 — Carlow</option><option>Lodge 642 — Kilkenny</option></select></div>
+      <div class="field"><label>Rank / degree</label><select required><option value="">Select…</option><option>Entered Apprentice</option><option>Fellow Craft</option><option>Master Mason</option><option>Installed Master / Past Master</option><option>Provincial Officer</option></select></div>
+      <button class="btn btn-gold" type="submit">Submit request</button>
+    </form>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="x" aria-label="Close">×</button>
+  <div class="frame-lb"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div>
+  <div class="cap" id="lb-cap"></div>
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const overlay = document.getElementById('overlay');
+  function openModal(which){ overlay.classList.add('on'); switchTab(which==='reg'?'reg':'login'); }
+  function closeModal(){ overlay.classList.remove('on'); }
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeModal(); closeLightbox(); }});
+  function switchTab(t){
+    const login = t==='login';
+    document.getElementById('login-form').style.display = login?'block':'none';
+    document.getElementById('reg-form').style.display   = login?'none':'block';
+    document.getElementById('tab-login').classList.toggle('active', login);
+    document.getElementById('tab-reg').classList.toggle('active', !login);
+    document.getElementById('modal-title').textContent = login?"Members' Area":"Request access";
+    document.getElementById('modal-tag').textContent = login ? "Sign in to reach the private pages of the Province." : "Tell us your lodge and rank — a Secretary will confirm you.";
+  }
+  const DEMO = {
+    'bro@demo':     {name:'Bro. Michael Power',   rank:'Master Mason',        tier:1},
+    'officer@demo': {name:'W. Bro. James Ryan',   rank:'Provincial Officer',  tier:2},
+    'admin@demo':   {name:'Bro. Webmaster',       rank:'Provincial Webmaster',tier:3}
+  };
+  const TILES = [
+    {min:1, title:'Provincial Notices', body:'Circulars and communications from the Provincial Grand Secretary.'},
+    {min:1, title:'Summonses', body:'Download the summons for each forthcoming meeting of your lodge.'},
+    {min:1, title:'Member Directory', body:'Contact details for the officers and brethren of the Province.'},
+    {min:2, title:'Officer Resources', body:'Ritual aids, installation guidance and the roll of Provincial officers.'},
+    {min:2, title:'Meeting Minutes', body:'Minutes and agendas of Provincial Grand Lodge meetings.'},
+    {min:3, title:'Administration', body:'Approve new registrations, manage members, edit events and pages.'}
+  ];
+  function renderMembers(user){
+    document.getElementById('m-name').textContent = 'Welcome, ' + user.name;
+    document.getElementById('m-rank').textContent = user.rank;
+    const wrap = document.getElementById('m-tiles'); wrap.innerHTML = '';
+    TILES.forEach(t=>{
+      const ok = user.tier >= t.min;
+      const lvl = t.min===1?'Open to all members':t.min===2?'Officers & above':'Administrators only';
+      wrap.insertAdjacentHTML('beforeend',
+        `<div class="tile ${ok?'':'locked'}"><div class="lvl">${ok?lvl:'🔒 '+lvl}</div><h4>${t.title}</h4><p>${ok?t.body:'Restricted — your rank does not grant access to this material.'}</p></div>`);
+    });
+    document.getElementById('members').style.display='block';
+  }
+  function doLogin(e){
+    e.preventDefault();
+    const email=document.getElementById('li-email').value.trim().toLowerCase();
+    const user=DEMO[email];
+    if(!user){ alert('Demo accounts: bro@demo · officer@demo · admin@demo'); return false; }
+    try{ localStorage.setItem('pgl_user', JSON.stringify({...user,email})); }catch(_){}
+    closeModal(); renderMembers(user);
+    document.getElementById('members').scrollIntoView({behavior:'smooth'});
+    return false;
+  }
+  function doRegister(e){
+    e.preventDefault(); closeModal();
+    alert('Thank you — your request has been recorded and will be reviewed by a Secretary.\n\n(On the live site this writes a pending row to the members table for approval.)');
+    return false;
+  }
+  function signOut(){
+    try{ localStorage.removeItem('pgl_user'); }catch(_){}
+    document.getElementById('members').style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  try{ const saved=JSON.parse(localStorage.getItem('pgl_user')||'null'); if(saved) renderMembers(saved); }catch(_){}
+
+  function lastThursday(year, month){ const d=new Date(year, month+1, 0); while(d.getDay()!==4) d.setDate(d.getDate()-1); return d; }
+  (function buildUpcoming(){
+    const now=new Date(), out=[];
+    const pgl=[ {m:0,loc:'Waterford Lodge Rooms'},{m:3,loc:'Carlow / Clonmel / Kilkenny (rotating)'},{m:5,loc:'Waterford Lodge Rooms'},{m:9,loc:'Carlow / Clonmel / Kilkenny (rotating)'} ];
+    for(let y=now.getFullYear(); y<=now.getFullYear()+1; y++){
+      pgl.forEach(p=>{ const dt=lastThursday(y,p.m); if(dt>=now) out.push({dt, title:'Provincial Grand Lodge', sub:p.loc}); });
+    }
+    const rac=[ {m:2,loc:'Waterford'},{m:8,loc:'Kilkenny'},{m:10,loc:'Clonmel'} ];
+    for(let y=now.getFullYear(); y<=now.getFullYear()+1; y++){
+      rac.forEach(r=>{ const dt=new Date(y,r.m,15); if(dt>=now) out.push({dt, title:'District Grand Royal Arch Chapter', sub:r.loc+' — date confirmed by summons'}); });
+    }
+    out.sort((a,b)=>a.dt-b.dt);
+    const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    document.getElementById('upcoming').innerHTML = out.slice(0,5).map(o=>`
+      <li><div class="date"><div class="d">${o.dt.getDate()}</div><div class="m">${M[o.dt.getMonth()]}</div></div>
+      <div class="what">${o.title}<small>${o.dt.toLocaleDateString('en-IE',{weekday:'long'})} · ${o.sub}</small></div></li>`).join('');
+  })();
+
+  const lb=document.getElementById('lightbox');
+  document.querySelectorAll('.gallery figure').forEach(f=>{ f.addEventListener('click',()=>{ document.getElementById('lb-cap').textContent=f.dataset.cap; lb.classList.add('on'); }); });
+  function closeLightbox(){ lb.classList.remove('on'); }
+
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));
+
+  /* ---------- preloader dismiss ---------- */
+  (function(){
+    var l=document.getElementById('loader'); if(!l) return;
+    function hide(){ if(!l.classList.contains('done')){ l.classList.add('done'); setTimeout(function(){ if(l&&l.parentNode) l.parentNode.removeChild(l); },900); } }
+    // let the emblem draw for a beat, then clear once the page has loaded
+    if(document.readyState==='complete'){ setTimeout(hide,700); }
+    else{ window.addEventListener('load', function(){ setTimeout(hide,600); }); }
+    setTimeout(hide,4000); // safety net so it never sticks
+  })();
+</script>
+</body>
+</html>
