@@ -369,6 +369,16 @@
   .btn-sm.danger:hover{background:rgba(176,64,58,.15);color:#e0857e}
   .dash-note{font-size:13px;color:rgba(244,239,227,.6);background:rgba(198,162,92,.07);border:1px solid rgba(198,162,92,.2);padding:12px 14px;border-radius:2px;line-height:1.5}
   .cal-tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+  .pf-grid{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-bottom:8px}
+  .pf-avwrap{text-align:center}
+  .pf-av{width:150px;height:150px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-dim);display:block;margin:0 auto 12px}
+  .pf-av-ph{display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 34%,#1f3860,#0e1d34)}
+  .pf-av-ph svg{width:70px;height:70px;color:var(--gold);opacity:.7}
+  .pf-lodges{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .pf-lodge{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ivory)}
+  .pf-lodge .pf-p{margin-left:auto}
+  .field input:disabled{opacity:.55}
+  @media(max-width:880px){.pf-grid{grid-template-columns:1fr}}
   @media(max-width:880px){.dash{grid-template-columns:1fr}.dash-nav{flex-direction:row;flex-wrap:wrap}.dash-form .row{grid-template-columns:1fr}}
   /* ---------- homepage slider ---------- */
   .slider-band{position:relative;padding:10px 24px 2px;background:transparent}
@@ -1161,13 +1171,15 @@ window.PGLDash = (function(){
 
   var TABS=[
     {id:'overview',  label:'Overview',  min:1},
+    {id:'profile',   label:'My Profile', min:1},
     {id:'notices',   label:'Notices',   min:1},
     {id:'calendar',  label:'Calendar',  min:1},
     {id:'documents', label:'Documents', min:1},
     {id:'dues',      label:'Dues',      min:2},
     {id:'directory', label:'Directory', min:1},
     {id:'media',     label:'Slider',    min:2},
-    {id:'approvals', label:'Approvals', min:3}
+    {id:'approvals', label:'Approvals', min:3},
+    {id:'requests',  label:'Requests',  min:3}
   ];
 
   function build(o){ tier=(o&&o.tier)||0; if(!TABS.some(function(t){return t.id===active && tier>=t.min;})) active='overview'; renderNav(); show(active); }
@@ -1191,6 +1203,8 @@ window.PGLDash = (function(){
     if(id==='directory') return directory();
     if(id==='media')     return media();
     if(id==='approvals') return approvals();
+    if(id==='profile')   return profile();
+    if(id==='requests')  return requests();
   }
 
   async function overview(){
@@ -1525,6 +1539,100 @@ window.PGLDash = (function(){
     if(r.error){ alert(r.error.message); return; }
     alert('Imported '+out.length+' event(s).');
     await loadCe(); if(window.PGLCal) PGLCal.onLogin(tier);
+  }
+
+  // ---------- my profile ----------
+  async function profile(){
+    main('<h3 class="dash-h">My profile</h3><p class="dash-sub">Update your details. Rank and office changes are requested and confirmed by an administrator.</p><div id="pf"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('pf').innerHTML=noConn('edit your profile'); return; }
+    var u=(await sb().auth.getUser()).data.user; if(!u) return;
+    var pr=await sb().from('profiles').select('*').eq('id',u.id).single(); var p=pr.data||{};
+    var lr=await sb().from('lodges').select('id,name').order('id'); var lodges=lr.data||[];
+    var plr=await sb().from('profile_lodges').select('lodge_id,is_primary').eq('profile_id',u.id);
+    var mine={}, primary=p.lodge_id||null;
+    (plr.data||[]).forEach(function(x){ mine[x.lodge_id]=true; if(x.is_primary) primary=x.lodge_id; });
+    if(p.lodge_id) mine[p.lodge_id]=true;
+    var rankName=p.rank_level>=3?'Administrator':p.rank_level>=2?'Officer':'Member';
+    var avatar=p.avatar_url?'<img src="'+esc(p.avatar_url)+'" class="pf-av">':'<div class="pf-av pf-av-ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div>';
+    var rows=lodges.map(function(l){ return '<label class="pf-lodge"><input type="checkbox" class="pf-l" value="'+l.id+'"'+(mine[l.id]?' checked':'')+'> '+esc(l.name)+
+      '<input type="radio" name="pf-primary" class="pf-p" value="'+l.id+'"'+(primary===l.id?' checked':'')+'> primary</label>'; }).join('');
+    main('<h3 class="dash-h">My profile</h3><p class="dash-sub">Update your details. Rank and office changes are requested, then confirmed by an administrator.</p>'+
+      '<div class="pf-grid"><div class="pf-avwrap">'+avatar+
+        '<input type="file" id="pf-file" accept="image/*" style="display:none"><button class="btn-sm" id="pf-avbtn" type="button">Change avatar</button><div class="dash-note" id="pf-avst" style="display:none;margin-top:8px"></div></div>'+
+      '<div class="pf-form">'+
+        '<div class="field"><label>Display name</label><input id="pf-name" type="text" value="'+esc(p.full_name||'')+'"></div>'+
+        '<div class="field"><label>Rank (set by an administrator)</label><input type="text" value="'+esc(p.masonic_rank||rankName)+'" disabled></div>'+
+        '<div class="field"><label>Your lodges \u2014 tick all you belong to, choose one primary</label><div class="pf-lodges">'+rows+'</div></div>'+
+        '<button class="btn btn-gold" id="pf-save" type="button">Save profile</button></div></div>'+
+      '<div class="dash-form"><h4>Request a rank or office change</h4>'+
+        '<div class="row"><div class="field"><label>Type</label><select id="rq-kind"><option value="rank">Rank</option><option value="office">Office</option><option value="lodge">Lodge role</option></select></div>'+
+        '<div class="field"><label>Requested</label><input id="rq-val" type="text" placeholder="e.g. Officer / Secretary of Lodge V"></div></div>'+
+        '<div class="field"><label>Reason (optional)</label><input id="rq-reason" type="text"></div>'+
+        '<button class="btn btn-gold" id="rq-send" type="button">Submit request</button></div>');
+    var avbtn=document.getElementById('pf-avbtn'), file=document.getElementById('pf-file');
+    avbtn.addEventListener('click',function(){ file.click(); });
+    file.addEventListener('change', async function(){
+      var fl=file.files[0]; if(!fl) return;
+      var st=document.getElementById('pf-avst'); st.style.display='block'; st.textContent='Uploading\u2026';
+      var path=u.id+'/avatar_'+Date.now()+'_'+fl.name.replace(/[^A-Za-z0-9._-]/g,'_');
+      var up=await sb().storage.from('avatars').upload(path,fl,{upsert:true});
+      if(up.error){ st.textContent=up.error.message; return; }
+      var pub=sb().storage.from('avatars').getPublicUrl(path).data.publicUrl;
+      var r=await sb().from('profiles').update({avatar_url:pub}).eq('id',u.id);
+      if(r.error){ st.textContent=r.error.message; return; }
+      profile();
+    });
+    document.getElementById('pf-save').addEventListener('click', async function(){
+      var name=val('pf-name');
+      var checks=Array.prototype.map.call(document.querySelectorAll('.pf-l:checked'),function(c){return parseInt(c.value,10);});
+      var prim=document.querySelector('.pf-p:checked'); var primVal=prim?parseInt(prim.value,10):(checks[0]||null);
+      var upd={ full_name:name }; if(primVal) upd.lodge_id=primVal;
+      var r=await sb().from('profiles').update(upd).eq('id',u.id);
+      if(r.error){ alert(r.error.message); return; }
+      await sb().from('profile_lodges').delete().eq('profile_id',u.id);
+      if(checks.length){ await sb().from('profile_lodges').insert(checks.map(function(id){ return { profile_id:u.id, lodge_id:id, is_primary:id===primVal }; })); }
+      var nb=document.getElementById('m-name'); if(nb) nb.textContent='Welcome, '+name;
+      alert('Profile saved.');
+    });
+    document.getElementById('rq-send').addEventListener('click', async function(){
+      if(!val('rq-val')){ alert('Please say what you are requesting.'); return; }
+      var r=await sb().from('change_requests').insert({ profile_id:u.id, kind:val('rq-kind'), requested:val('rq-val'), reason:val('rq-reason')||null });
+      if(r.error){ alert(r.error.message); return; }
+      document.getElementById('rq-val').value=''; document.getElementById('rq-reason').value='';
+      alert('Request submitted \u2014 an administrator will review it.');
+    });
+  }
+
+  // ---------- change requests (admin) ----------
+  async function requests(){
+    main('<h3 class="dash-h">Change requests</h3><p class="dash-sub">Rank and office change requests from the brethren.</p><div id="rq"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('rq').innerHTML=noConn('review requests'); return; }
+    await loadReq();
+  }
+  async function loadReq(){
+    var wrap=document.getElementById('rq'); if(!wrap) return;
+    var r=await sb().from('change_requests').select('id,profile_id,kind,requested,reason,profiles(full_name)').eq('status','pending').order('created_at');
+    if(r.error){ wrap.innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    if(!rows.length){ wrap.innerHTML='<div class="dash-empty">No pending requests.</div>'; return; }
+    wrap.innerHTML='<table class="dash-table"><thead><tr><th>Brother</th><th>Type</th><th>Requested</th><th></th></tr></thead><tbody>'+
+      rows.map(function(q){ return '<tr data-id="'+q.id+'" data-pid="'+esc(q.profile_id)+'" data-kind="'+esc(q.kind)+'" data-req="'+esc(q.requested)+'">'+
+        '<td>'+esc((q.profiles&&q.profiles.full_name)||'\u2014')+'</td><td>'+esc(q.kind)+'</td>'+
+        '<td>'+esc(q.requested)+(q.reason?'<div class="ev-meta">'+esc(q.reason)+'</div>':'')+'</td>'+
+        '<td><button class="btn-sm rq-ok" type="button">Approve</button> <button class="btn-sm danger rq-no" type="button">Decline</button></td></tr>'; }).join('')+'</tbody></table>';
+    wrap.querySelectorAll('.rq-ok').forEach(function(b){ b.addEventListener('click',function(){ decide(b.closest('tr'),'approved'); }); });
+    wrap.querySelectorAll('.rq-no').forEach(function(b){ b.addEventListener('click',function(){ decide(b.closest('tr'),'declined'); }); });
+  }
+  async function decide(tr,status){
+    var id=tr.dataset.id, pid=tr.dataset.pid, kind=tr.dataset.kind, req=tr.dataset.req||'';
+    if(status==='approved' && kind==='rank'){
+      var lv=/admin/i.test(req)?3:/officer/i.test(req)?2:/member/i.test(req)?1:null;
+      if(lv){ await sb().from('profiles').update({rank_level:lv}).eq('id',pid); }
+    }
+    var u=(await sb().auth.getUser()).data.user;
+    var r=await sb().from('change_requests').update({status:status, decided_at:new Date().toISOString(), decided_by:u?u.id:null}).eq('id',id);
+    if(r.error){ alert(r.error.message); return; }
+    await loadReq();
   }
 
   return { build:build, clear:clear };
