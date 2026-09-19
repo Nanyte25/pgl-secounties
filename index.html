@@ -1178,21 +1178,46 @@ if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded
 <!-- ===== homepage slider (reads slides table; falls back to emblem slides) ===== -->
 <script>
 window.PGLSlider=(function(){
-  var slides=[], idx=0, timer=null;
+  var slides=[], usableList=null, idx=0, timer=null;
   // Fallback slides: the grand symbol of each Irish Order, in order of progression.
+  // Slides fall back gracefully: any photograph whose file is missing is
+  // dropped before render, so the four county views below simply appear
+  // as soon as the images are added to img/ — no code change needed.
   var DEF=[
-    {image_url:'img/lodge-room.jpg',       step:'Waterford',                 caption:'The Lodge Rooms'},
-    {image_url:'img/lux-fiat-window.jpg',  step:'Waterford', caption:'The Boys\u2019 School Window'},
+    {image_url:'img/lodge-room.jpg',        step:'Waterford',           caption:'The Lodge Rooms'},
+    {image_url:'img/county-waterford.jpg',  step:'Lodges No. V &amp; No. 32', caption:'Waterford'},
+    {image_url:'img/county-kilkenny.jpg',   step:'Lodge No. 642',       caption:'Kilkenny'},
+    {image_url:'img/county-carlow.jpg',     step:'Lodge No. 116',       caption:'Carlow'},
+    {image_url:'img/county-clonmel.jpg',    step:'Lodge No. 44',        caption:'Clonmel'},
+    {image_url:'img/lux-fiat-window.jpg',   step:'Waterford',           caption:'The Boys\u2019 School Window'},
     {sym:'sc',     step:'The foundation',             caption:'The Craft'},
     {sym:'tau',    step:'Completion of the Craft',    caption:'Mark &amp; Royal Arch'},
     {sym:'swords', step:'Peculiar to Ireland',        caption:'Knight Masonry'},
     {sym:'eagle',  step:'The philosophic degrees',    caption:'Ancient &amp; Accepted Rite'},
     {sym:'cross',  step:'The chivalric Orders',       caption:'Knights Templar &amp; Malta'}
   ];
+  // resolve once, so a missing file never shows as a black slide
+  function imageExists(url){
+    return new Promise(function(res){
+      var im=new Image();
+      im.onload=function(){ res(im.naturalWidth>0); };
+      im.onerror=function(){ res(false); };
+      im.src=url;
+    });
+  }
+  async function usable(list){
+    var out=[];
+    for(var i=0;i<list.length;i++){
+      var sl=list[i];
+      if(!sl.image_url){ out.push(sl); continue; }
+      if(await imageExists(sl.image_url)) out.push(sl);
+    }
+    return out;
+  }
   function emblem(id){ return '<svg class="sl-emblem" viewBox="0 0 100 100" aria-hidden="true"><use href="#'+(id||'sc')+'"/></svg>'; }
   function render(){
     var track=document.getElementById('sl-track'), dots=document.getElementById('sl-dots'); if(!track) return;
-    var list=slides.length?slides:DEF;
+    var list=usableList||DEF;
     track.innerHTML=list.map(function(s,i){
       var bg=s.image_url?'background-image:url('+s.image_url+')':'';
       var isSym=!s.image_url;
@@ -1218,6 +1243,9 @@ window.PGLSlider=(function(){
   async function load(){
     slides=[];
     if(window.sbClient){ try{ var r=await window.sbClient.from('slides').select('*').eq('active',true).order('sort').order('created_at'); slides=r.data||[]; }catch(e){} }
+    // slides filed in the members' area win outright; otherwise use the
+    // built-in set, minus any photograph whose file is not there yet
+    usableList = slides.length ? slides : await usable(DEF);
     render();
   }
   function init(){
