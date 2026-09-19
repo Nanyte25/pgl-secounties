@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members — Masonic Province of the South Eastern Counties</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --midnight:#0a1526;--navy:#12233f;--navy-2:#1b3055;
+    --gold:#c6a25c;--gold-soft:#e2cd97;--gold-dim:rgba(198,162,92,.32);
+    --ivory:#f4efe3;--parchment:#ece3d0;--parchment-2:#f6f1e6;
+    --ink:#211a10;--ink-soft:#5b5241;--line:rgba(198,162,92,.28);
+    --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+    --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;--wrap:1160px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--midnight);color:var(--ivory);font-family:var(--sans);
+    font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.12;margin:0}
+  a{color:inherit}img{max-width:100%}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+
+  .ribbon{background:var(--midnight);border-bottom:1px solid rgba(198,162,92,.15);
+    font-size:12.5px;letter-spacing:.14em;color:var(--gold-soft);text-align:center;padding:7px 12px;font-weight:500}
+
+  header{position:sticky;top:0;z-index:40;background:rgba(10,21,38,.86);
+    backdrop-filter:blur(10px);border-bottom:1px solid rgba(198,162,92,.18)}
+  .bar{display:flex;align-items:center;gap:16px;height:74px}
+  .brand{display:flex;align-items:center;gap:13px;text-decoration:none;margin-right:auto}
+  .brand .emblem{width:38px;height:38px;flex:none}
+  .brand b{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.01em;color:var(--ivory)}
+  .brand span{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;color:var(--gold-soft);text-transform:uppercase;margin-top:2px}
+  nav.main{display:flex;gap:22px;align-items:center}
+  nav.main a{text-decoration:none;font-size:14px;color:var(--ivory);opacity:.82;letter-spacing:.02em;transition:opacity .2s,color .2s;padding:4px 0}
+  nav.main a:hover{opacity:1;color:var(--gold-soft)}
+  .btn{font-family:var(--sans);cursor:pointer;border:none;font-size:14px;letter-spacing:.04em;padding:10px 20px;border-radius:2px;transition:.2s;text-decoration:none;display:inline-block}
+  .btn-gold{background:linear-gradient(180deg,var(--gold-soft),var(--gold));color:#241c0c;font-weight:600}
+  .btn-gold:hover{filter:brightness(1.07)}
+  .btn-ghost{background:transparent;color:var(--gold-soft);border:1px solid var(--gold-dim)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--ivory)}
+  .menu-toggle{display:none;background:none;border:1px solid var(--gold-dim);color:var(--gold-soft);width:42px;height:38px;border-radius:2px;cursor:pointer;font-size:17px}
+
+  .hero{position:relative;padding:50px 24px 54px;text-align:center;overflow:hidden;
+    background:radial-gradient(120% 80% at 50% -10%, rgba(198,162,92,.16), transparent 60%),linear-gradient(180deg,#0c1a30,#0a1526 70%)}
+  .frame{max-width:640px;margin:0 auto;position:relative;padding:32px 32px 28px;border:1px solid var(--gold-dim)}
+  .frame:before{content:"";position:absolute;inset:8px;border:1px solid rgba(198,162,92,.16);pointer-events:none}
+  .hero .crest{width:66px;height:66px;margin:0 auto 12px;display:block}
+  .kicker{font-family:var(--sans);font-size:11px;letter-spacing:.3em;color:var(--gold-soft);text-transform:uppercase;margin-bottom:11px}
+  .hero h1{font-size:clamp(23px,4vw,40px);font-weight:500;letter-spacing:.005em}
+  .hero h1 em{font-style:italic;color:var(--gold-soft)}
+  .hero .sub{font-family:var(--serif);font-size:clamp(15px,1.9vw,18px);font-style:italic;color:rgba(244,239,227,.82);margin:14px auto 0;max-width:460px}
+  .rule{width:110px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px auto}
+  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+  .estd{margin-top:18px;font-size:11px;letter-spacing:.26em;color:rgba(198,162,92,.7);text-transform:uppercase}
+
+  section{position:relative}
+  .light{background:var(--parchment-2);color:var(--ink)}
+  .light h2,.light h3{color:var(--navy)}
+  .dark2{background:linear-gradient(180deg,#0a1526,#0d1b31)}
+  .pad{padding:88px 0}
+  .eyebrow{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--gold);margin-bottom:8px}
+  .light .eyebrow{color:#a6813a}
+  .h-lead{font-size:clamp(28px,4vw,42px);max-width:20ch}
+  .lead-row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:44px}
+  .lead-row p{max-width:44ch;margin:0;color:var(--ink-soft)}
+  .dark2 .lead-row p{color:rgba(244,239,227,.72)}
+
+  .welcome{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:start}
+  .welcome p{margin:0 0 18px;color:var(--ink-soft);max-width:60ch}
+  .welcome .drop:first-letter{font-family:var(--serif);font-size:62px;float:left;line-height:.72;padding:8px 12px 0 0;color:var(--gold);font-weight:600}
+  .pgm-card{border:1px solid var(--line);background:#fff;overflow:hidden}
+  .pgm-card .portrait{aspect-ratio:3/3.4;background:radial-gradient(90% 70% at 50% 24%, #21365c, #101f38);display:flex;align-items:center;justify-content:center}
+  .pgm-card .portrait svg{width:78px;height:78px;opacity:.5}
+  .pgm-card .cap{padding:20px 22px}
+  .pgm-card .cap .role{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#a6813a}
+  .pgm-card .cap .name{font-family:var(--serif);font-size:24px;color:var(--navy);margin-top:4px}
+  .pgm-card .cap .name small{display:block;font-family:var(--sans);font-size:13px;letter-spacing:normal;color:var(--ink-soft);margin-top:6px;font-style:normal}
+
+  .tenets{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
+  .tenet{padding:30px 26px 30px 0;border-right:1px solid var(--line)}
+  .tenet:last-child{border-right:none;padding-right:0}
+  .tenet .g{color:var(--gold);font-family:var(--serif);font-size:30px;font-style:italic}
+  .dark2 .tenet h4{color:var(--ivory)}
+  .tenet h4{font-size:21px;margin:10px 0 8px}
+  .tenet p{font-size:14.5px;margin:0;color:rgba(244,239,227,.7)}
+  details.about{border-top:1px solid var(--line);padding:20px 0}
+  details.about summary{cursor:pointer;list-style:none;font-family:var(--serif);font-size:23px;color:var(--ivory);display:flex;justify-content:space-between;align-items:center}
+  details.about summary::-webkit-details-marker{display:none}
+  details.about summary .plus{color:var(--gold);font-size:26px;transition:transform .25s}
+  details.about[open] summary .plus{transform:rotate(45deg)}
+  details.about p{color:rgba(244,239,227,.72);max-width:74ch;margin:16px 0 4px}
+
+  .register{border-top:1px solid var(--line)}
+  .lodge{display:grid;grid-template-columns:88px 1fr auto;gap:26px;align-items:center;padding:26px 6px;border-bottom:1px solid var(--line);transition:background .2s}
+  .lodge:hover{background:rgba(198,162,92,.05)}
+  .lodge .no{font-family:var(--serif);font-size:40px;color:#a6813a;text-align:center;font-style:italic}
+  .lodge .info h3{font-size:24px;color:var(--navy)}
+  .lodge .info .meta{font-size:13.5px;color:var(--ink-soft);margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .chip{font-size:11px;letter-spacing:.08em;border:1px solid var(--gold-dim);color:#a6813a;padding:2px 9px;border-radius:20px}
+  .lodge .act a{font-size:13px;color:#a6813a;text-decoration:none;border-bottom:1px solid var(--gold-dim);padding-bottom:2px}
+  .lodge .act a:hover{color:var(--navy)}
+  .schedule-note{margin-top:34px;padding:22px 26px;border:1px solid var(--line);background:#fff;font-size:14.5px;color:var(--ink-soft);display:flex;gap:16px;align-items:flex-start}
+  .schedule-note svg{flex:none;width:26px;height:26px;color:var(--gold)}
+  .pointer{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:19px;color:#a6813a}
+  .pointer a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold-dim)}
+
+  /* ---------- orders ---------- */
+  .orders{border-top:1px solid var(--line)}
+  .order{display:grid;grid-template-columns:130px 1fr;gap:32px;padding:36px 0;border-bottom:1px solid var(--line);align-items:start}
+  .order .sigil{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+  .order .sigil .emblem{position:relative;width:66px;height:66px;display:flex;align-items:center;justify-content:center}
+  .order .sigil svg{width:66px;height:66px;color:var(--gold)}
+  .order .sigil .emblem img.obadge{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+  .order .sigil .colour{font-size:11px;letter-spacing:.06em;color:rgba(244,239,227,.7);display:flex;align-items:center;gap:7px}
+  .order .sigil .dot{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(255,255,255,.25)}
+  .order .step{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gold-soft);opacity:.8}
+  .order h3{font-size:27px;color:var(--ivory)}
+  .order .govern{font-size:12.5px;letter-spacing:.03em;color:var(--gold-soft);margin-top:4px}
+  .order p{color:rgba(244,239,227,.74);max-width:72ch;margin:12px 0 0;font-size:15px}
+  .order .degrees{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+  .order .degrees span{font-size:12px;border:1px solid var(--gold-dim);color:var(--gold-soft);padding:3px 12px;border-radius:20px}
+  .order .local{margin-top:14px;font-size:13.5px;color:rgba(244,239,227,.62);border-left:2px solid var(--gold-dim);padding-left:14px}
+
+  .cal-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+  .upcoming{list-style:none;margin:0;padding:0}
+  .upcoming li{display:grid;grid-template-columns:66px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid rgba(198,162,92,.18);align-items:center}
+  .upcoming .date{text-align:center;border:1px solid var(--gold-dim);padding:8px 4px}
+  .upcoming .date .d{font-family:var(--serif);font-size:26px;color:var(--gold-soft);line-height:1}
+  .upcoming .date .m{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,227,.6);margin-top:3px}
+  .upcoming .what{font-family:var(--serif);font-size:20px;color:var(--ivory)}
+  .upcoming .what small{display:block;font-family:var(--sans);font-size:13px;color:rgba(244,239,227,.62);margin-top:3px}
+  .cal-embed{border:1px solid var(--gold-dim);background:rgba(255,255,255,.02);aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px;gap:14px}
+  .cal-embed svg{width:52px;height:52px;color:var(--gold);opacity:.8}
+  .cal-embed p{color:rgba(244,239,227,.72);max-width:34ch;margin:0;font-size:14.5px}
+  .cal-embed code{font-size:12px;color:var(--gold-soft);background:rgba(198,162,92,.1);padding:2px 6px}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  .fund{border-left:2px solid var(--gold);padding-left:24px;margin-bottom:30px}
+  .fund h4{font-size:22px;color:var(--navy);margin-bottom:6px}
+  .fund p{margin:0;color:var(--ink-soft);font-size:14.5px}
+  .event{border:1px solid var(--line);background:#fff;padding:26px;margin-bottom:22px}
+  .event .when{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a6813a}
+  .event h4{font-size:23px;color:var(--navy);margin:8px 0 12px}
+  .event dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px}
+  .event dt{color:#a6813a;font-weight:600}
+  .event dd{margin:0;color:var(--ink-soft)}
+
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:180px;gap:14px}
+  .gallery figure{margin:0;position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--gold-dim)}
+  .gallery figure.tall{grid-row:span 2}
+  .gallery figure.wide{grid-column:span 2}
+  .gallery .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#16294a,#0e1d36)}
+  .gallery .ph svg{width:44px;height:44px;color:rgba(198,162,92,.5)}
+  .gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px;font-size:12.5px;color:var(--ivory);background:linear-gradient(0deg,rgba(8,16,30,.88),transparent);opacity:0;transition:opacity .25s}
+  .gallery figure:hover figcaption{opacity:1}
+  .gallery figure:hover .ph svg{color:var(--gold-soft)}
+
+  /* ---------- brethren ---------- */
+  .brethren{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .bro{border:1px solid var(--line);background:#fff;padding:28px 24px;display:flex;flex-direction:column}
+  .bro .medallion{width:108px;height:108px;margin:0 auto 18px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 34%, #1f3860, #0e1d34);position:relative;flex:none}
+  .bro .medallion:before{content:"";position:absolute;inset:6px;border:1px solid rgba(198,162,92,.3);border-radius:50%}
+  .bro .medallion .mono{font-family:var(--serif);font-style:italic;font-size:34px;color:var(--gold-soft)}
+  .bro h4{font-size:22px;color:var(--navy);text-align:center}
+  .bro .dates{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a6813a;text-align:center;margin-top:4px}
+  .bro .lodge-line{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft);text-align:center;margin:8px 0 14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .bro p{font-size:13.5px;color:var(--ink-soft);margin:0}
+
+  .contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--line);background:var(--line)}
+  .contacts .c{background:var(--parchment-2);padding:24px}
+  .contacts .c .who{font-family:var(--serif);font-size:20px;color:var(--navy)}
+  .contacts .c a{display:inline-block;margin-top:8px;font-size:13.5px;color:#a6813a;text-decoration:none;border-bottom:1px solid var(--gold-dim);word-break:break-all}
+  .contacts .c a:hover{color:var(--navy)}
+
+  footer{background:var(--midnight);border-top:1px solid rgba(198,162,92,.18);padding:56px 0 40px}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+  footer .emblem{width:44px;height:44px;margin-bottom:16px}
+  footer p{color:rgba(244,239,227,.6);font-size:14px;max-width:38ch}
+  footer h5{font-family:var(--serif);font-size:18px;color:var(--gold-soft);margin:0 0 14px;font-weight:500}
+  footer ul{list-style:none;margin:0;padding:0}
+  footer ul li{margin-bottom:9px}
+  footer ul a{color:rgba(244,239,227,.66);text-decoration:none;font-size:14px}
+  footer ul a:hover{color:var(--gold-soft)}
+  .foot-base{margin-top:44px;padding-top:22px;border-top:1px solid rgba(198,162,92,.12);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:rgba(244,239,227,.45);letter-spacing:.03em}
+
+  .overlay{position:fixed;inset:0;background:rgba(6,12,22,.72);backdrop-filter:blur(4px);z-index:90;display:none;align-items:center;justify-content:center;padding:20px}
+  .overlay.on{display:flex}
+  .modal{background:linear-gradient(180deg,#132644,#0e1d34);border:1px solid var(--gold-dim);width:100%;max-width:430px;position:relative;padding:38px 36px 32px}
+  .modal:before{content:"";position:absolute;inset:7px;border:1px solid rgba(198,162,92,.14);pointer-events:none}
+  .modal .x{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--gold-soft);font-size:22px;cursor:pointer;line-height:1}
+  .modal .crest{width:52px;height:52px;display:block;margin:0 auto 14px}
+  .modal h3{text-align:center;font-size:27px;color:var(--ivory)}
+  .modal .tag{text-align:center;font-size:13px;color:rgba(244,239,227,.62);margin:6px 0 22px}
+  .tabs{display:flex;border:1px solid var(--gold-dim);margin-bottom:22px}
+  .tabs button{flex:1;background:none;border:none;color:rgba(244,239,227,.6);padding:10px;cursor:pointer;font-family:var(--sans);font-size:13.5px;letter-spacing:.06em}
+  .tabs button.active{background:rgba(198,162,92,.16);color:var(--gold-soft)}
+  .field{margin-bottom:15px}
+  .field label{display:block;font-size:12px;letter-spacing:.08em;color:var(--gold-soft);margin-bottom:6px}
+  .field input,.field select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:11px 13px;font-family:var(--sans);font-size:14px;border-radius:2px}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--gold)}
+  .modal .btn-gold{width:100%;margin-top:6px;padding:12px}
+  .demo-hint{margin-top:18px;font-size:12px;color:rgba(244,239,227,.5);text-align:center;line-height:1.5}
+  .demo-hint b{color:var(--gold-soft);font-weight:500}
+  .note{font-size:12px;color:rgba(244,239,227,.55);background:rgba(198,162,92,.08);border:1px solid rgba(198,162,92,.2);padding:11px 13px;margin-bottom:20px;line-height:1.5}
+  #reg-form{display:none}
+
+  #members{display:none;padding:40px 0 20px}
+  .member-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border:1px solid var(--gold-dim);padding:20px 24px;background:linear-gradient(180deg,#132644,#0e1d34);margin-bottom:26px}
+  .member-bar .who .n{font-family:var(--serif);font-size:24px;color:var(--ivory)}
+  .member-bar .who .r{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);margin-top:3px}
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .tile{border:1px solid var(--line);background:rgba(255,255,255,.02);padding:22px}
+  .tile .lvl{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:10px}
+  .tile h4{font-family:var(--serif);font-size:21px;color:var(--ivory);margin-bottom:8px}
+  .tile p{font-size:13.5px;color:rgba(244,239,227,.66);margin:0}
+  .tile.locked{opacity:.4;filter:grayscale(.3)}
+  .tile.locked .lvl{color:rgba(244,239,227,.5)}
+
+  .lightbox{position:fixed;inset:0;background:rgba(6,10,18,.94);z-index:95;display:none;align-items:center;justify-content:center;flex-direction:column;padding:30px}
+  .lightbox.on{display:flex}
+  .lightbox .frame-lb{width:min(760px,90vw);aspect-ratio:16/10;border:1px solid var(--gold-dim);background:linear-gradient(135deg,#16294a,#0e1d36);display:flex;align-items:center;justify-content:center}
+  .lightbox .frame-lb svg{width:80px;height:80px;color:rgba(198,162,92,.5)}
+  .lightbox .cap{color:var(--gold-soft);margin-top:18px;font-family:var(--serif);font-size:20px}
+  .lightbox .x{position:absolute;top:20px;right:26px;color:var(--gold-soft);font-size:30px;background:none;border:none;cursor:pointer}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+  @media(max-width:980px){nav.main{gap:16px;font-size:13px}}
+  @media(max-width:880px){
+    nav.main{display:none}
+    nav.main.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:var(--midnight);border-bottom:1px solid var(--gold-dim);padding:18px 24px;gap:18px;align-items:flex-start}
+    .menu-toggle{display:block}
+    .header-cta{display:none}
+    .welcome,.cal-grid,.split,.foot{grid-template-columns:1fr;gap:36px}
+    .tenets{grid-template-columns:1fr 1fr}
+    .tenet{border-right:none;border-bottom:1px solid var(--line);padding:24px 0}
+    .tenet:nth-child(odd){padding-right:20px;border-right:1px solid var(--line)}
+    .gallery{grid-template-columns:repeat(2,1fr)}
+    .contacts,.brethren,.tiles{grid-template-columns:1fr}
+    .lodge{grid-template-columns:56px 1fr;gap:16px}
+    .lodge .act{grid-column:1/-1}.lodge .no{font-size:32px}
+    .order{grid-template-columns:1fr;gap:18px}
+    .order .sigil{flex-direction:row;justify-content:flex-start;gap:18px}
+  }
+
+  /* ---------- photos (drop files in img/, else graceful fallback) ---------- */
+  .pgm-card .portrait{position:relative}
+  .pgm-card .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .bro .medallion img{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);border-radius:50%;object-fit:cover;z-index:1}
+  .bro .medallion:before{z-index:2}
+  .gallery figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .gallery figcaption{z-index:3}
+
+  /* ---------- calendar widget ---------- */
+  .cal-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:start}
+  .cal-widget{border:1px solid var(--line);background:#fff;padding:20px 22px}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .cal-head button{background:none;border:1px solid var(--gold-dim);color:#a6813a;width:34px;height:34px;border-radius:2px;cursor:pointer;font-size:18px;line-height:1}
+  .cal-head button:hover{border-color:var(--gold);color:var(--navy)}
+  .cal-title{font-family:var(--serif);font-size:22px;color:var(--navy)}
+  .cal-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+  .cal-dow span{text-align:center;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#a6813a}
+  .cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .cal-day{position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:13.5px;color:var(--ink-soft);border:1px solid transparent;border-radius:2px}
+  .cal-day.pad{color:transparent}
+  .cal-day.today{border-color:var(--gold-dim);color:var(--navy);font-weight:600}
+  .cal-day.has{cursor:pointer;color:var(--navy)}
+  .cal-day.has:hover{background:rgba(198,162,92,.08)}
+  .cal-day.sel{background:rgba(198,162,92,.16)}
+  .cal-day .dots{position:absolute;bottom:5px;left:0;right:0;display:flex;gap:3px;justify-content:center}
+  .cal-day .dot{width:5px;height:5px;border-radius:50%}
+  .dot.meet,.lg-meet{background:var(--gold)}
+  .dot.event,.lg-event{background:#b0403a}
+  .cal-legend{margin-top:14px;font-size:11.5px;color:var(--ink-soft);display:flex;gap:16px;flex-wrap:wrap}
+  .cal-legend .lg-meet,.cal-legend .lg-event{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
+  .cal-up-h{font-family:var(--serif);font-size:24px;color:var(--navy);margin-bottom:10px}
+  .light .upcoming li{border-color:rgba(198,162,92,.25)}
+  .light .upcoming .date{border-color:var(--gold-dim)}
+  .light .upcoming .date .d{color:#a6813a}
+  .light .upcoming .date .m{color:var(--ink-soft)}
+  .light .upcoming .what{color:var(--navy)}
+  .light .upcoming .what small{color:var(--ink-soft)}
+  .gcal{margin-top:40px;border:1px solid var(--line);background:#fff;overflow:hidden}
+  .gcal iframe{display:block;width:100%;border:0;height:520px}
+  .gcal .ph2{padding:30px;text-align:center;color:var(--ink-soft);font-size:14px;line-height:1.6}
+  /* ---------- calendar manager ---------- */
+  #cal-manager{margin-top:26px;border-top:1px solid rgba(198,162,92,.2);padding-top:26px}
+  .mgr-h{font-family:var(--serif);font-size:24px;color:var(--ivory);margin-bottom:16px}
+  .mgr-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+  .mgr-form .field.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mgr-form textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:11px 13px;font-family:var(--sans);font-size:14px;border-radius:2px;resize:vertical}
+  .mgr-form textarea:focus{outline:none;border-color:var(--gold)}
+  .mgr-form .btn-gold{width:100%;margin-top:4px;padding:12px}
+  .mgr-list h4{font-family:var(--serif);font-size:19px;color:var(--gold-soft);margin:0 0 12px;font-weight:500}
+  .mgr-list ul{list-style:none;margin:0;padding:0}
+  .mgr-list li{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid rgba(198,162,92,.18)}
+  .mgr-list .ev-when{font-size:12px;letter-spacing:.03em;color:var(--gold-soft)}
+  .mgr-list .ev-t{font-family:var(--serif);font-size:18px;color:var(--ivory);margin-top:2px}
+  .mgr-list .ev-meta{font-size:12.5px;color:rgba(244,239,227,.6);margin-top:2px}
+  .mgr-badge{font-size:10px;letter-spacing:.08em;border:1px solid var(--gold-dim);color:var(--gold-soft);padding:1px 8px;border-radius:20px;margin-left:8px;text-transform:uppercase}
+  .mgr-list button.del{background:none;border:1px solid rgba(176,64,58,.55);color:#e0857e;border-radius:2px;cursor:pointer;font-size:12px;padding:5px 11px;flex:none}
+  .mgr-list button.del:hover{background:rgba(176,64,58,.16)}
+  @media(max-width:880px){.mgr-grid{grid-template-columns:1fr}}
+
+  /* ---------- preloader ---------- */
+  #loader{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+    background:radial-gradient(120% 90% at 50% 42%, #0e1d33, #070f1e 72%);transition:opacity .8s ease,visibility .8s ease}
+  #loader.done{opacity:0;visibility:hidden;pointer-events:none}
+  .ld-svg{width:136px;height:136px;overflow:visible}
+  .loader-emblem{animation:ld-pulse 2.6s ease-in-out 1.5s infinite}
+  .ld-ring{fill:none;stroke:var(--gold);stroke-width:1.4;opacity:.4;stroke-linecap:round;stroke-dasharray:64 260;transform-origin:60px 60px;animation:ld-spin 1.5s linear infinite}
+  .ld-draw{fill:none;stroke:var(--gold);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:200;stroke-dashoffset:200;animation:ld-draw 1s ease forwards}
+  .ld-c1,.ld-c2{animation-delay:.1s}
+  .ld-sq{animation-delay:.55s}
+  .ld-sq2{stroke-width:2;opacity:.55;animation-delay:.85s}
+  .ld-hinge{fill:var(--gold);opacity:0;animation:ld-fade .4s ease .45s forwards}
+  .ld-g{fill:var(--gold);font-family:var(--serif);font-style:italic;font-size:30px;opacity:0;animation:ld-fade .6s ease 1.15s forwards}
+  .loader-emblem{filter:drop-shadow(0 0 16px rgba(198,162,92,.28))}
+  .loader-text{font-family:var(--serif);font-size:21px;letter-spacing:.12em;color:var(--gold-soft);opacity:0;animation:ld-fade .8s ease 1.25s forwards}
+  .loader-motto{font-size:11px;letter-spacing:.36em;text-transform:uppercase;color:rgba(198,162,92,.55);opacity:0;animation:ld-fade .8s ease 1.55s forwards}
+  @keyframes ld-spin{to{transform:rotate(360deg)}}
+  @keyframes ld-draw{to{stroke-dashoffset:0}}
+  @keyframes ld-fade{to{opacity:1}}
+  @keyframes ld-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+  @media(prefers-reduced-motion:reduce){
+    .ld-ring,.loader-emblem{animation:none}
+    .ld-draw{animation:none;stroke-dashoffset:0}
+    .ld-hinge,.ld-g,.loader-text,.loader-motto{animation:none;opacity:1}
+  }
+  /* ---------- members dashboard ---------- */
+  .dash{display:grid;grid-template-columns:200px 1fr;gap:28px;margin-top:6px}
+  .dash-nav{display:flex;flex-direction:column;gap:4px}
+  .dash-nav button{text-align:left;background:none;border:1px solid transparent;border-left:2px solid transparent;color:rgba(244,239,227,.7);font-family:var(--sans);font-size:14px;padding:11px 14px;cursor:pointer;letter-spacing:.02em;border-radius:2px}
+  .dash-nav button:hover{color:var(--ivory);background:rgba(198,162,92,.06)}
+  .dash-nav button.on{color:var(--gold-soft);border-left-color:var(--gold);background:rgba(198,162,92,.1)}
+  .dash-main{min-height:300px}
+  .dash-h{font-family:var(--serif);font-size:27px;color:var(--ivory);margin:0 0 4px}
+  .dash-sub{font-size:13px;color:rgba(244,239,227,.6);margin:0 0 22px}
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:8px}
+  .stat{border:1px solid var(--line);background:rgba(255,255,255,.02);padding:18px 20px}
+  .stat .n{font-family:var(--serif);font-size:36px;color:var(--gold-soft);line-height:1}
+  .stat .l{font-size:12px;letter-spacing:.05em;color:rgba(244,239,227,.6);margin-top:6px}
+  .dash-list{list-style:none;margin:0;padding:0}
+  .dash-list li{padding:13px 0;border-bottom:1px solid rgba(198,162,92,.16)}
+  .dash-list .t{font-family:var(--serif);font-size:18px;color:var(--ivory)}
+  .dash-list .m{font-size:12.5px;color:rgba(244,239,227,.62);margin-top:3px;line-height:1.5}
+  .dash-list .badge,.dash .badge{font-size:10px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--gold-dim);color:var(--gold-soft);padding:1px 8px;border-radius:20px;margin-left:8px}
+  .dash-form{border:1px solid var(--line);background:rgba(255,255,255,.02);padding:18px 20px;margin-top:22px}
+  .dash-form h4{font-family:var(--serif);font-size:19px;color:var(--gold-soft);margin:0 0 12px;font-weight:500}
+  .dash-form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .dash-form textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:10px 12px;font-family:var(--sans);font-size:14px;border-radius:2px;resize:vertical}
+  .dash-form textarea:focus{outline:none;border-color:var(--gold)}
+  .dash-form .btn-gold{margin-top:6px}
+  .dash-table{width:100%;border-collapse:collapse;font-size:14px}
+  .dash-table th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-soft);padding:8px 10px;border-bottom:1px solid var(--gold-dim);font-weight:500}
+  .dash-table td{padding:11px 10px;border-bottom:1px solid rgba(198,162,92,.14);color:rgba(244,239,227,.85);vertical-align:middle}
+  .dash-table select{background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:6px 8px;font-family:var(--sans);font-size:13px;border-radius:2px}
+  .dash-empty{color:rgba(244,239,227,.5);font-size:14px;padding:18px 0}
+  .btn-sm{font-size:12.5px;padding:6px 12px;border-radius:2px;cursor:pointer;border:1px solid var(--gold-dim);background:none;color:var(--gold-soft);font-family:var(--sans)}
+  .btn-sm:hover{border-color:var(--gold);color:var(--ivory)}
+  .btn-sm.danger{border-color:rgba(176,64,58,.5);color:#e0857e}
+  .btn-sm.danger:hover{background:rgba(176,64,58,.15);color:#e0857e}
+  .dash-note{font-size:13px;color:rgba(244,239,227,.6);background:rgba(198,162,92,.07);border:1px solid rgba(198,162,92,.2);padding:12px 14px;border-radius:2px;line-height:1.5}
+  .cal-tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+  .pf-grid{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start;margin-bottom:8px}
+  .pf-avwrap{text-align:center}
+  .pf-av{width:150px;height:150px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-dim);display:block;margin:0 auto 12px}
+  .pf-av-ph{display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 34%,#1f3860,#0e1d34)}
+  .pf-av-ph svg{width:70px;height:70px;color:var(--gold);opacity:.7}
+  .pf-lodges{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .pf-lodge{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ivory)}
+  .pf-lodge .pf-p{margin-left:auto}
+  .field input:disabled{opacity:.55}
+  @media(max-width:880px){.pf-grid{grid-template-columns:1fr}}
+  @media(max-width:880px){.dash{grid-template-columns:1fr}.dash-nav{flex-direction:row;flex-wrap:wrap}.dash-form .row{grid-template-columns:1fr}}
+  /* ---------- homepage slider ---------- */
+  .slider-band{position:relative;padding:10px 24px 2px;background:transparent}
+  .slider-inner{max-width:1112px;margin:0 auto;position:relative;height:clamp(190px,30vh,320px);overflow:hidden;border:1px solid rgba(198,162,92,.22)}
+  .slider{position:absolute;inset:0}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;background-size:cover;background-position:center;background-color:#0e1d33}
+  .slide.on{opacity:1}
+  .slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,30,.35),rgba(8,16,30,.68))}
+  .slide>*{position:relative;z-index:1}
+  .slide-cap{font-family:var(--serif);font-size:clamp(20px,3.4vw,38px);letter-spacing:.04em;color:var(--ivory);text-transform:uppercase;text-align:center;padding:0 24px;text-shadow:0 2px 22px rgba(0,0,0,.55)}
+  .sl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:rgba(10,21,38,.42);border:1px solid var(--gold-dim);color:var(--gold-soft);width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:22px;line-height:1}
+  .sl-arrow:hover{background:rgba(10,21,38,.72);color:var(--ivory)}
+  .sl-prev{left:16px}.sl-next{right:16px}
+  .sl-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;gap:10px;justify-content:center;z-index:3}
+  .sl-dots button{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold-soft);background:transparent;cursor:pointer;padding:0}
+  .sl-dots button.on{background:var(--gold-soft)}
+  /* dues cards */
+  .du-yearsel{background:rgba(255,255,255,.06);border:1px solid var(--gold-dim);color:var(--ivory);padding:3px 8px;border-radius:2px;font-size:14px}
+  .dues-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-bottom:8px}
+  .dues-card{border:1px solid var(--line);background:rgba(255,255,255,.02);padding:16px 18px}
+  .dues-card.paid{border-color:rgba(120,170,120,.45);background:rgba(120,170,120,.06)}
+  .dc-name{font-family:var(--serif);font-size:19px;color:var(--ivory)}
+  .dc-lodge{font-size:12px;color:rgba(244,239,227,.6);margin-bottom:12px}
+  .dc-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .dc-row label{font-size:12px;color:var(--gold-soft)}
+  .dc-row input{width:96px;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:6px 8px;border-radius:2px;font-size:14px}
+  .du-toggle.on{border-color:rgba(120,170,120,.6);color:#9fca9f}
+  .dc-on{font-size:11px;color:rgba(244,239,227,.5);margin-top:8px}
+  @media(max-width:600px){.sl-arrow{width:34px;height:34px;font-size:18px}.slider-band{padding:8px 14px 0}}
+</style>
+<style>
+  body{background:var(--midnight);color:var(--ivory)}
+  .app-login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .app-card{width:100%;max-width:420px;background:linear-gradient(180deg,#132644,#0e1d34);border:1px solid var(--gold-dim);padding:38px 36px 30px;position:relative}
+  .app-card:before{content:"";position:absolute;inset:7px;border:1px solid rgba(198,162,92,.14);pointer-events:none}
+  .app-card .crest{width:56px;height:56px;display:block;margin:0 auto 14px}
+  .app-card h1{text-align:center;font-size:27px;color:var(--ivory);font-family:var(--serif);font-weight:500}
+  .app-card .tag{text-align:center;font-size:13px;color:rgba(244,239,227,.62);margin:6px 0 22px}
+  .tabs2{display:flex;border:1px solid var(--gold-dim);margin-bottom:22px}
+  .tabs2 button{flex:1;background:none;border:none;color:rgba(244,239,227,.6);padding:10px;cursor:pointer;font-family:var(--sans);font-size:13.5px;letter-spacing:.05em}
+  .tabs2 button.on{background:rgba(198,162,92,.16);color:var(--gold-soft)}
+  .app-head{position:sticky;top:0;z-index:20;background:rgba(10,21,38,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(198,162,92,.18)}
+  .app-head .bar{display:flex;align-items:center;gap:16px;height:66px;max-width:1160px;margin:0 auto;padding:0 24px}
+  .app-head .brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
+  .app-head .brand svg{width:34px;height:34px;color:var(--gold)}
+  .app-head .brand b{font-family:var(--serif);font-size:18px;color:var(--ivory)}
+  .app-head a.site{font-size:13px;color:var(--gold-soft);text-decoration:none;border:1px solid var(--gold-dim);padding:7px 12px;border-radius:2px}
+  .app-head a.site:hover{border-color:var(--gold);color:var(--ivory)}
+  .app-head .who{text-align:right}
+  .app-head .who .n{font-family:var(--serif);font-size:16px;color:var(--ivory);line-height:1.1}
+  .app-head .who .r{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);margin-top:2px}
+  .app-body{padding:30px 0 70px}
+  @media(max-width:600px){.app-head .who{display:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="sc">
+    <path d="M50 8 L86 74 M50 8 L14 74" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="50" cy="10" r="4" fill="currentColor"/>
+    <path d="M20 44 L50 92 L80 44" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 44 L50 62 L80 44" fill="none" stroke="currentColor" stroke-width="2.4" opacity=".7"/>
+    <text x="50" y="66" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="26" font-style="italic" fill="currentColor">G</text>
+  </g>
+  <!-- Royal Arch: triple tau within triangle & circle -->
+  <g id="tau">
+    <circle cx="50" cy="52" r="40" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/>
+    <path d="M24 74 L50 30 L76 74 Z" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/>
+    <path d="M34 48 H66 M50 48 V74" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"/>
+    <path d="M38 62 H62 M38 62 V74 M62 62 V74" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"/>
+  </g>
+  <!-- Knight Masons: crossed swords -->
+  <g id="swords">
+    <path d="M28 22 L64 58" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M72 22 L36 58" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M64 58 L74 68 M60 72 L70 62" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M36 58 L26 68 M40 72 L30 62" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+    <circle cx="76" cy="70" r="3.4" fill="currentColor"/><circle cx="24" cy="70" r="3.4" fill="currentColor"/>
+  </g>
+  <!-- Ancient & Accepted Rite: double-headed eagle, crowned -->
+  <g id="eagle">
+    <path d="M40 15 L44 20 L50 12 L56 20 L60 15 L60 21 L40 21 Z" fill="currentColor"/>
+    <circle cx="40" cy="28" r="5.5" fill="currentColor"/><path d="M35 26 L28 24 L35 30 Z" fill="currentColor"/>
+    <circle cx="60" cy="28" r="5.5" fill="currentColor"/><path d="M65 26 L72 24 L65 30 Z" fill="currentColor"/>
+    <path d="M40 33 Q47 41 50 41 Q53 41 60 33" fill="none" stroke="currentColor" stroke-width="4"/>
+    <path d="M50 41 L45 72 L50 80 L55 72 Z" fill="currentColor"/>
+    <path d="M50 45 C34 45 24 55 22 74 C35 65 43 61 50 61 Z" fill="currentColor"/>
+    <path d="M50 45 C66 45 76 55 78 74 C65 65 57 61 50 61 Z" fill="currentColor"/>
+  </g>
+  <!-- Great Priory: cross patee (Knights Templar) -->
+  <g id="cross">
+    <path d="M43 43 L36 16 L64 16 L57 43 L84 36 L84 64 L57 57 L64 84 L36 84 L43 57 L16 64 L16 36 Z" fill="currentColor"/>
+  </g>
+</defs></svg>
+
+<div id="app-login" class="app-login">
+  <div class="app-card">
+    <svg class="crest" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg>
+    <h1>Members' Area</h1>
+    <div class="tag" id="al-tag">Sign in to the Province members' area.</div>
+    <div class="tabs2"><button id="al-tin" class="on" type="button">Sign in</button><button id="al-treg" type="button">Request access</button></div>
+    <div id="al-login">
+      <div class="field"><label>Email</label><input id="li-email" type="email" placeholder="brother@lodge.ie"></div>
+      <div class="field"><label>Password</label><input id="li-pass" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+      <button class="btn btn-gold" id="li-btn" type="button" style="width:100%;padding:12px">Enter</button>
+    </div>
+    <div id="al-reg" style="display:none">
+      <div class="note">New requests are held for approval. A Secretary or the Webmaster confirms your lodge and rank before access is granted.</div>
+      <div class="field"><label>Full name</label><input id="rg-name" type="text" placeholder="Bro. John Smith"></div>
+      <div class="field"><label>Email</label><input id="rg-email" type="email"></div>
+      <div class="field"><label>Choose a password</label><input id="rg-pass" type="password" minlength="8" placeholder="at least 8 characters"></div>
+      <button class="btn btn-gold" id="rg-btn" type="button" style="width:100%;padding:12px">Submit request</button>
+    </div>
+    <div style="text-align:center;margin-top:18px"><a href="index.html" style="color:var(--gold-soft);font-size:13px;text-decoration:none">&larr; Back to the public site</a></div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <div class="app-head"><div class="bar">
+    <a class="brand" href="index.html"><svg viewBox="0 0 100 100"><use href="#sc"/></svg><b>South Eastern Counties</b></a>
+    <a class="site" href="index.html">View public site</a>
+    <div class="who"><div class="n" id="m-name">Brother</div><div class="r" id="m-rank">Member</div></div>
+    <button class="btn btn-ghost" id="app-signout" type="button">Sign out</button>
+  </div></div>
+  <div class="app-body"><div class="wrap"><div class="dash"><aside class="dash-nav" id="dash-nav"></aside><div class="dash-main" id="dash-main"></div></div></div></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+window.PGLDash = (function(){
+  var tier=0, active='overview';
+  function sb(){ return window.sbClient; }
+  function val(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+  function esc(x){ return String(x==null?'':x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function main(html){ var m=document.getElementById('dash-main'); if(m) m.innerHTML=html; return m; }
+  var LVL={0:'Public',1:'Members',2:'Officers'};
+
+  var TABS=[
+    {id:'overview',  label:'Overview',  min:1},
+    {id:'profile',   label:'My Profile', min:1},
+    {id:'notices',   label:'Notices',   min:1},
+    {id:'calendar',  label:'Calendar',  min:1},
+    {id:'documents', label:'Documents', min:1},
+    {id:'dues',      label:'Dues',      min:2},
+    {id:'directory', label:'Directory', min:1},
+    {id:'media',     label:'Slider',    min:2},
+    {id:'approvals', label:'Approvals', min:3},
+    {id:'requests',  label:'Requests',  min:3}
+  ];
+
+  function build(o){ tier=(o&&o.tier)||0; if(!TABS.some(function(t){return t.id===active && tier>=t.min;})) active='overview'; renderNav(); show(active); }
+  function clear(){ var n=document.getElementById('dash-nav'), m=document.getElementById('dash-main'); if(n)n.innerHTML=''; if(m)m.innerHTML=''; }
+
+  function renderNav(){
+    var n=document.getElementById('dash-nav'); if(!n) return;
+    n.innerHTML=TABS.filter(function(t){return tier>=t.min;}).map(function(t){
+      return '<button type="button" data-tab="'+t.id+'" class="'+(t.id===active?'on':'')+'">'+t.label+'</button>';
+    }).join('');
+    n.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ active=b.dataset.tab; renderNav(); show(active); }); });
+  }
+  function noConn(where){ return '<div class="dash-note">Sign in on the live site to '+where+'. (The preview can\u2019t reach the database.)</div>'; }
+
+  function show(id){
+    if(id==='overview')  return overview();
+    if(id==='notices')   return notices();
+    if(id==='calendar')  return calendar();
+    if(id==='documents') return documents();
+    if(id==='dues')      return dues();
+    if(id==='directory') return directory();
+    if(id==='media')     return media();
+    if(id==='approvals') return approvals();
+    if(id==='profile')   return profile();
+    if(id==='requests')  return requests();
+  }
+
+  async function overview(){
+    main('<h3 class="dash-h">Overview</h3><p class="dash-sub">A snapshot of the Province.</p><div class="stat-row" id="ov"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('ov').innerHTML=noConn('see live figures'); return; }
+    var stats=[];
+    try{ var m=await sb().from('profiles').select('id',{count:'exact',head:true}).eq('approved',true); stats.push({n:m.count||0,l:'Members'}); }catch(e){}
+    try{ var ev=await sb().from('events').select('id',{count:'exact',head:true}).gte('starts_at',new Date().toISOString()); stats.push({n:ev.count||0,l:'Upcoming events'}); }catch(e){}
+    try{ var nz=await sb().from('notices').select('id',{count:'exact',head:true}); stats.push({n:nz.count||0,l:'Notices'}); }catch(e){}
+    if(tier>=3){ try{ var p=await sb().from('profiles').select('id',{count:'exact',head:true}).eq('approved',false); stats.push({n:p.count||0,l:'Pending approvals'}); }catch(e){} }
+    var el=document.getElementById('ov');
+    el.innerHTML=stats.length? stats.map(function(s){return '<div class="stat"><div class="n">'+s.n+'</div><div class="l">'+s.l+'</div></div>';}).join('')
+      : '<div class="dash-note">No data yet \u2014 add events and notices from the tabs on the left.</div>';
+  }
+
+  async function notices(){
+    var form = tier>=2 ? '<div class="dash-form"><h4>Post a notice</h4>'+
+      '<div class="field"><label>Title</label><input id="nz-title" type="text" placeholder="Provincial Communication"></div>'+
+      '<div class="field"><label>Body</label><textarea id="nz-body" rows="3" placeholder="Message to the brethren\u2026"></textarea></div>'+
+      '<div class="row"><div class="field"><label>Visible to</label><select id="nz-level"><option value="1">Members</option><option value="2">Officers</option><option value="0">Everyone</option></select></div>'+
+      '<div class="field"><label>Date (optional)</label><input id="nz-date" type="date"></div></div>'+
+      '<button class="btn btn-gold" id="nz-add" type="button">Post notice</button></div>' : '';
+    main('<h3 class="dash-h">Notices</h3><p class="dash-sub">Circulars and communications, shown according to your rank.</p><ul class="dash-list" id="nz-list"><li class="dash-empty">Loading\u2026</li></ul>'+form);
+    if(!sb()){ document.getElementById('nz-list').innerHTML='<li>'+noConn('read notices')+'</li>'; return; }
+    await loadNotices();
+    var add=document.getElementById('nz-add');
+    if(add) add.addEventListener('click', async function(){
+      if(!val('nz-title')){ alert('A title is required.'); return; }
+      var p={ title:val('nz-title'), body:val('nz-body')||null, min_level:parseInt(val('nz-level'),10)||1, category:'notice' };
+      var d=val('nz-date'); if(d) p.event_date=d;
+      add.disabled=true;
+      var r=await sb().from('notices').insert(p); add.disabled=false;
+      if(r.error){ alert(r.error.message); return; }
+      document.getElementById('nz-title').value=''; document.getElementById('nz-body').value='';
+      await loadNotices();
+    });
+  }
+  async function loadNotices(){
+    var ul=document.getElementById('nz-list'); if(!ul) return;
+    var r=await sb().from('notices').select('*').order('created_at',{ascending:false});
+    var rows=r.data||[];
+    ul.innerHTML=rows.map(function(n){
+      return '<li><div class="t">'+esc(n.title)+'<span class="badge">'+(LVL[n.min_level]||'Members')+'</span></div>'+
+        (n.body?'<div class="m">'+esc(n.body)+'</div>':'')+
+        (n.event_date?'<div class="m">'+esc(n.event_date)+'</div>':'')+
+        (tier>=3?'<button class="btn-sm danger" data-del="'+n.id+'" style="margin-top:9px">Delete</button>':'')+'</li>';
+    }).join('') || '<li class="dash-empty">No notices yet.</li>';
+    ul.querySelectorAll('[data-del]').forEach(function(b){ b.addEventListener('click', async function(){ await sb().from('notices').delete().eq('id',b.dataset.del); await loadNotices(); }); });
+  }
+
+  async function calendar(){
+    var canManage=tier>=2;
+    var form = canManage ? '<div class="dash-form"><h4>Add an event</h4>'+
+      '<div class="field"><label>Title</label><input id="ce-title" type="text" placeholder="Summer BBQ"></div>'+
+      '<div class="row"><div class="field"><label>Date</label><input id="ce-date" type="date"></div><div class="field"><label>Time</label><input id="ce-time" type="time" value="19:30"></div></div>'+
+      '<div class="field"><label>Location</label><input id="ce-loc" type="text" placeholder="1 Waterside, Waterford"></div>'+
+      '<div class="field"><label>Visible to</label><select id="ce-level"><option value="0">Everyone</option><option value="1">Members</option><option value="2">Officers</option></select></div>'+
+      '<button class="btn btn-gold" id="ce-add" type="button">Add to calendar</button></div>' : '';
+    main('<h3 class="dash-h">Calendar</h3><p class="dash-sub">'+(canManage?'Add or remove events \u2014 they appear on the public calendar.':'Upcoming events across the Province.')+'</p>'+'<div class="cal-tools"><button class="btn-sm" id="ce-ics" type="button">Export .ics</button>'+(canManage?' <button class="btn-sm" id="ce-imp" type="button">Import .ics</button><input type="file" id="ce-impf" accept=".ics,text/calendar" style="display:none">':'')+'</div><ul class="dash-list" id="ce-list"><li class="dash-empty">Loading\u2026</li></ul>'+form);
+    if(!sb()){ document.getElementById('ce-list').innerHTML='<li>'+noConn('manage events')+'</li>'; return; }
+    await loadCe();
+    var ics=document.getElementById('ce-ics'); if(ics) ics.addEventListener('click',exportIcs);
+    var imp=document.getElementById('ce-imp'), impf=document.getElementById('ce-impf');
+    if(imp&&impf){ imp.addEventListener('click',function(){ impf.click(); }); impf.addEventListener('change',function(){ if(impf.files[0]) importIcs(impf.files[0]); impf.value=''; }); }
+    var add=document.getElementById('ce-add');
+    if(add) add.addEventListener('click', async function(){
+      var date=val('ce-date'); if(!date){ alert('A date is required.'); return; }
+      if(!val('ce-title')){ alert('A title is required.'); return; }
+      var p={ title:val('ce-title'), starts_at:new Date(date+'T'+(val('ce-time')||'19:30')).toISOString(), location:val('ce-loc')||null, min_level:parseInt(val('ce-level'),10)||0 };
+      try{ var u=(await sb().auth.getUser()).data.user; if(u) p.created_by=u.id; }catch(e){}
+      add.disabled=true;
+      var r=await sb().from('events').insert(p); add.disabled=false;
+      if(r.error){ alert(r.error.message); return; }
+      document.getElementById('ce-title').value=''; document.getElementById('ce-loc').value='';
+      await loadCe(); if(window.PGLCal) PGLCal.onLogin(tier);
+    });
+  }
+  async function loadCe(){
+    var ul=document.getElementById('ce-list'); if(!ul) return;
+    var r=await sb().from('events').select('*').gte('starts_at',new Date(Date.now()-864e5).toISOString()).order('starts_at');
+    var rows=r.data||[];
+    ul.innerHTML=rows.map(function(e){
+      var d=new Date(e.starts_at);
+      return '<li><div class="t">'+esc(e.title)+'<span class="badge">'+(LVL[e.min_level]||'Public')+'</span></div>'+
+        '<div class="m">'+d.toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'short',year:'numeric'})+' \u00b7 '+d.toLocaleTimeString('en-IE',{hour:'2-digit',minute:'2-digit'})+(e.location?' \u00b7 '+esc(e.location):'')+'</div>'+
+        (tier>=2?'<button class="btn-sm danger" data-del="'+e.id+'" style="margin-top:9px">Delete</button>':'')+'</li>';
+    }).join('') || '<li class="dash-empty">No events scheduled.</li>';
+    ul.querySelectorAll('[data-del]').forEach(function(b){ b.addEventListener('click', async function(){ await sb().from('events').delete().eq('id',b.dataset.del); await loadCe(); if(window.PGLCal) PGLCal.onLogin(tier); }); });
+  }
+
+  async function directory(){
+    main('<h3 class="dash-h">Member directory</h3><p class="dash-sub">Approved brethren of the Province.</p><div id="dir"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('dir').innerHTML=noConn('view the directory'); return; }
+    var r=await sb().from('profiles').select('full_name,masonic_rank,rank_level,lodges(name)').eq('approved',true).order('rank_level',{ascending:false});
+    if(r.error){ document.getElementById('dir').innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    document.getElementById('dir').innerHTML = rows.length ?
+      '<table class="dash-table"><thead><tr><th>Name</th><th>Rank</th><th>Lodge</th></tr></thead><tbody>'+
+      rows.map(function(p){ return '<tr><td>'+esc(p.full_name||'\u2014')+'</td><td>'+esc(p.masonic_rank||'')+'</td><td>'+esc((p.lodges&&p.lodges.name)||'')+'</td></tr>'; }).join('')+
+      '</tbody></table>' : '<div class="dash-empty">No members listed yet.</div>';
+  }
+
+  async function approvals(){
+    main('<h3 class="dash-h">Approvals</h3><p class="dash-sub">New registrations awaiting confirmation.</p><div id="ap"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('ap').innerHTML=noConn('manage approvals'); return; }
+    await loadAp();
+  }
+  async function loadAp(){
+    var wrap=document.getElementById('ap'); if(!wrap) return;
+    var r=await sb().from('profiles').select('id,full_name,rank_level,lodges(name)').eq('approved',false).order('created_at');
+    if(r.error){ wrap.innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    if(!rows.length){ wrap.innerHTML='<div class="dash-empty">No pending registrations.</div>'; return; }
+    wrap.innerHTML='<table class="dash-table"><thead><tr><th>Name</th><th>Grant rank</th><th></th></tr></thead><tbody>'+
+      rows.map(function(p){ return '<tr data-id="'+p.id+'"><td>'+esc(p.full_name||'\u2014')+'</td>'+
+        '<td><select class="ap-rank"><option value="1">Member</option><option value="2">Officer</option><option value="3">Admin</option></select></td>'+
+        '<td><button class="btn-sm ap-ok" type="button">Approve</button></td></tr>'; }).join('')+'</tbody></table>';
+    wrap.querySelectorAll('.ap-ok').forEach(function(b){
+      b.addEventListener('click', async function(){
+        var tr=b.closest('tr'), id=tr.dataset.id, rank=parseInt(tr.querySelector('.ap-rank').value,10);
+        b.disabled=true;
+        var r=await sb().from('profiles').update({approved:true, rank_level:rank}).eq('id',id);
+        if(r.error){ alert(r.error.message); b.disabled=false; return; }
+        await loadAp();
+      });
+    });
+  }
+
+  // ---------- documents ----------
+  async function documents(){
+    var canUp=tier>=2;
+    var form=canUp?'<div class="dash-form"><h4>Upload a document</h4>'+
+      '<div class="field"><label>Title</label><input id="dc-title" type="text" placeholder="Summons \u2014 October meeting"></div>'+
+      '<div class="field"><label>File</label><input id="dc-file" type="file" accept="application/pdf,image/*"></div>'+
+      '<div class="field"><label>Visible to</label><select id="dc-level"><option value="1">Members</option><option value="2">Officers</option></select></div>'+
+      '<button class="btn btn-gold" id="dc-add" type="button">Upload</button><div class="dash-note" id="dc-status" style="margin-top:10px;display:none"></div></div>':'';
+    main('<h3 class="dash-h">Documents</h3><p class="dash-sub">Summonses, minutes and circulars \u2014 download by rank.</p><ul class="dash-list" id="dc-list"><li class="dash-empty">Loading\u2026</li></ul>'+form);
+    if(!sb()){ document.getElementById('dc-list').innerHTML='<li>'+noConn('access documents')+'</li>'; return; }
+    await loadDocs();
+    var add=document.getElementById('dc-add');
+    if(add) add.addEventListener('click', async function(){
+      var file=document.getElementById('dc-file').files[0];
+      if(!val('dc-title')||!file){ alert('A title and a file are required.'); return; }
+      var st=document.getElementById('dc-status'); st.style.display='block'; st.textContent='Uploading\u2026'; add.disabled=true;
+      var path='docs/'+Date.now()+'_'+file.name.replace(/[^A-Za-z0-9._-]/g,'_');
+      var up=await sb().storage.from('documents').upload(path,file);
+      if(up.error){ st.textContent=up.error.message; add.disabled=false; return; }
+      var meta={ title:val('dc-title'), path:path, min_level:parseInt(val('dc-level'),10)||1 };
+      try{ var u=(await sb().auth.getUser()).data.user; if(u) meta.uploaded_by=u.id; }catch(e){}
+      var r=await sb().from('documents').insert(meta); add.disabled=false;
+      if(r.error){ st.textContent=r.error.message; return; }
+      st.style.display='none'; document.getElementById('dc-title').value=''; document.getElementById('dc-file').value='';
+      await loadDocs();
+    });
+  }
+  async function loadDocs(){
+    var ul=document.getElementById('dc-list'); if(!ul)return;
+    var r=await sb().from('documents').select('*').order('created_at',{ascending:false});
+    var rows=r.data||[];
+    ul.innerHTML=rows.map(function(d){
+      return '<li><div class="t">'+esc(d.title)+'<span class="badge">'+(LVL[d.min_level]||'Members')+'</span></div>'+
+        '<div style="margin-top:9px;display:flex;gap:8px"><button class="btn-sm" data-dl="'+esc(d.path)+'">Download</button>'+
+        (tier>=2?'<button class="btn-sm danger" data-deldoc="'+d.id+'" data-path="'+esc(d.path)+'">Delete</button>':'')+'</div></li>';
+    }).join('')||'<li class="dash-empty">No documents yet.</li>';
+    ul.querySelectorAll('[data-dl]').forEach(function(b){ b.addEventListener('click', async function(){
+      var s2=await sb().storage.from('documents').createSignedUrl(b.dataset.dl,120);
+      if(s2.error){ alert(s2.error.message); return; } window.open(s2.data.signedUrl,'_blank');
+    }); });
+    ul.querySelectorAll('[data-deldoc]').forEach(function(b){ b.addEventListener('click', async function(){
+      await sb().storage.from('documents').remove([b.dataset.path]);
+      await sb().from('documents').delete().eq('id',b.dataset.deldoc); await loadDocs();
+    }); });
+  }
+
+  // ---------- dues ----------
+  async function dues(){
+    var yr=window.__duesYear||new Date().getFullYear(); window.__duesYear=yr;
+    main('<h3 class="dash-h">Membership &amp; dues</h3><p class="dash-sub">Track yearly dues by member. Year: <select id="du-year" class="du-yearsel"></select> <button class="btn-sm" id="du-xls" type="button">Excel</button> <button class="btn-sm" id="du-pdf" type="button">PDF</button></p>'+
+      '<div class="stat-row" id="du-stats"></div><div class="dues-cards" id="du-cards"><div class="dash-empty">Loading\u2026</div></div>'+
+      '<div class="dash-form"><h4>Add a member</h4><div class="row"><div class="field"><label>Full name</label><input id="du-name" type="text" placeholder="Bro. John Smith"></div>'+
+      '<div class="field"><label>Lodge</label><select id="du-lodge"><option value="">\u2014</option><option value="5">Lodge V</option><option value="32">Lodge 32</option><option value="44">Lodge 44</option><option value="116">Lodge 116</option><option value="642">Lodge 642</option></select></div></div>'+
+      '<button class="btn btn-gold" id="du-add" type="button">Add member</button></div>');
+    if(!sb()){ document.getElementById('du-cards').innerHTML=noConn('manage dues'); return; }
+    var sel=document.getElementById('du-year'), y=new Date().getFullYear(), o='';
+    for(var i=y+1;i>=y-4;i--) o+='<option value="'+i+'"'+(i===yr?' selected':'')+'>'+i+'</option>';
+    sel.innerHTML=o; sel.addEventListener('change',function(){ window.__duesYear=parseInt(sel.value,10); dues(); });
+    var add=document.getElementById('du-add');
+    if(add) add.addEventListener('click', async function(){
+      if(!val('du-name')){ alert('A name is required.'); return; }
+      var m={ full_name:val('du-name') }; var l=val('du-lodge'); if(l) m.lodge_id=parseInt(l,10);
+      var r=await sb().from('dues_members').insert(m); if(r.error){ alert(r.error.message); return; }
+      document.getElementById('du-name').value=''; dues();
+    });
+    await loadDues(yr);
+    var xb=document.getElementById('du-xls'); if(xb) xb.addEventListener('click',duesXls);
+    var pb=document.getElementById('du-pdf'); if(pb) pb.addEventListener('click',duesPdf);
+  }
+  async function loadDues(yr){
+    var wrap=document.getElementById('du-cards'); if(!wrap)return;
+    var mr=await sb().from('dues_members').select('id,full_name,lodges(name)').eq('active',true).order('full_name');
+    if(mr.error){ wrap.innerHTML='<div class="dash-note">'+esc(mr.error.message)+'</div>'; return; }
+    var members=mr.data||[];
+    var dr=await sb().from('dues').select('*').eq('year',yr);
+    var map={}; (dr.data||[]).forEach(function(d){ map[d.member_id]=d; });
+    var paid=0, collected=0;
+    wrap.innerHTML=members.map(function(m){
+      var d=map[m.id]||{paid:false,amount:''};
+      if(d.paid){ paid++; collected+=parseFloat(d.amount||0); }
+      return '<div class="dues-card'+(d.paid?' paid':'')+'" data-mid="'+m.id+'">'+
+        '<div class="dc-name">'+esc(m.full_name)+'</div><div class="dc-lodge">'+esc((m.lodges&&m.lodges.name)||'')+'</div>'+
+        '<div class="dc-row"><label>Amount \u20ac</label><input class="du-amt" type="number" step="0.01" value="'+(d.amount||'')+'"></div>'+
+        '<button class="btn-sm du-toggle '+(d.paid?'on':'')+'" type="button">'+(d.paid?'Paid \u2713':'Mark paid')+'</button>'+
+        (d.paid_on?'<div class="dc-on">Paid '+esc(d.paid_on)+'</div>':'')+'</div>';
+    }).join('')||'<div class="dash-empty">No members yet \u2014 add one below.</div>';
+    window.__duesYearVal=yr;
+    window.__duesRows=members.map(function(m){ var d=map[m.id]||{}; return { name:m.full_name, lodge:(m.lodges&&m.lodges.name)||'', amount:d.amount||0, paid:!!d.paid, paid_on:d.paid_on||'' }; });
+    var st=document.getElementById('du-stats');
+    if(st) st.innerHTML='<div class="stat"><div class="n">'+members.length+'</div><div class="l">Members</div></div>'+
+      '<div class="stat"><div class="n">'+paid+'</div><div class="l">Paid '+yr+'</div></div>'+
+      '<div class="stat"><div class="n">'+(members.length-paid)+'</div><div class="l">Outstanding</div></div>'+
+      '<div class="stat"><div class="n">\u20ac'+collected.toFixed(0)+'</div><div class="l">Collected</div></div>';
+    wrap.querySelectorAll('.dues-card').forEach(function(card){
+      var mid=parseInt(card.dataset.mid,10), amt=card.querySelector('.du-amt'), tg=card.querySelector('.du-toggle');
+      tg.addEventListener('click', async function(){
+        var isPaid=!tg.classList.contains('on');
+        var p={ member_id:mid, year:yr, paid:isPaid, amount:parseFloat(amt.value||0)||0, paid_on:isPaid?new Date().toISOString().slice(0,10):null };
+        var r=await sb().from('dues').upsert(p,{onConflict:'member_id,year'});
+        if(r.error){ alert(r.error.message); return; } loadDues(yr);
+      });
+      amt.addEventListener('change', async function(){
+        var ex=map[mid];
+        var p={ member_id:mid, year:yr, amount:parseFloat(amt.value||0)||0, paid:ex?ex.paid:false, paid_on:ex?ex.paid_on:null };
+        await sb().from('dues').upsert(p,{onConflict:'member_id,year'});
+      });
+    });
+  }
+
+  // ---------- media / slider ----------
+  async function media(){
+    main('<h3 class="dash-h">Homepage slider</h3><p class="dash-sub">Images shown in the slider on the home page.</p><ul class="dash-list" id="sl-list"><li class="dash-empty">Loading\u2026</li></ul>'+
+      '<div class="dash-form"><h4>Add a slide</h4><div class="field"><label>Image</label><input id="slm-file" type="file" accept="image/*"></div>'+
+      '<div class="field"><label>Caption</label><input id="slm-cap" type="text" placeholder="Authentic Friendship"></div>'+
+      '<button class="btn btn-gold" id="slm-add" type="button">Add slide</button><div class="dash-note" id="slm-status" style="margin-top:10px;display:none"></div></div>');
+    if(!sb()){ document.getElementById('sl-list').innerHTML='<li>'+noConn('manage slides')+'</li>'; return; }
+    await loadSlidesAdmin();
+    var add=document.getElementById('slm-add');
+    if(add) add.addEventListener('click', async function(){
+      var file=document.getElementById('slm-file').files[0]; if(!file){ alert('Choose an image.'); return; }
+      var st=document.getElementById('slm-status'); st.style.display='block'; st.textContent='Uploading\u2026'; add.disabled=true;
+      var path='slides/'+Date.now()+'_'+file.name.replace(/[^A-Za-z0-9._-]/g,'_');
+      var up=await sb().storage.from('media').upload(path,file);
+      if(up.error){ st.textContent=up.error.message; add.disabled=false; return; }
+      var pub=sb().storage.from('media').getPublicUrl(path).data.publicUrl;
+      var r=await sb().from('slides').insert({ image_url:pub, caption:val('slm-cap')||null }); add.disabled=false;
+      if(r.error){ st.textContent=r.error.message; return; }
+      st.style.display='none'; document.getElementById('slm-cap').value=''; document.getElementById('slm-file').value='';
+      await loadSlidesAdmin(); if(window.PGLSlider) PGLSlider.load();
+    });
+  }
+  async function loadSlidesAdmin(){
+    var ul=document.getElementById('sl-list'); if(!ul)return;
+    var r=await sb().from('slides').select('*').order('sort').order('created_at');
+    var rows=r.data||[];
+    ul.innerHTML=rows.map(function(sl){
+      return '<li style="display:flex;gap:14px;align-items:center"><img src="'+esc(sl.image_url)+'" alt="" style="width:84px;height:52px;object-fit:cover;border:1px solid var(--gold-dim)">'+
+        '<div style="flex:1"><div class="t">'+esc(sl.caption||'(no caption)')+'</div></div>'+
+        '<button class="btn-sm danger" data-delslide="'+sl.id+'" type="button">Remove</button></li>';
+    }).join('')||'<li class="dash-empty">No slides yet \u2014 add one below.</li>';
+    ul.querySelectorAll('[data-delslide]').forEach(function(b){ b.addEventListener('click', async function(){ await sb().from('slides').delete().eq('id',b.dataset.delslide); await loadSlidesAdmin(); if(window.PGLSlider) PGLSlider.load(); }); });
+  }
+
+  function _dlScript(src){ return new Promise(function(res,rej){ if(document.querySelector('script[data-lib="'+src+'"]')){res();return;} var el=document.createElement('script'); el.src=src; el.setAttribute('data-lib',src); el.onload=res; el.onerror=rej; document.head.appendChild(el); }); }
+  function duesXls(){
+    var yr=window.__duesYearVal||new Date().getFullYear(), rows=window.__duesRows||[];
+    var html='<table border="1"><tr><th>Name</th><th>Lodge</th><th>Amount (EUR)</th><th>Paid</th><th>Paid on</th></tr>'+
+      rows.map(function(r){ return '<tr><td>'+esc(r.name)+'</td><td>'+esc(r.lodge)+'</td><td>'+(r.amount||0)+'</td><td>'+(r.paid?'Yes':'No')+'</td><td>'+esc(r.paid_on||'')+'</td></tr>'; }).join('')+'</table>';
+    var blob=new Blob(['<html><head><meta charset="utf-8"></head><body><h3>Dues '+yr+'</h3>'+html+'</body></html>'],{type:'application/vnd.ms-excel'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='dues-'+yr+'.xls'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(a.href); },1000);
+  }
+  async function duesPdf(){
+    var yr=window.__duesYearVal||new Date().getFullYear(), rows=window.__duesRows||[];
+    try{ await _dlScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+         await _dlScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js'); }
+    catch(e){ alert('Could not load the PDF library \u2014 check your connection.'); return; }
+    var JS=(window.jspdf&&window.jspdf.jsPDF)||window.jsPDF; if(!JS){ alert('PDF library failed to load.'); return; }
+    var doc=new JS();
+    doc.setFontSize(15); doc.text('Membership & Dues \u2014 '+yr, 14, 18);
+    doc.autoTable({ startY:24, styles:{fontSize:10}, headStyles:{fillColor:[18,35,63]},
+      head:[['Name','Lodge','Amount (EUR)','Paid','Paid on']],
+      body: rows.map(function(r){ return [r.name, r.lodge, String(r.amount||0), r.paid?'Yes':'No', r.paid_on||'']; }) });
+    doc.save('dues-'+yr+'.pdf');
+  }
+
+  function _pad(n){ return (n<10?'0':'')+n; }
+  function _icsEsc(x){ return String(x==null?'':x).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+  function _icsUnesc(x){ return String(x==null?'':x).replace(/\\n/gi,'\n').replace(/\\,/g,',').replace(/\\;/g,';').replace(/\\\\/g,'\\'); }
+  function _icsStamp(d){ return d.getUTCFullYear()+_pad(d.getUTCMonth()+1)+_pad(d.getUTCDate())+'T'+_pad(d.getUTCHours())+_pad(d.getUTCMinutes())+_pad(d.getUTCSeconds())+'Z'; }
+  function _icsParseDate(v){ v=(v||'').trim(); var m=v.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})(Z)?)?/); if(!m) return null;
+    var y=+m[1],mo=+m[2]-1,d=+m[3],hh=+(m[4]||0),mi=+(m[5]||0),ss=+(m[6]||0);
+    return m[7]==='Z' ? new Date(Date.UTC(y,mo,d,hh,mi,ss)) : new Date(y,mo,d,hh,mi,ss); }
+  async function exportIcs(){
+    if(!sb()) return;
+    var r=await sb().from('events').select('*').order('starts_at'); var rows=r.data||[];
+    var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//PGL South Eastern Counties//EN','CALSCALE:GREGORIAN','X-WR-CALNAME:Masonic Province SE Counties'];
+    rows.forEach(function(e){ var st=new Date(e.starts_at); var en=e.ends_at?new Date(e.ends_at):new Date(st.getTime()+90*60000);
+      L.push('BEGIN:VEVENT','UID:pgl-'+e.id+'@pgl-secounties','DTSTAMP:'+_icsStamp(new Date()),'DTSTART:'+_icsStamp(st),'DTEND:'+_icsStamp(en),'SUMMARY:'+_icsEsc(e.title));
+      if(e.location) L.push('LOCATION:'+_icsEsc(e.location));
+      if(e.body) L.push('DESCRIPTION:'+_icsEsc(e.body));
+      L.push('END:VEVENT'); });
+    L.push('END:VCALENDAR');
+    var blob=new Blob([L.join('\r\n')],{type:'text/calendar'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='pgl-calendar.ics'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  }
+  async function importIcs(file){
+    if(!sb()) return;
+    var text=await file.text();
+    text=text.replace(/\r\n[ \t]/g,'').replace(/\n[ \t]/g,'');
+    var out=[], cur=null;
+    text.split(/\r?\n/).forEach(function(line){
+      if(line==='BEGIN:VEVENT'){ cur={}; }
+      else if(line==='END:VEVENT'){ if(cur&&cur.start&&cur.summary) out.push(cur); cur=null; }
+      else if(cur){ var i=line.indexOf(':'); if(i<0) return; var key=line.substring(0,i).split(';')[0].toUpperCase(); var v=line.substring(i+1);
+        if(key==='DTSTART') cur.start=_icsParseDate(v);
+        else if(key==='DTEND') cur.end=_icsParseDate(v);
+        else if(key==='SUMMARY') cur.summary=_icsUnesc(v);
+        else if(key==='LOCATION') cur.location=_icsUnesc(v);
+        else if(key==='DESCRIPTION') cur.body=_icsUnesc(v); } });
+    if(!out.length){ alert('No events found in that file.'); return; }
+    if(!confirm('Import '+out.length+' event(s) as public calendar entries?')) return;
+    var payload=out.map(function(e){ return { title:e.summary, starts_at:e.start.toISOString(), ends_at:e.end?e.end.toISOString():null, location:e.location||null, body:e.body||null, min_level:0 }; });
+    var r=await sb().from('events').insert(payload);
+    if(r.error){ alert(r.error.message); return; }
+    alert('Imported '+out.length+' event(s).');
+    await loadCe(); if(window.PGLCal) PGLCal.onLogin(tier);
+  }
+
+  // ---------- my profile ----------
+  async function profile(){
+    main('<h3 class="dash-h">My profile</h3><p class="dash-sub">Update your details. Rank and office changes are requested and confirmed by an administrator.</p><div id="pf"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('pf').innerHTML=noConn('edit your profile'); return; }
+    var u=(await sb().auth.getUser()).data.user; if(!u) return;
+    var pr=await sb().from('profiles').select('*').eq('id',u.id).single(); var p=pr.data||{};
+    var lr=await sb().from('lodges').select('id,name').order('id'); var lodges=lr.data||[];
+    var plr=await sb().from('profile_lodges').select('lodge_id,is_primary').eq('profile_id',u.id);
+    var mine={}, primary=p.lodge_id||null;
+    (plr.data||[]).forEach(function(x){ mine[x.lodge_id]=true; if(x.is_primary) primary=x.lodge_id; });
+    if(p.lodge_id) mine[p.lodge_id]=true;
+    var rankName=p.rank_level>=3?'Administrator':p.rank_level>=2?'Officer':'Member';
+    var avatar=p.avatar_url?'<img src="'+esc(p.avatar_url)+'" class="pf-av">':'<div class="pf-av pf-av-ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div>';
+    var rows=lodges.map(function(l){ return '<label class="pf-lodge"><input type="checkbox" class="pf-l" value="'+l.id+'"'+(mine[l.id]?' checked':'')+'> '+esc(l.name)+
+      '<input type="radio" name="pf-primary" class="pf-p" value="'+l.id+'"'+(primary===l.id?' checked':'')+'> primary</label>'; }).join('');
+    main('<h3 class="dash-h">My profile</h3><p class="dash-sub">Update your details. Rank and office changes are requested, then confirmed by an administrator.</p>'+
+      '<div class="pf-grid"><div class="pf-avwrap">'+avatar+
+        '<input type="file" id="pf-file" accept="image/*" style="display:none"><button class="btn-sm" id="pf-avbtn" type="button">Change avatar</button><div class="dash-note" id="pf-avst" style="display:none;margin-top:8px"></div></div>'+
+      '<div class="pf-form">'+
+        '<div class="field"><label>Display name</label><input id="pf-name" type="text" value="'+esc(p.full_name||'')+'"></div>'+
+        '<div class="field"><label>Rank (set by an administrator)</label><input type="text" value="'+esc(p.masonic_rank||rankName)+'" disabled></div>'+
+        '<div class="field"><label>Your lodges \u2014 tick all you belong to, choose one primary</label><div class="pf-lodges">'+rows+'</div></div>'+
+        '<button class="btn btn-gold" id="pf-save" type="button">Save profile</button></div></div>'+
+      '<div class="dash-form"><h4>Request a rank or office change</h4>'+
+        '<div class="row"><div class="field"><label>Type</label><select id="rq-kind"><option value="rank">Rank</option><option value="office">Office</option><option value="lodge">Lodge role</option></select></div>'+
+        '<div class="field"><label>Requested</label><input id="rq-val" type="text" placeholder="e.g. Officer / Secretary of Lodge V"></div></div>'+
+        '<div class="field"><label>Reason (optional)</label><input id="rq-reason" type="text"></div>'+
+        '<button class="btn btn-gold" id="rq-send" type="button">Submit request</button></div>');
+    var avbtn=document.getElementById('pf-avbtn'), file=document.getElementById('pf-file');
+    avbtn.addEventListener('click',function(){ file.click(); });
+    file.addEventListener('change', async function(){
+      var fl=file.files[0]; if(!fl) return;
+      var st=document.getElementById('pf-avst'); st.style.display='block'; st.textContent='Uploading\u2026';
+      var path=u.id+'/avatar_'+Date.now()+'_'+fl.name.replace(/[^A-Za-z0-9._-]/g,'_');
+      var up=await sb().storage.from('avatars').upload(path,fl,{upsert:true});
+      if(up.error){ st.textContent=up.error.message; return; }
+      var pub=sb().storage.from('avatars').getPublicUrl(path).data.publicUrl;
+      var r=await sb().from('profiles').update({avatar_url:pub}).eq('id',u.id);
+      if(r.error){ st.textContent=r.error.message; return; }
+      profile();
+    });
+    document.getElementById('pf-save').addEventListener('click', async function(){
+      var name=val('pf-name');
+      var checks=Array.prototype.map.call(document.querySelectorAll('.pf-l:checked'),function(c){return parseInt(c.value,10);});
+      var prim=document.querySelector('.pf-p:checked'); var primVal=prim?parseInt(prim.value,10):(checks[0]||null);
+      var upd={ full_name:name }; if(primVal) upd.lodge_id=primVal;
+      var r=await sb().from('profiles').update(upd).eq('id',u.id);
+      if(r.error){ alert(r.error.message); return; }
+      await sb().from('profile_lodges').delete().eq('profile_id',u.id);
+      if(checks.length){ await sb().from('profile_lodges').insert(checks.map(function(id){ return { profile_id:u.id, lodge_id:id, is_primary:id===primVal }; })); }
+      var nb=document.getElementById('m-name'); if(nb) nb.textContent='Welcome, '+name;
+      alert('Profile saved.');
+    });
+    document.getElementById('rq-send').addEventListener('click', async function(){
+      if(!val('rq-val')){ alert('Please say what you are requesting.'); return; }
+      var r=await sb().from('change_requests').insert({ profile_id:u.id, kind:val('rq-kind'), requested:val('rq-val'), reason:val('rq-reason')||null });
+      if(r.error){ alert(r.error.message); return; }
+      document.getElementById('rq-val').value=''; document.getElementById('rq-reason').value='';
+      alert('Request submitted \u2014 an administrator will review it.');
+    });
+  }
+
+  // ---------- change requests (admin) ----------
+  async function requests(){
+    main('<h3 class="dash-h">Change requests</h3><p class="dash-sub">Rank and office change requests from the brethren.</p><div id="rq"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('rq').innerHTML=noConn('review requests'); return; }
+    await loadReq();
+  }
+  async function loadReq(){
+    var wrap=document.getElementById('rq'); if(!wrap) return;
+    var r=await sb().from('change_requests').select('id,profile_id,kind,requested,reason,profiles(full_name)').eq('status','pending').order('created_at');
+    if(r.error){ wrap.innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    if(!rows.length){ wrap.innerHTML='<div class="dash-empty">No pending requests.</div>'; return; }
+    wrap.innerHTML='<table class="dash-table"><thead><tr><th>Brother</th><th>Type</th><th>Requested</th><th></th></tr></thead><tbody>'+
+      rows.map(function(q){ return '<tr data-id="'+q.id+'" data-pid="'+esc(q.profile_id)+'" data-kind="'+esc(q.kind)+'" data-req="'+esc(q.requested)+'">'+
+        '<td>'+esc((q.profiles&&q.profiles.full_name)||'\u2014')+'</td><td>'+esc(q.kind)+'</td>'+
+        '<td>'+esc(q.requested)+(q.reason?'<div class="ev-meta">'+esc(q.reason)+'</div>':'')+'</td>'+
+        '<td><button class="btn-sm rq-ok" type="button">Approve</button> <button class="btn-sm danger rq-no" type="button">Decline</button></td></tr>'; }).join('')+'</tbody></table>';
+    wrap.querySelectorAll('.rq-ok').forEach(function(b){ b.addEventListener('click',function(){ decide(b.closest('tr'),'approved'); }); });
+    wrap.querySelectorAll('.rq-no').forEach(function(b){ b.addEventListener('click',function(){ decide(b.closest('tr'),'declined'); }); });
+  }
+  async function decide(tr,status){
+    var id=tr.dataset.id, pid=tr.dataset.pid, kind=tr.dataset.kind, req=tr.dataset.req||'';
+    if(status==='approved' && kind==='rank'){
+      var lv=/admin/i.test(req)?3:/officer/i.test(req)?2:/member/i.test(req)?1:null;
+      if(lv){ await sb().from('profiles').update({rank_level:lv}).eq('id',pid); }
+    }
+    var u=(await sb().auth.getUser()).data.user;
+    var r=await sb().from('change_requests').update({status:status, decided_at:new Date().toISOString(), decided_by:u?u.id:null}).eq('id',id);
+    if(r.error){ alert(r.error.message); return; }
+    await loadReq();
+  }
+
+  return { build:build, clear:clear };
+})();
+</script>
+<script>
+(function(){
+  var cfg=window.PGL_CONFIG||{};
+  var ok=cfg.SUPABASE_URL&&/^https:\/\//.test(cfg.SUPABASE_URL)&&cfg.SUPABASE_ANON_KEY&&cfg.SUPABASE_URL.indexOf('YOUR')===-1;
+  var loginEl=document.getElementById('app-login'), appEl=document.getElementById('app');
+  if(!ok||!window.supabase){ document.getElementById('al-tag').textContent='The members area is not configured yet.'; return; }
+  var sb=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY); window.sbClient=sb;
+  function rankName(l){ return l>=3?'Administrator':l>=2?'Officer':'Member'; }
+  function showLogin(msg){ appEl.style.display='none'; loginEl.style.display='flex'; if(msg) document.getElementById('al-tag').textContent=msg; }
+  async function enter(){
+    var u=(await sb.auth.getUser()).data.user; if(!u){ showLogin(); return; }
+    var pr=await sb.from('profiles').select('full_name,masonic_rank,rank_level,approved').eq('id',u.id).single();
+    var p=pr.data;
+    if(!p){ showLogin('No membership record found for this account. Please contact the Secretary.'); return; }
+    if(!p.approved){ showLogin('Your account is registered and awaiting approval by a Secretary.'); return; }
+    loginEl.style.display='none'; appEl.style.display='block';
+    document.getElementById('m-name').textContent=p.full_name||u.email;
+    document.getElementById('m-rank').textContent=p.masonic_rank||rankName(p.rank_level);
+    PGLDash.build({tier:p.rank_level||1});
+  }
+  document.getElementById('al-tin').addEventListener('click',function(){ this.classList.add('on'); document.getElementById('al-treg').classList.remove('on'); document.getElementById('al-login').style.display='block'; document.getElementById('al-reg').style.display='none'; });
+  document.getElementById('al-treg').addEventListener('click',function(){ this.classList.add('on'); document.getElementById('al-tin').classList.remove('on'); document.getElementById('al-login').style.display='none'; document.getElementById('al-reg').style.display='block'; });
+  document.getElementById('li-btn').addEventListener('click', async function(){
+    var r=await sb.auth.signInWithPassword({ email:document.getElementById('li-email').value.trim(), password:document.getElementById('li-pass').value });
+    if(r.error){ alert(r.error.message); return; } enter();
+  });
+  document.getElementById('rg-btn').addEventListener('click', async function(){
+    var name=document.getElementById('rg-name').value.trim();
+    var r=await sb.auth.signUp({ email:document.getElementById('rg-email').value.trim(), password:document.getElementById('rg-pass').value, options:{ data:{ full_name:name } } });
+    if(r.error){ alert(r.error.message); return; }
+    alert('Thank you, '+name+'. Your request has been received. A Secretary will approve your access.');
+  });
+  document.getElementById('app-signout').addEventListener('click', async function(){ await sb.auth.signOut(); if(window.PGLDash) PGLDash.clear(); showLogin('You have signed out.'); });
+  sb.auth.getSession().then(function(s){ if(s.data.session) enter(); else showLogin(); });
+})();
+</script>
+</body>
+</html>
