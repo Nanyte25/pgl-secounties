@@ -368,6 +368,7 @@
   .btn-sm.danger{border-color:rgba(176,64,58,.5);color:#e0857e}
   .btn-sm.danger:hover{background:rgba(176,64,58,.15);color:#e0857e}
   .dash-note{font-size:13px;color:rgba(244,239,227,.6);background:rgba(198,162,92,.07);border:1px solid rgba(198,162,92,.2);padding:12px 14px;border-radius:2px;line-height:1.5}
+  .cal-tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
   @media(max-width:880px){.dash{grid-template-columns:1fr}.dash-nav{flex-direction:row;flex-wrap:wrap}.dash-form .row{grid-template-columns:1fr}}
   /* ---------- homepage slider ---------- */
   .slider-band{position:relative;padding:10px 24px 2px;background:transparent}
@@ -1248,9 +1249,12 @@ window.PGLDash = (function(){
       '<div class="field"><label>Location</label><input id="ce-loc" type="text" placeholder="1 Waterside, Waterford"></div>'+
       '<div class="field"><label>Visible to</label><select id="ce-level"><option value="0">Everyone</option><option value="1">Members</option><option value="2">Officers</option></select></div>'+
       '<button class="btn btn-gold" id="ce-add" type="button">Add to calendar</button></div>' : '';
-    main('<h3 class="dash-h">Calendar</h3><p class="dash-sub">'+(canManage?'Add or remove events \u2014 they appear on the public calendar.':'Upcoming events across the Province.')+'</p><ul class="dash-list" id="ce-list"><li class="dash-empty">Loading\u2026</li></ul>'+form);
+    main('<h3 class="dash-h">Calendar</h3><p class="dash-sub">'+(canManage?'Add or remove events \u2014 they appear on the public calendar.':'Upcoming events across the Province.')+'</p>'+'<div class="cal-tools"><button class="btn-sm" id="ce-ics" type="button">Export .ics</button>'+(canManage?' <button class="btn-sm" id="ce-imp" type="button">Import .ics</button><input type="file" id="ce-impf" accept=".ics,text/calendar" style="display:none">':'')+'</div><ul class="dash-list" id="ce-list"><li class="dash-empty">Loading\u2026</li></ul>'+form);
     if(!sb()){ document.getElementById('ce-list').innerHTML='<li>'+noConn('manage events')+'</li>'; return; }
     await loadCe();
+    var ics=document.getElementById('ce-ics'); if(ics) ics.addEventListener('click',exportIcs);
+    var imp=document.getElementById('ce-imp'), impf=document.getElementById('ce-impf');
+    if(imp&&impf){ imp.addEventListener('click',function(){ impf.click(); }); impf.addEventListener('change',function(){ if(impf.files[0]) importIcs(impf.files[0]); impf.value=''; }); }
     var add=document.getElementById('ce-add');
     if(add) add.addEventListener('click', async function(){
       var date=val('ce-date'); if(!date){ alert('A date is required.'); return; }
@@ -1478,6 +1482,49 @@ window.PGLDash = (function(){
       head:[['Name','Lodge','Amount (EUR)','Paid','Paid on']],
       body: rows.map(function(r){ return [r.name, r.lodge, String(r.amount||0), r.paid?'Yes':'No', r.paid_on||'']; }) });
     doc.save('dues-'+yr+'.pdf');
+  }
+
+  function _pad(n){ return (n<10?'0':'')+n; }
+  function _icsEsc(x){ return String(x==null?'':x).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n'); }
+  function _icsUnesc(x){ return String(x==null?'':x).replace(/\\n/gi,'\n').replace(/\\,/g,',').replace(/\\;/g,';').replace(/\\\\/g,'\\'); }
+  function _icsStamp(d){ return d.getUTCFullYear()+_pad(d.getUTCMonth()+1)+_pad(d.getUTCDate())+'T'+_pad(d.getUTCHours())+_pad(d.getUTCMinutes())+_pad(d.getUTCSeconds())+'Z'; }
+  function _icsParseDate(v){ v=(v||'').trim(); var m=v.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2})(Z)?)?/); if(!m) return null;
+    var y=+m[1],mo=+m[2]-1,d=+m[3],hh=+(m[4]||0),mi=+(m[5]||0),ss=+(m[6]||0);
+    return m[7]==='Z' ? new Date(Date.UTC(y,mo,d,hh,mi,ss)) : new Date(y,mo,d,hh,mi,ss); }
+  async function exportIcs(){
+    if(!sb()) return;
+    var r=await sb().from('events').select('*').order('starts_at'); var rows=r.data||[];
+    var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//PGL South Eastern Counties//EN','CALSCALE:GREGORIAN','X-WR-CALNAME:Masonic Province SE Counties'];
+    rows.forEach(function(e){ var st=new Date(e.starts_at); var en=e.ends_at?new Date(e.ends_at):new Date(st.getTime()+90*60000);
+      L.push('BEGIN:VEVENT','UID:pgl-'+e.id+'@pgl-secounties','DTSTAMP:'+_icsStamp(new Date()),'DTSTART:'+_icsStamp(st),'DTEND:'+_icsStamp(en),'SUMMARY:'+_icsEsc(e.title));
+      if(e.location) L.push('LOCATION:'+_icsEsc(e.location));
+      if(e.body) L.push('DESCRIPTION:'+_icsEsc(e.body));
+      L.push('END:VEVENT'); });
+    L.push('END:VCALENDAR');
+    var blob=new Blob([L.join('\r\n')],{type:'text/calendar'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='pgl-calendar.ics'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+  }
+  async function importIcs(file){
+    if(!sb()) return;
+    var text=await file.text();
+    text=text.replace(/\r\n[ \t]/g,'').replace(/\n[ \t]/g,'');
+    var out=[], cur=null;
+    text.split(/\r?\n/).forEach(function(line){
+      if(line==='BEGIN:VEVENT'){ cur={}; }
+      else if(line==='END:VEVENT'){ if(cur&&cur.start&&cur.summary) out.push(cur); cur=null; }
+      else if(cur){ var i=line.indexOf(':'); if(i<0) return; var key=line.substring(0,i).split(';')[0].toUpperCase(); var v=line.substring(i+1);
+        if(key==='DTSTART') cur.start=_icsParseDate(v);
+        else if(key==='DTEND') cur.end=_icsParseDate(v);
+        else if(key==='SUMMARY') cur.summary=_icsUnesc(v);
+        else if(key==='LOCATION') cur.location=_icsUnesc(v);
+        else if(key==='DESCRIPTION') cur.body=_icsUnesc(v); } });
+    if(!out.length){ alert('No events found in that file.'); return; }
+    if(!confirm('Import '+out.length+' event(s) as public calendar entries?')) return;
+    var payload=out.map(function(e){ return { title:e.summary, starts_at:e.start.toISOString(), ends_at:e.end?e.end.toISOString():null, location:e.location||null, body:e.body||null, min_level:0 }; });
+    var r=await sb().from('events').insert(payload);
+    if(r.error){ alert(r.error.message); return; }
+    alert('Imported '+out.length+' event(s).');
+    await loadCe(); if(window.PGLCal) PGLCal.onLogin(tier);
   }
 
   return { build:build, clear:clear };
