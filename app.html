@@ -430,6 +430,18 @@
   .app-head .who .n{font-family:var(--serif);font-size:16px;color:var(--ivory);line-height:1.1}
   .app-head .who .r{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);margin-top:2px}
   .app-body{padding:30px 0 70px}
+  .chat-wrap{display:flex;flex-direction:column;height:60vh;min-height:360px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+  .chat-msg{display:flex;gap:10px;align-items:flex-start}
+  .chat-msg .av{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none;background:radial-gradient(circle at 50% 34%,#1f3860,#0e1d34)}
+  .chat-msg .bubble{background:rgba(198,162,92,.08);border:1px solid rgba(198,162,92,.15);border-radius:8px;padding:8px 12px}
+  .chat-msg .who{font-size:12px;color:var(--gold-soft);margin-bottom:3px}
+  .chat-msg .txt{font-size:14px;color:var(--ivory);white-space:pre-wrap;word-break:break-word;line-height:1.5}
+  .chat-msg .time{font-size:10.5px;color:rgba(244,239,227,.4);margin-top:3px}
+  .chat-msg.me .bubble{background:rgba(120,150,200,.12);border-color:rgba(120,150,200,.22)}
+  .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+  .chat-input input{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:10px 12px;border-radius:4px;font-size:14px}
+  .chat-input input:focus{outline:none;border-color:var(--gold)}
   @media(max-width:600px){.app-head .who{display:none}}
 </style>
 </head>
@@ -524,13 +536,14 @@ window.PGLDash = (function(){
     {id:'documents', label:'Documents', min:1},
     {id:'dues',      label:'Dues',      min:2},
     {id:'directory', label:'Directory', min:1},
+    {id:'chat',      label:'Chat',      min:1},
     {id:'media',     label:'Slider',    min:2},
     {id:'approvals', label:'Approvals', min:3},
     {id:'requests',  label:'Requests',  min:3}
   ];
 
   function build(o){ tier=(o&&o.tier)||0; if(!TABS.some(function(t){return t.id===active && tier>=t.min;})) active='overview'; renderNav(); show(active); }
-  function clear(){ var n=document.getElementById('dash-nav'), m=document.getElementById('dash-main'); if(n)n.innerHTML=''; if(m)m.innerHTML=''; }
+  function clear(){ if(window.__chatChannel&&window.sbClient){ try{ window.sbClient.removeChannel(window.__chatChannel);}catch(e){} window.__chatChannel=null; } var n=document.getElementById('dash-nav'), m=document.getElementById('dash-main'); if(n)n.innerHTML=''; if(m)m.innerHTML=''; }
 
   function renderNav(){
     var n=document.getElementById('dash-nav'); if(!n) return;
@@ -548,6 +561,7 @@ window.PGLDash = (function(){
     if(id==='documents') return documents();
     if(id==='dues')      return dues();
     if(id==='directory') return directory();
+    if(id==='chat')      return chat();
     if(id==='media')     return media();
     if(id==='approvals') return approvals();
     if(id==='profile')   return profile();
@@ -980,6 +994,46 @@ window.PGLDash = (function(){
     var r=await sb().from('change_requests').update({status:status, decided_at:new Date().toISOString(), decided_by:u?u.id:null}).eq('id',id);
     if(r.error){ alert(r.error.message); return; }
     await loadReq();
+  }
+
+  // ---------- members' chat (realtime) ----------
+  function msgHtml(m){
+    var mine=window.__chatUser && m.user_id===window.__chatUser.id;
+    var av=m.author_avatar?'<img class="av" src="'+esc(m.author_avatar)+'">':'<span class="av"></span>';
+    var t=new Date(m.created_at).toLocaleString('en-IE',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'});
+    return '<div class="chat-msg'+(mine?' me':'')+'">'+av+'<div><div class="who">'+esc(m.author_name||'Brother')+'</div>'+
+      '<div class="bubble"><div class="txt">'+esc(m.body)+'</div></div><div class="time">'+t+'</div></div></div>';
+  }
+  function appendMsg(m){
+    var box=document.getElementById('chat-msgs'); if(!box) return;
+    var e=box.querySelector('.dash-empty'); if(e) box.innerHTML='';
+    box.insertAdjacentHTML('beforeend', msgHtml(m)); box.scrollTop=box.scrollHeight;
+  }
+  async function chat(){
+    main('<h3 class="dash-h">Members\u2019 chat</h3><p class="dash-sub">A private channel for the brethren \u2014 visible to signed-in members only. Be courteous; no ritual or private business here.</p>'+
+      '<div class="chat-wrap"><div class="chat-msgs" id="chat-msgs"><div class="dash-empty">Loading\u2026</div></div>'+
+      '<div class="chat-input"><input id="chat-text" type="text" placeholder="Write a message\u2026" maxlength="1000"><button class="btn btn-gold" id="chat-send" type="button">Send</button></div></div>');
+    if(!sb()){ document.getElementById('chat-msgs').innerHTML=noConn('use the chat'); return; }
+    var u=(await sb().auth.getUser()).data.user; if(!u) return;
+    var me=(await sb().from('profiles').select('full_name,avatar_url').eq('id',u.id).single()).data||{};
+    window.__chatUser={ id:u.id, name:me.full_name||'Brother', avatar:me.avatar_url||null };
+    var box=document.getElementById('chat-msgs');
+    var r=await sb().from('messages').select('*').order('created_at',{ascending:false}).limit(60);
+    if(r.error){ box.innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=(r.data||[]).reverse();
+    box.innerHTML=rows.map(msgHtml).join('')||'<div class="dash-empty">No messages yet \u2014 say hello.</div>';
+    box.scrollTop=box.scrollHeight;
+    if(window.__chatChannel){ try{ sb().removeChannel(window.__chatChannel); }catch(e){} }
+    window.__chatChannel=sb().channel('members-chat')
+      .on('postgres_changes',{event:'INSERT',schema:'public',table:'messages'},function(p){ appendMsg(p.new); })
+      .subscribe();
+    function send(){
+      var t=document.getElementById('chat-text'); var body=t.value.trim(); if(!body) return; t.value='';
+      sb().from('messages').insert({ user_id:window.__chatUser.id, author_name:window.__chatUser.name, author_avatar:window.__chatUser.avatar, body:body })
+        .then(function(res){ if(res.error) alert(res.error.message); });
+    }
+    document.getElementById('chat-send').addEventListener('click',send);
+    document.getElementById('chat-text').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); send(); } });
   }
 
   return { build:build, clear:clear };
