@@ -9,6 +9,7 @@ index.html            The public site (self-contained: HTML/CSS/JS)
 app.html              The members' area (login, dashboard, board, gallery)
 supabase-schema.sql   Postgres schema + rank-based Row-Level Security
 supabase-board.sql    Bulletin board + members-only gallery
+supabase-officers.sql The Provincial Officers roll
 js/config.example.js  Template for your Supabase keys → copy to js/config.js
 img/                  Drop lodge photos / brethren portraits here
 DEPLOY.md             Manual walkthrough (if you'd rather not use the script)
@@ -71,6 +72,16 @@ one-hour signed URL per image after sign-in, so nothing is readable from the
 open web. Any approved member may upload; officers may remove anything. The
 public page shows only a locked gate linking to the login.
 
+Pictures are **downscaled in the browser** before upload — 2000px on the long
+edge, re-encoded as JPEG. A 10 MB phone photograph arrives as a few hundred KB,
+which matters: the Supabase free tier gives 1 GB of storage in total. Change
+`GAL_MAX_EDGE` / `GAL_QUALITY` at the top of the gallery code in `app.html` to
+tune it. Anything that will not decode is uploaded untouched.
+
+Albums cover the Province and the individual lodges (V, 32, 44, 116, 642).
+Officers get an **Edit captions** view that lists an album with editable
+caption, date and album fields, so a batch can be tidied without re-uploading.
+
 ## The bulletin board
 `app.html` → **Bulletin board**. Members start threads and reply to them;
 officers may pin a thread to the top or remove any post; every Brother may
@@ -78,6 +89,21 @@ remove his own. Threads carry a category (general, notice, question, visiting,
 regalia & sales) and a visibility level — officers can post officer-only
 threads. Run `supabase-board.sql` once to create the tables, the policies, the
 private bucket and the `board_threads` view.
+
+## The Provincial Officers
+The roll on the public page is read from the `officers` table for the current
+year, one row per office, and edited by officers in `app.html` → **Officers**.
+Leave a name blank and the office publishes as *vacant*. After an installation,
+**Roll forward** copies the whole sheet into the next year to be amended.
+
+Run `supabase-officers.sql` once. It seeds the standard Irish office ladder with
+only the two names the old site published (Ian Devonport, Marcus Notley) — every
+other office is seeded vacant on purpose. **Check the office titles and the
+seniority order against the Province's own returns before this goes live**; they
+came from the standard ladder, not from your records.
+
+If Supabase is unreachable the section falls back to two static rows in
+`index.html`, so the page never renders an empty roll.
 
 ## Photos & portraits
 Public-domain portraits of the notable brethren are on Wikimedia Commons; the

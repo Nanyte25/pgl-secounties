@@ -394,6 +394,37 @@
   .sl-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;gap:10px;justify-content:center;z-index:3}
   .sl-dots button{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold-soft);background:transparent;cursor:pointer;padding:0}
   .sl-dots button.on{background:var(--gold-soft)}
+  /* ---------- officers roll editor ---------- */
+  .of-grid{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:28px}
+  .of-row{display:flex;gap:16px;align-items:center;padding:14px 16px;background:rgba(255,255,255,.02);flex-wrap:wrap}
+  .of-row.vacant{background:rgba(255,255,255,.012)}
+  .of-row.vacant .of-office b{color:rgba(244,239,227,.55)}
+  .of-office{flex:0 0 210px;display:flex;flex-direction:column;gap:2px}
+  .of-office b{font-family:var(--serif);font-size:16px;color:var(--ivory);font-weight:500}
+  .of-office span{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft)}
+  .of-fields{flex:1;display:flex;gap:8px;flex-wrap:wrap;min-width:260px}
+  .of-fields input{flex:1;min-width:130px;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);
+    padding:7px 10px;border-radius:2px;font-size:13.5px;font-family:var(--sans)}
+  .of-fields input:focus{outline:none;border-color:var(--gold)}
+  .of-acts{display:flex;gap:7px;flex:none}
+  @media(max-width:880px){.of-row{align-items:flex-start}.of-office{flex:1 0 100%}.of-fields{min-width:0}}
+  /* ---------- gallery upload progress ---------- */
+  .gl-prog{margin-top:14px}
+  .gl-bar{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+  .gl-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-soft));transition:width .3s}
+  .gl-prog-txt{font-size:12.5px;color:rgba(244,239,227,.7);margin-top:8px;line-height:1.5}
+  /* ---------- bulk caption editing ---------- */
+  .ge-grid{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .ge-row{display:flex;gap:14px;align-items:center;padding:11px 14px;background:rgba(255,255,255,.02);flex-wrap:wrap}
+  .ge-thumb{flex:none;width:78px;height:54px;object-fit:cover;border:1px solid var(--gold-dim);
+    background:linear-gradient(135deg,#16294a,#0e1d36);display:block}
+  .ge-fields{flex:1;display:flex;gap:8px;flex-wrap:wrap;min-width:240px}
+  .ge-fields input,.ge-fields select{background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);
+    padding:7px 10px;border-radius:2px;font-size:13.5px;font-family:var(--sans)}
+  .ge-fields input[data-f="caption"]{flex:1;min-width:180px}
+  .ge-fields input[data-f="taken_on"]{max-width:160px}
+  .ge-fields input:focus,.ge-fields select:focus{outline:none;border-color:var(--gold)}
+  @media(max-width:700px){.ge-row{gap:10px}.ge-fields{min-width:0;width:100%}}
   /* ---------- bulletin board ---------- */
   .bd-bar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin:4px 0 18px}
   .bd-filters{display:flex;gap:8px;flex-wrap:wrap}
@@ -649,6 +680,7 @@ window.PGLDash = (function(){
     {id:'dues',      label:'Dues',      min:2},
     {id:'directory', label:'Directory', min:1},
     {id:'chat',      label:'Chat',      min:1},
+    {id:'officers',  label:'Officers',  min:2},
     {id:'media',     label:'Slider',    min:2},
     {id:'approvals', label:'Approvals', min:3},
     {id:'requests',  label:'Requests',  min:3}
@@ -676,6 +708,7 @@ window.PGLDash = (function(){
     if(id==='dues')      return dues();
     if(id==='directory') return directory();
     if(id==='chat')      return chat();
+    if(id==='officers')  return officers();
     if(id==='media')     return media();
     if(id==='approvals') return approvals();
     if(id==='profile')   return profile();
@@ -1310,71 +1343,136 @@ window.PGLDash = (function(){
   /* ==========================================================
      GALLERY  —  private bucket, signed URLs, members may add
      ========================================================== */
-  var GALBUMS=['Province','Installations','Lodge rooms','Regalia','Events','Charity'];
+  var GALBUMS=['Province','Installations','Lodge rooms','Regalia','Events','Charity',
+               'Lodge V','Lodge 32','Lodge 44','Lodge 116','Lodge 642'];
+  var GAL_MAX_EDGE=2000;     // long edge, in pixels, after downscaling
+  var GAL_QUALITY=0.85;      // JPEG quality for the re-encode
+  var galAlbum='';
+
+  function fmtBytes(n){
+    if(n<1024) return n+' B';
+    if(n<1048576) return (n/1024).toFixed(0)+' KB';
+    return (n/1048576).toFixed(1)+' MB';
+  }
+
+  /* Downscale in the browser before upload. Phone and Facebook-download
+     photos run 3-8 MB; at ~2000px they land around 400-700 KB, which keeps
+     a few hundred pictures inside the Supabase free tier. Falls back to the
+     original file if anything about the decode or encode goes wrong. */
+  function shrinkImage(file){
+    return new Promise(function(resolve){
+      if(!/^image\//.test(file.type) || /svg/.test(file.type)){ resolve({file:file, note:'left as-is'}); return; }
+      var url=URL.createObjectURL(file);
+      var img=new Image();
+      img.onload=function(){
+        try{
+          var w=img.naturalWidth, h=img.naturalHeight, long=Math.max(w,h);
+          if(!w||!h){ URL.revokeObjectURL(url); resolve({file:file, note:'left as-is'}); return; }
+          var scale = long>GAL_MAX_EDGE ? GAL_MAX_EDGE/long : 1;
+          var cw=Math.round(w*scale), ch=Math.round(h*scale);
+          var c=document.createElement('canvas'); c.width=cw; c.height=ch;
+          var ctx=c.getContext('2d');
+          ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
+          ctx.drawImage(img,0,0,cw,ch);
+          c.toBlob(function(blob){
+            URL.revokeObjectURL(url);
+            if(!blob || blob.size>=file.size){ resolve({file:file, note:'left as-is'}); return; }
+            var name=file.name.replace(/\.[A-Za-z0-9]+$/,'')+'.jpg';
+            var out=new File([blob], name, {type:'image/jpeg', lastModified:file.lastModified});
+            resolve({file:out, note:cw+'×'+ch+', '+fmtBytes(file.size)+' → '+fmtBytes(out.size), from:file.size});
+          },'image/jpeg',GAL_QUALITY);
+        }catch(e){ URL.revokeObjectURL(url); resolve({file:file, note:'left as-is'}); }
+      };
+      img.onerror=function(){ URL.revokeObjectURL(url); resolve({file:file, note:'left as-is'}); };
+      img.src=url;
+    });
+  }
 
   async function gallery(){
     main('<h3 class="dash-h">The Province album</h3>'+
-      '<p class="dash-sub">Photographs of the Province, kept privately for the brethren. Every Brother may add his own pictures; officers may remove any.</p>'+
-      '<div class="bd-bar"><div class="bd-filters" id="gl-filters"></div></div>'+
+      '<p class="dash-sub">Photographs of the Province, kept privately for the brethren. Every Brother may add his own pictures; officers may remove any. '+
+      'Pictures are resized to '+GAL_MAX_EDGE+'px in your browser before they are sent, so a batch off a phone or Facebook uploads quickly and stays small.</p>'+
+      '<div class="bd-bar"><div class="bd-filters" id="gl-filters"></div>'+
+        (tier>=2?'<button class="btn-sm" id="gl-edit" type="button">Edit captions</button>':'')+'</div>'+
       '<div class="gl-grid" id="gl-grid"><div class="dash-empty">Loading…</div></div>'+
-      '<div class="dash-form"><h4>Add a photograph</h4>'+
-        '<div class="row"><div class="field"><label>Image</label><input id="gl-file" type="file" accept="image/*" multiple></div>'+
+      '<div class="dash-form"><h4>Add photographs</h4>'+
+        '<div class="row"><div class="field"><label>Images — select as many as you like</label><input id="gl-file" type="file" accept="image/*" multiple></div>'+
         '<div class="field"><label>Album</label><select id="gl-album">'+GALBUMS.map(function(a){return '<option>'+a+'</option>';}).join('')+'</select></div></div>'+
-        '<div class="field"><label>Caption</label><input id="gl-cap" type="text" maxlength="160" placeholder="Installation of the Provincial Master, 2026"></div>'+
+        '<div class="row"><div class="field"><label>Caption</label><input id="gl-cap" type="text" maxlength="160" placeholder="Installation of the Provincial Master, 2026"></div>'+
+        '<div class="field"><label>Taken on (optional)</label><input id="gl-date" type="date"></div></div>'+
         '<button class="btn btn-gold" id="gl-add" type="button">Upload</button>'+
-        '<div class="dash-note" id="gl-status" style="margin-top:10px;display:none"></div></div>'+
+        '<div class="gl-prog" id="gl-prog" style="display:none"><div class="gl-bar"><span id="gl-bar-fill"></span></div><div class="gl-prog-txt" id="gl-status"></div></div></div>'+
       '<div class="gl-lb" id="gl-lb"><button class="x" type="button" aria-label="Close">×</button><img id="gl-lb-img" alt=""><div class="cap" id="gl-lb-cap"></div></div>');
+
     var lb=document.getElementById('gl-lb');
     lb.addEventListener('click',function(e){ if(e.target===lb||e.target.classList.contains('x')) lb.classList.remove('on'); });
 
     var f=document.getElementById('gl-filters');
-    f.innerHTML='<button type="button" class="bd-chip on" data-album="">All</button>'+
-      GALBUMS.map(function(a){ return '<button type="button" class="bd-chip" data-album="'+a+'">'+a+'</button>'; }).join('');
+    f.innerHTML='<button type="button" class="bd-chip'+(galAlbum?'':' on')+'" data-album="">All</button>'+
+      GALBUMS.map(function(a){ return '<button type="button" class="bd-chip'+(galAlbum===a?' on':'')+'" data-album="'+a+'">'+a+'</button>'; }).join('');
     f.querySelectorAll('.bd-chip').forEach(function(b){
-      b.addEventListener('click',function(){ f.querySelectorAll('.bd-chip').forEach(function(x){x.classList.remove('on');}); b.classList.add('on'); loadGallery(b.dataset.album); });
+      b.addEventListener('click',function(){
+        f.querySelectorAll('.bd-chip').forEach(function(x){x.classList.remove('on');});
+        b.classList.add('on'); galAlbum=b.dataset.album; loadGallery(galAlbum);
+      });
     });
+    var ed=document.getElementById('gl-edit');
+    if(ed) ed.addEventListener('click',function(){ galleryEdit(galAlbum); });
 
     if(!sb()){ document.getElementById('gl-grid').innerHTML=noConn('view the album'); return; }
-    await loadGallery('');
+    await loadGallery(galAlbum);
+
     var add=document.getElementById('gl-add');
     add.addEventListener('click', async function(){
       var files=document.getElementById('gl-file').files;
       if(!files||!files.length){ alert('Choose one or more images.'); return; }
-      var st=document.getElementById('gl-status'); st.style.display='block'; add.disabled=true;
-      var u=await me(), album=val('gl-album')||'Province', cap=val('gl-cap'), fails=0;
+      var prog=document.getElementById('gl-prog'), fill=document.getElementById('gl-bar-fill'), st=document.getElementById('gl-status');
+      prog.style.display='block'; add.disabled=true;
+      var u=await me(), album=val('gl-album')||'Province', cap=val('gl-cap'), taken=val('gl-date')||null;
+      var fails=[], saved=0, sentBytes=0, origBytes=0;
+
       for(var i=0;i<files.length;i++){
-        st.textContent='Uploading '+(i+1)+' of '+files.length+'…';
         var file=files[i];
-        if(file.size>8*1024*1024){ fails++; continue; }
-        var path=album.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'/'+Date.now()+'_'+i+'_'+file.name.replace(/[^A-Za-z0-9._-]/g,'_');
-        var up=await sb().storage.from('gallery').upload(path,file);
-        if(up.error){ fails++; continue; }
-        var r=await sb().from('gallery_items').insert({ path:path, caption:(files.length>1&&cap)?cap+' ('+(i+1)+')':(cap||null), album:album, uploaded_by:u.id });
-        if(r.error) fails++;
+        fill.style.width=Math.round((i/files.length)*100)+'%';
+        st.textContent='Resizing '+(i+1)+' of '+files.length+' — '+file.name;
+        var shrunk=await shrinkImage(file);
+        origBytes+=file.size; sentBytes+=shrunk.file.size;
+        st.textContent='Uploading '+(i+1)+' of '+files.length+' — '+shrunk.note;
+
+        if(shrunk.file.size>8*1024*1024){ fails.push(file.name+' (still over 8 MB)'); continue; }
+        var path=album.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'/'+Date.now()+'_'+i+'_'+
+                 shrunk.file.name.replace(/[^A-Za-z0-9._-]/g,'_');
+        var up=await sb().storage.from('gallery').upload(path,shrunk.file);
+        if(up.error){ fails.push(file.name+' — '+up.error.message); continue; }
+        var row={ path:path, album:album, uploaded_by:u.id,
+                  caption:(files.length>1&&cap)?cap+' ('+(i+1)+')':(cap||null) };
+        if(taken) row.taken_on=taken;
+        var r=await sb().from('gallery_items').insert(row);
+        if(r.error){ fails.push(file.name+' — '+r.error.message); continue; }
+        saved++;
       }
-      add.disabled=false;
-      if(fails){ st.textContent=fails+' image'+(fails>1?'s':'')+' could not be added (over 8 MB, or not permitted).'; }
-      else { st.style.display='none'; }
+
+      fill.style.width='100%'; add.disabled=false;
+      var msg=saved+' photograph'+(saved===1?'':'s')+' added';
+      if(origBytes>sentBytes) msg+=' — '+fmtBytes(origBytes)+' of originals sent as '+fmtBytes(sentBytes);
+      if(fails.length) msg+='. '+fails.length+' failed: '+fails.slice(0,3).join('; ')+(fails.length>3?'…':'');
+      st.textContent=msg;
       document.getElementById('gl-file').value=''; document.getElementById('gl-cap').value='';
-      await loadGallery(document.querySelector('#gl-filters .bd-chip.on').dataset.album||'');
+      await loadGallery(galAlbum);
+      if(!fails.length) setTimeout(function(){ prog.style.display='none'; fill.style.width='0'; },4000);
     });
   }
 
   async function loadGallery(album){
     var grid=document.getElementById('gl-grid'); if(!grid) return;
     var u=await me();
-    var q=sb().from('gallery_items').select('*').order('created_at',{ascending:false}).limit(200);
+    var q=sb().from('gallery_items').select('*').order('created_at',{ascending:false}).limit(300);
     if(album) q=q.eq('album',album);
     var r=await q;
     if(r.error){ grid.innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
     var rows=r.data||[];
     if(!rows.length){ grid.innerHTML='<div class="dash-empty">No photographs in this album yet — add the first below.</div>'; return; }
-    // one short-lived signed URL per image; the bucket itself stays private
-    var signed={};
-    try{
-      var sg=await sb().storage.from('gallery').createSignedUrls(rows.map(function(x){return x.path;}), 3600);
-      (sg.data||[]).forEach(function(d){ if(d.signedUrl) signed[d.path]=d.signedUrl; });
-    }catch(e){}
+    var signed=await signPaths(rows);
     grid.innerHTML=rows.map(function(g){
       var url=signed[g.path]||'';
       var canDel=(u&&g.uploaded_by===u.id)||tier>=2;
@@ -1400,7 +1498,165 @@ window.PGLDash = (function(){
         if(!confirm('Remove this photograph?')) return;
         await sb().from('gallery_items').delete().eq('id',b.dataset.delimg);
         try{ await sb().storage.from('gallery').remove([b.dataset.path]); }catch(err){}
-        await loadGallery(document.querySelector('#gl-filters .bd-chip.on').dataset.album||'');
+        await loadGallery(galAlbum);
+      });
+    });
+  }
+
+  // one short-lived signed URL per image; the bucket itself stays private
+  async function signPaths(rows){
+    var signed={};
+    try{
+      var sg=await sb().storage.from('gallery').createSignedUrls(rows.map(function(x){return x.path;}), 3600);
+      (sg.data||[]).forEach(function(d){ if(d.signedUrl) signed[d.path]=d.signedUrl; });
+    }catch(e){}
+    return signed;
+  }
+
+  /* ---------- bulk caption / date / album editing (officers) ---------- */
+  async function galleryEdit(album){
+    main('<button class="btn-sm" id="gl-back" type="button" style="margin-bottom:18px">‹ Back to the album</button>'+
+      '<h3 class="dash-h">Captions &amp; dates</h3>'+
+      '<p class="dash-sub">Fix the captions on a batch without re-uploading. Changes save one row at a time, or all at once.</p>'+
+      '<div id="ge-list"><div class="dash-empty">Loading…</div></div>');
+    document.getElementById('gl-back').addEventListener('click',function(){ gallery(); });
+    if(!sb()){ document.getElementById('ge-list').innerHTML=noConn('edit captions'); return; }
+
+    var q=sb().from('gallery_items').select('*').order('created_at',{ascending:false}).limit(300);
+    if(album) q=q.eq('album',album);
+    var r=await q;
+    if(r.error){ document.getElementById('ge-list').innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    if(!rows.length){ document.getElementById('ge-list').innerHTML='<div class="dash-empty">Nothing to edit in this album.</div>'; return; }
+    var signed=await signPaths(rows);
+
+    document.getElementById('ge-list').innerHTML=
+      '<div class="ge-grid">'+rows.map(function(g){
+        return '<div class="ge-row" data-id="'+g.id+'">'+
+          (signed[g.path]?'<img class="ge-thumb" src="'+esc(signed[g.path])+'" alt="">':'<span class="ge-thumb"></span>')+
+          '<div class="ge-fields">'+
+            '<input data-f="caption" type="text" maxlength="160" placeholder="Caption" value="'+esc(g.caption||'')+'">'+
+            '<select data-f="album">'+GALBUMS.map(function(a){
+                return '<option'+(a===g.album?' selected':'')+'>'+a+'</option>'; }).join('')+'</select>'+
+            '<input data-f="taken_on" type="date" value="'+esc(g.taken_on||'')+'">'+
+          '</div>'+
+          '<button class="btn-sm" data-gesave="'+g.id+'" type="button">Save</button></div>';
+      }).join('')+'</div>'+
+      '<button class="btn btn-gold" id="ge-saveall" type="button" style="margin-top:18px">Save all changes</button>'+
+      '<div class="dash-note" id="ge-status" style="margin-top:10px;display:none"></div>';
+
+    function patchOf(row){
+      var p={};
+      row.querySelectorAll('[data-f]').forEach(function(i){ p[i.dataset.f]=i.value.trim()||null; });
+      return p;
+    }
+    async function saveRow(row){
+      var r2=await sb().from('gallery_items').update(patchOf(row)).eq('id',row.dataset.id);
+      return r2.error ? r2.error.message : null;
+    }
+    document.querySelectorAll('[data-gesave]').forEach(function(b){
+      b.addEventListener('click', async function(){
+        var row=b.closest('.ge-row'); b.disabled=true; b.textContent='Saving…';
+        var err=await saveRow(row); b.disabled=false;
+        b.textContent=err?'Failed':'Saved';
+        if(err) alert(err);
+        setTimeout(function(){ b.textContent='Save'; },1500);
+      });
+    });
+    document.getElementById('ge-saveall').addEventListener('click', async function(){
+      var rowsEls=Array.prototype.slice.call(document.querySelectorAll('.ge-row'));
+      var st=document.getElementById('ge-status'); st.style.display='block'; this.disabled=true;
+      var bad=0;
+      for(var i=0;i<rowsEls.length;i++){
+        st.textContent='Saving '+(i+1)+' of '+rowsEls.length+'…';
+        if(await saveRow(rowsEls[i])) bad++;
+      }
+      this.disabled=false;
+      st.textContent = bad ? bad+' row'+(bad>1?'s':'')+' could not be saved.' : 'All changes saved.';
+    });
+  }
+
+
+  /* ==========================================================
+     THE PROVINCIAL OFFICERS  —  officers fill in the roll
+     ========================================================== */
+  var rollYear=null;
+
+  async function officers(){
+    var yr=rollYear||new Date().getFullYear();
+    main('<h3 class="dash-h">The Provincial Officers</h3>'+
+      '<p class="dash-sub">The roll published on the public site. Leave a name blank and the office shows as vacant. '+
+      'Check the titles and seniority against the Province’s own returns — they were seeded from the standard ladder, not from your records.</p>'+
+      '<div class="bd-bar"><div style="display:flex;gap:10px;align-items:center">'+
+        '<label style="font-size:12px;letter-spacing:.06em;color:var(--gold-soft);text-transform:uppercase">Year</label>'+
+        '<input id="of-year" type="number" class="du-yearsel" style="width:88px" value="'+yr+'">'+
+        '<button class="btn-sm" id="of-go" type="button">Show</button></div>'+
+        '<button class="btn-sm" id="of-forward" type="button">Roll forward to '+(yr+1)+'</button></div>'+
+      '<div id="of-list"><div class="dash-empty">Loading…</div></div>'+
+      '<div class="dash-form"><h4>Add an office</h4>'+
+        '<div class="row"><div class="field"><label>Office</label><input id="of-new-office" type="text" placeholder="Provincial Grand Steward"></div>'+
+        '<div class="field"><label>Short form</label><input id="of-new-short" type="text" placeholder="Prov. G. Std."></div></div>'+
+        '<div class="row"><div class="field"><label>Seniority (lower is senior)</label><input id="of-new-sort" type="number" value="150"></div>'+
+        '<div class="field"><label>&nbsp;</label><button class="btn btn-gold" id="of-add" type="button">Add office</button></div></div>'+
+        '<div class="dash-note" id="of-status" style="margin-top:10px;display:none"></div></div>');
+    if(!sb()){ document.getElementById('of-list').innerHTML=noConn('edit the roll'); return; }
+
+    document.getElementById('of-go').addEventListener('click',function(){
+      rollYear=parseInt(document.getElementById('of-year').value,10)||new Date().getFullYear(); officers();
+    });
+    document.getElementById('of-forward').addEventListener('click', async function(){
+      if(!confirm('Copy every office and name from '+yr+' into '+(yr+1)+'? Existing rows for '+(yr+1)+' are left alone.')) return;
+      var r=await sb().rpc('officers_roll_forward',{ new_year: yr+1 });
+      if(r.error){ alert(r.error.message); return; }
+      rollYear=yr+1; officers();
+    });
+    document.getElementById('of-add').addEventListener('click', async function(){
+      var office=val('of-new-office'); if(!office){ alert('Name the office.'); return; }
+      var r=await sb().from('officers').insert({ year:yr, office:office, short:val('of-new-short')||null,
+        sort:parseInt(val('of-new-sort'),10)||150 });
+      if(r.error){ alert(r.error.message); return; }
+      document.getElementById('of-new-office').value=''; document.getElementById('of-new-short').value='';
+      officers();
+    });
+    await loadRoll(yr);
+  }
+
+  async function loadRoll(yr){
+    var box=document.getElementById('of-list'); if(!box) return;
+    var r=await sb().from('officers').select('*').eq('year',yr).order('sort');
+    if(r.error){ box.innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    if(!rows.length){ box.innerHTML='<div class="dash-empty">No roll filed for '+yr+'. Roll last year’s forward, or add offices below.</div>'; return; }
+    box.innerHTML='<div class="of-grid">'+rows.map(function(o){
+      return '<div class="of-row'+(o.full_name?'':' vacant')+'" data-id="'+o.id+'">'+
+        '<div class="of-office"><b>'+esc(o.office)+'</b><span>'+esc(o.short||'')+'</span></div>'+
+        '<div class="of-fields">'+
+          '<input data-f="honorific" type="text" placeholder="W. Bro." value="'+esc(o.honorific||'')+'" style="max-width:110px">'+
+          '<input data-f="full_name" type="text" placeholder="Name — leave blank if vacant" value="'+esc(o.full_name||'')+'">'+
+          '<input data-f="lodge_label" type="text" placeholder="Lodge" value="'+esc(o.lodge_label||'')+'" style="max-width:150px">'+
+          '<input data-f="email" type="email" placeholder="Email (optional)" value="'+esc(o.email||'')+'" style="max-width:210px">'+
+        '</div>'+
+        '<div class="of-acts"><button class="btn-sm" data-save="'+o.id+'" type="button">Save</button>'+
+        '<button class="btn-sm danger" data-drop="'+o.id+'" type="button">Remove</button></div></div>';
+    }).join('')+'</div>';
+
+    box.querySelectorAll('[data-save]').forEach(function(b){
+      b.addEventListener('click', async function(){
+        var row=b.closest('.of-row'), patch={};
+        row.querySelectorAll('[data-f]').forEach(function(i){ patch[i.dataset.f]=i.value.trim()||null; });
+        b.disabled=true; b.textContent='Saving…';
+        var r2=await sb().from('officers').update(patch).eq('id',b.dataset.save);
+        b.disabled=false; b.textContent='Save';
+        if(r2.error){ alert(r2.error.message); return; }
+        row.classList.toggle('vacant', !patch.full_name);
+        b.textContent='Saved'; setTimeout(function(){ b.textContent='Save'; },1400);
+      });
+    });
+    box.querySelectorAll('[data-drop]').forEach(function(b){
+      b.addEventListener('click', async function(){
+        if(!confirm('Remove this office from the ' + yr + ' roll?')) return;
+        await sb().from('officers').delete().eq('id',b.dataset.drop);
+        await loadRoll(yr);
       });
     });
   }

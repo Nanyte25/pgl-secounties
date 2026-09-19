@@ -36,7 +36,7 @@
   .brand .emblem{width:38px;height:38px;flex:none}
   .brand b{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.01em;color:var(--ivory)}
   .brand span{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;color:var(--gold-soft);text-transform:uppercase;margin-top:2px}
-  nav.main{display:flex;gap:22px;align-items:center}
+  nav.main{display:flex;gap:20px;align-items:center;white-space:nowrap}
   nav.main a{text-decoration:none;font-size:14px;color:var(--ivory);opacity:.82;letter-spacing:.02em;transition:opacity .2s,color .2s;padding:4px 0}
   nav.main a:hover{opacity:1;color:var(--gold-soft)}
   .btn{font-family:var(--sans);cursor:pointer;border:none;font-size:14px;letter-spacing:.04em;padding:10px 20px;border-radius:2px;transition:.2s;text-decoration:none;display:inline-block}
@@ -151,19 +151,40 @@
   .event dt{color:#a6813a;font-weight:600}
   .event dd{margin:0;color:var(--ink-soft)}
 
+  /* ---------- the provincial officers roll ---------- */
+  .roll{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+  .off{display:flex;gap:16px;align-items:flex-start;padding:20px 22px;background:rgba(255,255,255,.02);transition:background .2s}
+  .off:hover{background:rgba(198,162,92,.06)}
+  .off.vacant{opacity:.58}
+  .off-rank{flex:none;width:98px;font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--gold-soft);line-height:1.5;padding-top:3px}
+  .off-body{flex:1;min-width:0}
+  .off-office{font-family:var(--serif);font-size:17px;color:rgba(244,239,227,.72);line-height:1.3}
+  .off-hon{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(198,162,92,.78);margin-top:7px}
+  .off-name{font-family:var(--serif);font-size:21px;color:var(--ivory);margin-top:1px;line-height:1.25}
+  .off-name .vac{font-size:15px;font-style:italic;color:rgba(244,239,227,.45)}
+  .off-lodge{font-size:12px;letter-spacing:.04em;color:rgba(244,239,227,.5);margin-top:5px}
+  .off-mail{display:inline-block;margin-top:7px;font-size:12.5px;color:var(--gold-soft);text-decoration:none;border-bottom:1px solid var(--gold-dim)}
+  .off-mail:hover{color:var(--ivory)}
+  .roll-note{margin:26px 0 0;font-size:13.5px;color:rgba(244,239,227,.5);max-width:62ch}
+  @media(max-width:560px){.off{padding:16px 14px;gap:12px}.off-rank{width:78px;font-size:9.5px}.off-name{font-size:19px}}
   /* ---------- members-only gallery teaser ---------- */
   .gal-locked{display:grid;grid-template-columns:1.05fr 1fr;gap:0;border:1px solid var(--gold-dim);overflow:hidden;align-items:stretch}
-  .gal-plates{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:1px;background:rgba(198,162,92,.18);min-height:320px}
-  .gal-plates .plate{display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#16294a,#0d1c33)}
+  .gal-plates{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,minmax(0,1fr));gap:1px;background:rgba(198,162,92,.18);min-height:380px}
+  .gal-plates .plate{position:relative;overflow:hidden;min-height:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#16294a,#0d1c33)}
   .gal-plates .plate:first-child{grid-column:span 2}
   .gal-plates .plate svg{width:46px;height:46px;color:rgba(198,162,92,.42);transition:color .4s}
+  .gal-plates .plate.photo.tall img{object-position:center 30%}
+  .gal-plates .plate.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.85) brightness(.72);transition:filter .5s,transform .8s}
+  .gal-locked:hover .plate.photo img{filter:saturate(1) brightness(.85);transform:scale(1.03)}
   .gal-locked:hover .gal-plates .plate svg{color:rgba(226,205,151,.6)}
   .gal-gate{padding:40px 38px;display:flex;flex-direction:column;justify-content:center;
     background:radial-gradient(90% 70% at 70% 0%, rgba(198,162,92,.1), transparent 65%),rgba(255,255,255,.02)}
   .gal-gate h3{font-size:clamp(23px,2.6vw,30px);color:var(--ivory);margin:6px 0 12px}
   .gal-gate p{color:rgba(244,239,227,.7);margin:0;max-width:42ch}
   .gal-lock{width:38px;height:38px;color:var(--gold);margin-bottom:16px}
-  @media(max-width:860px){.gal-locked{grid-template-columns:1fr}.gal-plates{min-height:200px;grid-auto-rows:100px}
+  @media(max-width:860px){.gal-locked{grid-template-columns:1fr}.gal-plates{min-height:0;grid-template-rows:repeat(3,116px)}
     .gal-plates .plate:first-child{grid-column:span 2}.gal-gate{padding:30px 22px}}
   @media(max-width:480px){.gal-plates .plate svg{width:34px;height:34px}}
 
@@ -239,7 +260,8 @@
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
-  @media(max-width:980px){nav.main{gap:16px;font-size:13px}}
+  @media(max-width:1200px){nav.main{gap:15px;font-size:13.5px}}
+  @media(max-width:1040px){nav.main{gap:12px;font-size:12.5px}}
   @media(max-width:880px){
     nav.main{display:none}
     nav.main.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;background:var(--midnight);border-bottom:1px solid var(--gold-dim);padding:18px 24px;gap:18px;align-items:flex-start}
@@ -392,15 +414,15 @@
   /* the band hangs off the hero frame: no seam between the two */
   .slider-inner:before{content:"";position:absolute;inset:0 8px 8px;border:1px solid rgba(198,162,92,.14);border-top:none;pointer-events:none;z-index:4}
   .slider{position:absolute;inset:0}
-  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;background-size:cover;background-position:center;background-color:#0e1d33}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;background-size:cover;background-position:center 34%;background-color:#0e1d33}
   .slide.on{opacity:1}
-  .slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,30,.30),rgba(8,16,30,.72))}
+  .slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,30,.26),rgba(8,16,30,.66))}
   .slide>*{position:relative;z-index:1}
   .slide.sym{flex-direction:row;gap:clamp(14px,3vw,30px)}
   .slide .sl-emblem{width:clamp(44px,7vw,64px);height:clamp(44px,7vw,64px);color:var(--gold);opacity:.85;flex:none}
   .slide.sym .slide-cap{text-align:left;max-width:none;padding:0}
   .slide .sl-sub{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(198,162,92,.8);margin-bottom:5px;text-align:left}
-  .slide-cap{font-family:var(--serif);font-size:clamp(15px,2.1vw,23px);letter-spacing:.04em;color:var(--ivory);text-transform:uppercase;text-align:center;max-width:82%;padding:0 24px;text-shadow:0 2px 22px rgba(0,0,0,.55)}
+  .slide-cap{font-family:var(--serif);font-size:clamp(15px,2.1vw,23px);letter-spacing:.04em;color:var(--ivory);text-transform:uppercase;text-align:center;max-width:none;white-space:nowrap;padding:0 24px;text-shadow:0 2px 22px rgba(0,0,0,.55)}
   .sl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(10,21,38,.42);border:1px solid var(--gold-dim);color:var(--gold-soft);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center}
   .sl-arrow:hover{background:rgba(10,21,38,.72);color:var(--ivory)}
   .sl-prev{left:12px}.sl-next{right:12px}
@@ -419,7 +441,7 @@
   .dc-row input{width:96px;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:6px 8px;border-radius:2px;font-size:14px}
   .du-toggle.on{border-color:rgba(120,170,120,.6);color:#9fca9f}
   .dc-on{font-size:11px;color:rgba(244,239,227,.5);margin-top:8px}
-  @media(max-width:700px){.slider-band{padding:0 14px 32px}.slider-inner{height:clamp(112px,30vw,142px)}
+  @media(max-width:700px){.slide-cap{white-space:normal;max-width:76%}.slider-band{padding:0 14px 32px}.slider-inner{height:clamp(112px,30vw,142px)}
     .slide{padding-bottom:14px}.sl-dots{bottom:7px;gap:6px}
     .sl-arrow{width:28px;height:28px;font-size:15px}.sl-prev{left:7px}.sl-next{right:7px}
     .slide-cap{max-width:70%;padding:0 10px;letter-spacing:.03em}}
@@ -542,6 +564,7 @@
       <a href="#welcome">Home</a>
       <a href="#about">About</a>
       <a href="#lodges">Lodges</a>
+      <a href="#officers">Officers</a>
       <a href="#orders">The Orders</a>
       <a href="#calendar">Calendar</a>
       <a href="#events">Events</a>
@@ -639,6 +662,26 @@
       <div><b style="color:var(--navy)">Provincial meetings</b> are held on the last Thursday of January, April, June and October — in the Waterford Lodge Rooms in January and June, and rotating through Carlow, Clonmel and Kilkenny in April and October. The <b style="color:var(--navy)">Little School of Ritual</b> meets at 1 Waterside, Waterford.</div>
     </div>
     <p class="pointer reveal">Beyond the Craft, a Brother may progress through the further Orders of Irish Freemasonry — <a href="#orders">explored below</a>.</p>
+  </div>
+</section>
+
+<!-- ===== THE PROVINCIAL OFFICERS =====
+     Rendered from the `officers` table (supabase-officers.sql) for the
+     current year; the static rows below are the fallback shown when the
+     database is unreachable. Officers edit the roll in the members' area. -->
+<section class="dark2 pad" id="officers">
+  <div class="wrap">
+    <div class="lead-row reveal">
+      <div><div class="eyebrow">Those who serve</div><h2 class="h-lead" style="color:var(--ivory)">The Provincial Officers</h2></div>
+      <p>The Brethren appointed to serve the Province for the current year. Correspondence for any officer may be addressed to the Provincial Grand Secretary, who will pass it on.</p>
+    </div>
+
+    <div class="roll reveal" id="roll">
+      <div class="off"><div class="off-rank">Prov. G.M.</div><div class="off-body"><div class="off-office">Provincial Grand Master</div><div class="off-hon">Rt. W. Bro.</div><div class="off-name">Ian Devonport</div></div></div>
+      <div class="off"><div class="off-rank">Prov. G. Sec.</div><div class="off-body"><div class="off-office">Provincial Grand Secretary</div><div class="off-hon">W. Bro.</div><div class="off-name">Marcus Notley</div><a class="off-mail" href="mailto:marcusnotley@gmail.com">marcusnotley@gmail.com</a></div></div>
+    </div>
+
+    <p class="roll-note reveal" id="roll-note">The full roll is maintained by the Provincial Grand Secretary and published here after each installation.</p>
   </div>
 </section>
 
@@ -796,10 +839,10 @@
 
     <div class="gal-locked reveal">
       <div class="gal-plates" aria-hidden="true">
-        <span class="plate"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></span>
+        <span class="plate photo"><img src="img/lodge-room.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
+        <span class="plate photo tall"><img src="img/lux-fiat-window.jpg" alt="" loading="lazy" onerror="this.remove()"></span>
         <span class="plate"><svg viewBox="0 0 100 100"><use href="#tau"/></svg></span>
         <span class="plate"><svg viewBox="0 0 100 100"><use href="#swords"/></svg></span>
-        <span class="plate"><svg viewBox="0 0 100 100"><use href="#eagle"/></svg></span>
         <span class="plate"><svg viewBox="0 0 100 100"><use href="#cross"/></svg></span>
       </div>
       <div class="gal-gate">
@@ -901,6 +944,7 @@
         <li><a href="#about">About Freemasonry</a></li>
         <li><a href="#lodges">Craft Lodges</a></li>
         <li><a href="#orders">The Orders</a></li>
+        <li><a href="#officers">Provincial Officers</a></li>
         <li><a href="#brethren">Notable Brethren</a></li>
       </ul></div>
       <div><h5>Beyond the Province</h5><ul>
@@ -1072,12 +1116,53 @@ window.PGLCal = (function(){
 if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', PGLCal.init); } else { PGLCal.init(); }
 </script>
 
+<!-- ===== the provincial officers roll (reads the officers table) ===== -->
+<script>
+(function(){
+  function esc(x){ return String(x==null?'':x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  async function load(){
+    if(!window.sbClient) return;                 // keep the static fallback
+    var yr=new Date().getFullYear(), r;
+    try{
+      r=await window.sbClient.from('officers').select('*').eq('active',true).eq('year',yr).order('sort');
+      // nothing filed for this year yet? fall back to the most recent year on record
+      if(!r.error && (!r.data||!r.data.length)){
+        var last=await window.sbClient.from('officers').select('year').eq('active',true).order('year',{ascending:false}).limit(1);
+        var y2=last.data&&last.data[0]&&last.data[0].year;
+        if(y2) r=await window.sbClient.from('officers').select('*').eq('active',true).eq('year',y2).order('sort');
+      }
+    }catch(e){ return; }
+    if(!r||r.error||!r.data||!r.data.length) return;
+    var box=document.getElementById('roll'); if(!box) return;
+    box.innerHTML=r.data.map(function(o){
+      var name=o.full_name
+      ? (o.honorific?'<div class="off-hon">'+esc(o.honorific)+'</div>':'')+'<div class="off-name">'+esc(o.full_name)+'</div>'
+      : '<div class="off-name"><span class="vac">Office vacant</span></div>';
+      var lodge=o.lodge_label?'<div class="off-lodge">'+esc(o.lodge_label)+'</div>':'';
+      var mail=o.email?'<a class="off-mail" href="mailto:'+esc(o.email)+'">'+esc(o.email)+'</a>':'';
+      return '<div class="off'+(o.full_name?'':' vacant')+'">'+
+        '<div class="off-rank">'+esc(o.short||'')+'</div>'+
+        '<div class="off-body"><div class="off-office">'+esc(o.office)+'</div>'+
+        name+lodge+mail+'</div></div>';
+    }).join('');
+    var filled=r.data.filter(function(o){ return !!o.full_name; }).length;
+    var note=document.getElementById('roll-note');
+    if(note && filled<r.data.length){
+      note.textContent='Offices shown as vacant are yet to be filled or published for this year. '+
+        'The roll is maintained by the Provincial Grand Secretary.';
+    }
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',load); } else { load(); }
+})();
+</script>
+
 <!-- ===== homepage slider (reads slides table; falls back to emblem slides) ===== -->
 <script>
 window.PGLSlider=(function(){
   var slides=[], idx=0, timer=null;
   // Fallback slides: the grand symbol of each Irish Order, in order of progression.
   var DEF=[
+    {image_url:'img/lodge-room.jpg', step:'Waterford', caption:'The Lodge Rooms'},
     {sym:'sc',     step:'The foundation',            caption:'The Craft'},
     {sym:'tau',    step:'Completion of the Craft',   caption:'Mark &amp; Royal Arch'},
     {sym:'swords', step:'Peculiar to Ireland',       caption:'Knight Masonry'},
