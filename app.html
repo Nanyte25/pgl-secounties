@@ -394,6 +394,58 @@
   .sl-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;gap:10px;justify-content:center;z-index:3}
   .sl-dots button{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold-soft);background:transparent;cursor:pointer;padding:0}
   .sl-dots button.on{background:var(--gold-soft)}
+  /* ---------- bulletin board ---------- */
+  .bd-bar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin:4px 0 18px}
+  .bd-filters{display:flex;gap:8px;flex-wrap:wrap}
+  .bd-chip{font-family:var(--sans);font-size:12px;letter-spacing:.04em;padding:6px 13px;border-radius:20px;cursor:pointer;
+    border:1px solid var(--gold-dim);background:none;color:rgba(244,239,227,.68);transition:.18s}
+  .bd-chip:hover{color:var(--ivory);border-color:var(--gold)}
+  .bd-chip.on{background:rgba(198,162,92,.14);color:var(--gold-soft);border-color:var(--gold)}
+  .bd-list{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:30px}
+  .bd-thread{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:rgba(255,255,255,.02);cursor:pointer;transition:background .18s}
+  .bd-thread:hover{background:rgba(198,162,92,.07)}
+  .bd-thread.pinned{background:rgba(198,162,92,.06)}
+  .bd-pin{color:var(--gold);margin-right:7px}
+  .bd-av{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--gold-dim);display:flex;align-items:center;
+    justify-content:center;font-size:12.5px;letter-spacing:.04em;color:var(--gold-soft);background:rgba(198,162,92,.08);overflow:hidden}
+  .bd-av img{width:100%;height:100%;object-fit:cover}
+  .bd-main{flex:1;min-width:0}
+  .bd-t{font-family:var(--serif);font-size:18px;color:var(--ivory);line-height:1.35}
+  .bd-snip{font-size:13.5px;color:rgba(244,239,227,.62);margin-top:4px;overflow:hidden;text-overflow:ellipsis;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .bd-meta{font-size:11.5px;letter-spacing:.04em;color:rgba(244,239,227,.45);margin-top:7px}
+  .bd-meta b{color:var(--gold-soft);font-weight:600}
+  .bd-go{flex:none;color:var(--gold-dim);font-size:22px;line-height:1;align-self:center}
+  .bd-thread:hover .bd-go{color:var(--gold)}
+  .bd-post{display:flex;gap:14px;align-items:flex-start;padding:18px;border:1px solid var(--line);background:rgba(255,255,255,.02);margin-bottom:12px}
+  .bd-post.head{border-color:var(--gold-dim);background:rgba(198,162,92,.05)}
+  .bd-h{font-family:var(--serif);font-size:23px;color:var(--ivory);margin:0 0 6px;font-weight:500}
+  .bd-body{margin-top:9px;color:rgba(244,239,227,.82);font-size:14.5px;line-height:1.65;word-wrap:break-word}
+  .bd-acts{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}
+  .bd-replies{margin:0 0 20px 26px;border-left:1px solid var(--line);padding-left:20px}
+  @media(max-width:700px){.bd-replies{margin-left:0;padding-left:12px}.bd-post,.bd-thread{padding:14px 12px;gap:10px}}
+
+  /* ---------- members gallery ---------- */
+  .gl-grid>.dash-note,.gl-grid>.dash-empty,.bd-list>.dash-note,.bd-list>.dash-empty{grid-column:1/-1}
+  .gl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));grid-auto-rows:150px;gap:12px;margin-bottom:30px}
+  .gl-item{margin:0;position:relative;overflow:hidden;border:1px solid var(--gold-dim);cursor:zoom-in;background:linear-gradient(135deg,#16294a,#0e1d36)}
+  .gl-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+  .gl-item:hover img{transform:scale(1.05)}
+  .gl-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .gl-ph svg{width:40px;height:40px;color:rgba(198,162,92,.45)}
+  .gl-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:12px;font-size:12.5px;color:var(--ivory);
+    background:linear-gradient(0deg,rgba(8,16,30,.9),transparent);opacity:0;transition:opacity .25s;z-index:2}
+  .gl-item:hover figcaption{opacity:1}
+  .gl-del{position:absolute;top:7px;right:7px;z-index:3;width:26px;height:26px;border-radius:50%;cursor:pointer;
+    border:1px solid var(--gold-dim);background:rgba(10,21,38,.72);color:var(--gold-soft);font-size:15px;line-height:1;opacity:0;transition:.2s}
+  .gl-item:hover .gl-del{opacity:1}
+  .gl-del:hover{background:rgba(176,64,58,.75);color:#fff;border-color:rgba(176,64,58,.8)}
+  .gl-lb{position:fixed;inset:0;background:rgba(6,10,18,.95);z-index:120;display:none;align-items:center;justify-content:center;flex-direction:column;padding:34px}
+  .gl-lb.on{display:flex}
+  .gl-lb img{max-width:min(1000px,92vw);max-height:78vh;object-fit:contain;border:1px solid var(--gold-dim)}
+  .gl-lb .cap{color:var(--gold-soft);margin-top:16px;font-family:var(--serif);font-size:19px;text-align:center}
+  .gl-lb .x{position:absolute;top:18px;right:24px;color:var(--gold-soft);font-size:30px;background:none;border:none;cursor:pointer;line-height:1}
+  @media(max-width:600px){.gl-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:118px;gap:8px}}
   /* dues cards */
   .du-yearsel{background:rgba(255,255,255,.06);border:1px solid var(--gold-dim);color:var(--ivory);padding:3px 8px;border-radius:2px;font-size:14px}
   .dues-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-bottom:8px}
@@ -442,46 +494,104 @@
   .chat-input{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
   .chat-input input{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:10px 12px;border-radius:4px;font-size:14px}
   .chat-input input:focus{outline:none;border-color:var(--gold)}
-  @media(max-width:600px){.app-head .who{display:none}}
+  @media(max-width:700px){
+    .app-head .who{display:none}
+    .app-head .bar{height:58px;gap:10px;padding:0 14px}
+    .app-head .brand b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
+    .app-head .brand svg{width:26px;height:26px}
+    .app-head a.site{font-size:11.5px;padding:6px 9px;white-space:nowrap}
+    .app-head .btn-sm{white-space:nowrap}
+  }
+  @media(max-width:560px){
+    .app-head .brand b{display:none}
+    .app-head .bar{gap:8px}
+  }
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <!-- ============================================================
+       THE GRAND SYMBOLS OF THE IRISH ORDERS
+       One consistent set: 100x100 viewBox, 3.4 stroke, currentColor.
+       Used in the Orders section, the slider, section dividers,
+       the gallery fallbacks and the footer.
+       ============================================================ -->
+
+  <!-- The Craft — square & compasses with the letter G -->
   <g id="sc">
-    <path d="M50 8 L86 74 M50 8 L14 74" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="50" cy="10" r="4" fill="currentColor"/>
-    <path d="M20 44 L50 92 L80 44" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M20 44 L50 62 L80 44" fill="none" stroke="currentColor" stroke-width="2.4" opacity=".7"/>
-    <text x="50" y="66" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="26" font-style="italic" fill="currentColor">G</text>
+    <g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M50 18 L25 72"/>
+      <path d="M50 18 L75 72"/>
+      <path d="M20 50 L50 86 L80 50"/>
+      <path d="M20 50 L50 68 L80 50" stroke-width="2" opacity=".55"/>
+    </g>
+    <circle cx="50" cy="17" r="3.6" fill="currentColor"/>
+    <circle cx="25" cy="72" r="2.6" fill="currentColor"/>
+    <circle cx="75" cy="72" r="2.6" fill="currentColor"/>
+    <text x="50" y="62" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="25" font-style="italic" fill="currentColor">G</text>
   </g>
-  <!-- Royal Arch: triple tau within triangle & circle -->
+
+  <!-- Mark &amp; Royal Arch — the triple tau within triangle and circle -->
   <g id="tau">
-    <circle cx="50" cy="52" r="40" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/>
-    <path d="M24 74 L50 30 L76 74 Z" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/>
-    <path d="M34 48 H66 M50 48 V74" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"/>
-    <path d="M38 62 H62 M38 62 V74 M62 62 V74" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"/>
+    <g fill="none" stroke="currentColor" stroke-width="1.7" opacity=".45">
+      <circle cx="50" cy="50" r="41"/>
+      <path d="M50 14 L81 68 L19 68 Z" stroke-linejoin="round"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round">
+      <path d="M33 41 H67"/>
+      <path d="M50 41 V78"/>
+      <path d="M35 60 H65"/>
+      <path d="M35 60 V78"/>
+      <path d="M65 60 V78"/>
+    </g>
   </g>
-  <!-- Knight Masons: crossed swords -->
-  <g id="swords">
-    <path d="M28 22 L64 58" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M72 22 L36 58" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M64 58 L74 68 M60 72 L70 62" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M36 58 L26 68 M40 72 L30 62" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-    <circle cx="76" cy="70" r="3.4" fill="currentColor"/><circle cx="24" cy="70" r="3.4" fill="currentColor"/>
+
+  <!-- Knight Masonry — the crossed swords of the Council -->
+  <g id="swords" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke-width="3.4">
+      <path d="M24 78 L76 24"/>
+      <path d="M76 78 L24 24"/>
+      <path d="M29.6 60.5 L41.2 71.7"/>
+      <path d="M58.8 71.7 L70.4 60.5"/>
+    </g>
+    <path d="M76 24 L70 22 L74 30 Z" fill="currentColor" stroke="none"/>
+    <path d="M24 24 L30 22 L26 30 Z" fill="currentColor" stroke="none"/>
+    <circle cx="23" cy="79" r="3.4" fill="currentColor" stroke="none"/>
+    <circle cx="77" cy="79" r="3.4" fill="currentColor" stroke="none"/>
   </g>
-  <!-- Ancient & Accepted Rite: double-headed eagle, crowned -->
+
+  <!-- Ancient &amp; Accepted Rite — the crowned double-headed eagle (heraldic, displayed) -->
   <g id="eagle">
-    <path d="M40 15 L44 20 L50 12 L56 20 L60 15 L60 21 L40 21 Z" fill="currentColor"/>
-    <circle cx="40" cy="28" r="5.5" fill="currentColor"/><path d="M35 26 L28 24 L35 30 Z" fill="currentColor"/>
-    <circle cx="60" cy="28" r="5.5" fill="currentColor"/><path d="M65 26 L72 24 L65 30 Z" fill="currentColor"/>
-    <path d="M40 33 Q47 41 50 41 Q53 41 60 33" fill="none" stroke="currentColor" stroke-width="4"/>
-    <path d="M50 41 L45 72 L50 80 L55 72 Z" fill="currentColor"/>
-    <path d="M50 45 C34 45 24 55 22 74 C35 65 43 61 50 61 Z" fill="currentColor"/>
-    <path d="M50 45 C66 45 76 55 78 74 C65 65 57 61 50 61 Z" fill="currentColor"/>
+    <!-- crown -->
+    <path d="M41 24 L41 14 L45.5 18.5 L50 11 L54.5 18.5 L59 14 L59 24 Z" fill="currentColor"/>
+    <!-- heads, necks &amp; beaks -->
+    <path d="M50 41 Q41 41 35 34" fill="none" stroke="currentColor" stroke-width="5.2" stroke-linecap="round"/>
+    <path d="M50 41 Q59 41 65 34" fill="none" stroke="currentColor" stroke-width="5.2" stroke-linecap="round"/>
+    <circle cx="32.5" cy="30" r="6.2" fill="currentColor"/>
+    <path d="M27.5 27 L16 28.5 L27.5 33.5 Z" fill="currentColor"/>
+    <circle cx="67.5" cy="30" r="6.2" fill="currentColor"/>
+    <path d="M72.5 27 L84 28.5 L72.5 33.5 Z" fill="currentColor"/>
+    <!-- wings displayed: straight upper edge, tiered feather edge below -->
+    <path d="M47 45 L8 48 L13 57 L25 55 L28 65 L38 62 L41 73 L47 68 Z" fill="currentColor"/>
+    <path d="M53 45 L92 48 L87 57 L75 55 L72 65 L62 62 L59 73 L53 68 Z" fill="currentColor"/>
+    <!-- body &amp; tail -->
+    <path d="M50 42 L45.5 66 L50 90 L54.5 66 Z" fill="currentColor"/>
   </g>
-  <!-- Great Priory: cross patee (Knights Templar) -->
+
+  <!-- Knights Templar &amp; Malta — the cross patee -->
   <g id="cross">
-    <path d="M43 43 L36 16 L64 16 L57 43 L84 36 L84 64 L57 57 L64 84 L36 84 L43 57 L16 64 L16 36 Z" fill="currentColor"/>
+    <path d="M43 43 C41 30 38 18 34 10 C44 13 56 13 66 10 C62 18 59 30 57 43
+             C70 41 82 38 90 34 C87 44 87 56 90 66 C82 62 70 59 57 57
+             C59 70 62 82 66 90 C56 87 44 87 34 90 C38 82 41 70 43 57
+             C30 59 18 62 10 66 C13 56 13 44 10 34 C18 38 30 41 43 43 Z" fill="currentColor"/>
+  </g>
+
+  <!-- padlock, for the members-only gallery -->
+  <g id="lock" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="26" y="45" width="48" height="40" rx="4"/>
+    <path d="M37 45 V33 a13 13 0 0 1 26 0 V45"/>
+    <circle cx="50" cy="62" r="4.4" fill="currentColor" stroke="none"/>
+    <path d="M50 66 V73"/>
   </g>
 </defs></svg>
 
@@ -532,8 +642,10 @@ window.PGLDash = (function(){
     {id:'overview',  label:'Overview',  min:1},
     {id:'profile',   label:'My Profile', min:1},
     {id:'notices',   label:'Notices',   min:1},
+    {id:'board',     label:'Bulletin board', min:1},
     {id:'calendar',  label:'Calendar',  min:1},
     {id:'documents', label:'Documents', min:1},
+    {id:'gallery',   label:'Gallery',   min:1},
     {id:'dues',      label:'Dues',      min:2},
     {id:'directory', label:'Directory', min:1},
     {id:'chat',      label:'Chat',      min:1},
@@ -557,6 +669,8 @@ window.PGLDash = (function(){
   function show(id){
     if(id==='overview')  return overview();
     if(id==='notices')   return notices();
+    if(id==='board')     return board();
+    if(id==='gallery')   return gallery();
     if(id==='calendar')  return calendar();
     if(id==='documents') return documents();
     if(id==='dues')      return dues();
@@ -1034,6 +1148,261 @@ window.PGLDash = (function(){
     }
     document.getElementById('chat-send').addEventListener('click',send);
     document.getElementById('chat-text').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); send(); } });
+  }
+
+
+  /* ==========================================================
+     BULLETIN BOARD  —  threaded notices from the brethren
+     ========================================================== */
+  var BCAT={ general:'General', notice:'Notice', question:'Question', travel:'Visiting', forsale:'Regalia &amp; sales' };
+  var boardThread=null;   // id of the thread being read, or null for the index
+
+  async function me(){
+    if(window.__me) return window.__me;
+    var u=(await sb().auth.getUser()).data.user; if(!u) return null;
+    var pr=(await sb().from('profiles').select('full_name,avatar_url').eq('id',u.id).single()).data||{};
+    window.__me={ id:u.id, name:pr.full_name||'Brother', avatar:pr.avatar_url||null };
+    return window.__me;
+  }
+  function when(ts){
+    if(!ts) return '';
+    var d=new Date(ts), now=new Date(), mins=Math.round((now-d)/60000);
+    if(mins<1) return 'just now';
+    if(mins<60) return mins+' min ago';
+    if(mins<1440){ var h2=Math.round(mins/60); return h2+(h2===1?' hour ago':' hours ago'); }
+    if(mins<10080){ var d2=Math.round(mins/1440); return d2+(d2===1?' day ago':' days ago'); }
+    return d.toLocaleDateString('en-IE',{day:'numeric',month:'short',year:'numeric'});
+  }
+  function initials(n){ return String(n||'?').split(/\s+/).filter(Boolean).slice(0,2).map(function(w){return w[0];}).join('').toUpperCase(); }
+  function avatarHtml(name,url){
+    return url ? '<span class="bd-av"><img src="'+esc(url)+'" alt=""></span>'
+               : '<span class="bd-av">'+esc(initials(name))+'</span>';
+  }
+
+  async function board(){
+    if(boardThread) return boardRead(boardThread);
+    var lvlOpts = tier>=2 ? '<div class="field"><label>Visible to</label><select id="bd-level"><option value="1">All members</option><option value="2">Officers only</option></select></div>' : '';
+    main('<h3 class="dash-h">Bulletin board</h3>'+
+      '<p class="dash-sub">An open board for the brethren of the Province — questions, visiting arrangements, lifts to meetings, notices of interest. Courtesy at all times; no ritual or private lodge business here.</p>'+
+      '<div class="bd-bar"><div class="bd-filters" id="bd-filters"></div></div>'+
+      '<div class="bd-list" id="bd-list"><div class="dash-empty">Loading…</div></div>'+
+      '<div class="dash-form"><h4>Start a new thread</h4>'+
+        '<div class="field"><label>Subject</label><input id="bd-title" type="text" maxlength="140" placeholder="Lift wanted to the Provincial meeting in Clonmel"></div>'+
+        '<div class="field"><label>Message</label><textarea id="bd-body" rows="4" maxlength="4000" placeholder="Write to the brethren…"></textarea></div>'+
+        '<div class="row"><div class="field"><label>Category</label><select id="bd-cat">'+
+          Object.keys(BCAT).map(function(k){ return '<option value="'+k+'">'+BCAT[k]+'</option>'; }).join('')+'</select></div>'+lvlOpts+'</div>'+
+        '<button class="btn btn-gold" id="bd-post" type="button">Post to the board</button>'+
+        '<div class="dash-note" id="bd-status" style="margin-top:10px;display:none"></div></div>');
+    var filters=document.getElementById('bd-filters');
+    filters.innerHTML='<button type="button" class="bd-chip on" data-cat="">All</button>'+
+      Object.keys(BCAT).map(function(k){ return '<button type="button" class="bd-chip" data-cat="'+k+'">'+BCAT[k]+'</button>'; }).join('');
+    filters.querySelectorAll('.bd-chip').forEach(function(b){
+      b.addEventListener('click',function(){
+        filters.querySelectorAll('.bd-chip').forEach(function(x){ x.classList.remove('on'); });
+        b.classList.add('on'); loadThreads(b.dataset.cat);
+      });
+    });
+
+    if(!sb()){ document.getElementById('bd-list').innerHTML=noConn('read the bulletin board'); return; }
+    await loadThreads('');
+    var post=document.getElementById('bd-post');
+    post.addEventListener('click', async function(){
+      var title=val('bd-title'), body=val('bd-body');
+      if(!title){ alert('Please give the thread a subject.'); return; }
+      if(!body){ alert('Please write a message.'); return; }
+      var u=await me(); if(!u) return;
+      post.disabled=true;
+      var r=await sb().from('board_posts').insert({
+        user_id:u.id, author_name:u.name, author_avatar:u.avatar,
+        title:title, body:body, category:val('bd-cat')||'general',
+        min_level: tier>=2 ? (parseInt(val('bd-level'),10)||1) : 1
+      });
+      post.disabled=false;
+      if(r.error){ var st=document.getElementById('bd-status'); st.style.display='block'; st.textContent=r.error.message; return; }
+      document.getElementById('bd-title').value=''; document.getElementById('bd-body').value='';
+      await loadThreads(document.querySelector('.bd-chip.on').dataset.cat||'');
+    });
+  }
+
+  async function loadThreads(cat){
+    var box=document.getElementById('bd-list'); if(!box) return;
+    var q=sb().from('board_threads').select('*').order('pinned',{ascending:false}).order('created_at',{ascending:false}).limit(60);
+    if(cat) q=q.eq('category',cat);
+    var r=await q;
+    if(r.error){ box.innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    box.innerHTML=rows.map(function(t){
+      var last=t.last_reply_at||t.created_at;
+      return '<article class="bd-thread'+(t.pinned?' pinned':'')+'" data-open="'+t.id+'">'+
+        avatarHtml(t.author_name,t.author_avatar)+
+        '<div class="bd-main">'+
+          '<div class="bd-t">'+(t.pinned?'<span class="bd-pin" title="Pinned">⚑</span>':'')+esc(t.title||'(no subject)')+
+            '<span class="badge">'+(BCAT[t.category]||'General')+'</span>'+
+            (t.min_level>=2?'<span class="badge">Officers</span>':'')+'</div>'+
+          '<div class="bd-snip">'+esc(String(t.body||'').slice(0,190))+(String(t.body||'').length>190?'…':'')+'</div>'+
+          '<div class="bd-meta">'+esc(t.author_name||'Brother')+' · '+when(t.created_at)+
+            ' · <b>'+(t.reply_count||0)+'</b> '+((t.reply_count===1)?'reply':'replies')+
+            (t.reply_count?' · last '+when(last):'')+'</div>'+
+        '</div>'+
+        '<span class="bd-go">›</span></article>';
+    }).join('') || '<div class="dash-empty">Nothing on the board yet — start the first thread below.</div>';
+    box.querySelectorAll('[data-open]').forEach(function(el){
+      el.addEventListener('click',function(){ boardThread=el.dataset.open; boardRead(boardThread); });
+    });
+  }
+
+  async function boardRead(id){
+    main('<button class="btn-sm" id="bd-back" type="button" style="margin-bottom:18px">‹ Back to the board</button>'+
+         '<div id="bd-thread"><div class="dash-empty">Loading…</div></div>');
+    document.getElementById('bd-back').addEventListener('click',function(){ boardThread=null; board(); });
+    if(!sb()){ document.getElementById('bd-thread').innerHTML=noConn('read the bulletin board'); return; }
+    var u=await me();
+    var head=(await sb().from('board_posts').select('*').eq('id',id).single()).data;
+    if(!head){ document.getElementById('bd-thread').innerHTML='<div class="dash-note">That thread is no longer on the board.</div>'; return; }
+    var reps=(await sb().from('board_posts').select('*').eq('parent_id',id).order('created_at')).data||[];
+
+    function canManage(p){ return (u&&p.user_id===u.id) || tier>=2; }
+    function postHtml(p,isHead){
+      return '<article class="bd-post'+(isHead?' head':'')+'">'+
+        avatarHtml(p.author_name,p.author_avatar)+
+        '<div class="bd-main">'+
+          (isHead?'<h4 class="bd-h">'+esc(p.title||'(no subject)')+'</h4>':'')+
+          '<div class="bd-meta">'+esc(p.author_name||'Brother')+' · '+when(p.created_at)+(p.edited_at?' · edited':'')+'</div>'+
+          '<div class="bd-body">'+esc(p.body).replace(/\n/g,'<br>')+'</div>'+
+          (canManage(p)?'<div class="bd-acts">'+
+            (isHead&&tier>=2?'<button class="btn-sm" data-pin="'+p.id+'" data-on="'+(p.pinned?'1':'0')+'" type="button">'+(p.pinned?'Unpin':'Pin to top')+'</button>':'')+
+            '<button class="btn-sm danger" data-delpost="'+p.id+'" type="button">Delete</button></div>':'')+
+        '</div></article>';
+    }
+
+    document.getElementById('bd-thread').innerHTML=
+      postHtml(head,true)+
+      '<div class="bd-replies">'+(reps.map(function(p){ return postHtml(p,false); }).join('')||'<div class="dash-empty">No replies yet.</div>')+'</div>'+
+      '<div class="dash-form"><h4>Reply</h4>'+
+        '<div class="field"><textarea id="bd-rbody" rows="3" maxlength="4000" placeholder="Add your reply…"></textarea></div>'+
+        '<button class="btn btn-gold" id="bd-reply" type="button">Post reply</button></div>';
+
+    document.getElementById('bd-reply').addEventListener('click', async function(){
+      var body=val('bd-rbody'); if(!body) return;
+      this.disabled=true;
+      var r=await sb().from('board_posts').insert({ parent_id:head.id, user_id:u.id, author_name:u.name,
+        author_avatar:u.avatar, body:body, category:head.category, min_level:head.min_level });
+      this.disabled=false;
+      if(r.error){ alert(r.error.message); return; }
+      boardRead(head.id);
+    });
+    document.querySelectorAll('[data-delpost]').forEach(function(b){
+      b.addEventListener('click', async function(){
+        if(!confirm('Remove this post from the board?')) return;
+        var del=b.dataset.delpost;
+        await sb().from('board_posts').delete().eq('id',del);
+        if(String(del)===String(head.id)){ boardThread=null; board(); } else { boardRead(head.id); }
+      });
+    });
+    document.querySelectorAll('[data-pin]').forEach(function(b){
+      b.addEventListener('click', async function(){
+        await sb().from('board_posts').update({ pinned: b.dataset.on!=='1' }).eq('id',b.dataset.pin);
+        boardRead(head.id);
+      });
+    });
+  }
+
+  /* ==========================================================
+     GALLERY  —  private bucket, signed URLs, members may add
+     ========================================================== */
+  var GALBUMS=['Province','Installations','Lodge rooms','Regalia','Events','Charity'];
+
+  async function gallery(){
+    main('<h3 class="dash-h">The Province album</h3>'+
+      '<p class="dash-sub">Photographs of the Province, kept privately for the brethren. Every Brother may add his own pictures; officers may remove any.</p>'+
+      '<div class="bd-bar"><div class="bd-filters" id="gl-filters"></div></div>'+
+      '<div class="gl-grid" id="gl-grid"><div class="dash-empty">Loading…</div></div>'+
+      '<div class="dash-form"><h4>Add a photograph</h4>'+
+        '<div class="row"><div class="field"><label>Image</label><input id="gl-file" type="file" accept="image/*" multiple></div>'+
+        '<div class="field"><label>Album</label><select id="gl-album">'+GALBUMS.map(function(a){return '<option>'+a+'</option>';}).join('')+'</select></div></div>'+
+        '<div class="field"><label>Caption</label><input id="gl-cap" type="text" maxlength="160" placeholder="Installation of the Provincial Master, 2026"></div>'+
+        '<button class="btn btn-gold" id="gl-add" type="button">Upload</button>'+
+        '<div class="dash-note" id="gl-status" style="margin-top:10px;display:none"></div></div>'+
+      '<div class="gl-lb" id="gl-lb"><button class="x" type="button" aria-label="Close">×</button><img id="gl-lb-img" alt=""><div class="cap" id="gl-lb-cap"></div></div>');
+    var lb=document.getElementById('gl-lb');
+    lb.addEventListener('click',function(e){ if(e.target===lb||e.target.classList.contains('x')) lb.classList.remove('on'); });
+
+    var f=document.getElementById('gl-filters');
+    f.innerHTML='<button type="button" class="bd-chip on" data-album="">All</button>'+
+      GALBUMS.map(function(a){ return '<button type="button" class="bd-chip" data-album="'+a+'">'+a+'</button>'; }).join('');
+    f.querySelectorAll('.bd-chip').forEach(function(b){
+      b.addEventListener('click',function(){ f.querySelectorAll('.bd-chip').forEach(function(x){x.classList.remove('on');}); b.classList.add('on'); loadGallery(b.dataset.album); });
+    });
+
+    if(!sb()){ document.getElementById('gl-grid').innerHTML=noConn('view the album'); return; }
+    await loadGallery('');
+    var add=document.getElementById('gl-add');
+    add.addEventListener('click', async function(){
+      var files=document.getElementById('gl-file').files;
+      if(!files||!files.length){ alert('Choose one or more images.'); return; }
+      var st=document.getElementById('gl-status'); st.style.display='block'; add.disabled=true;
+      var u=await me(), album=val('gl-album')||'Province', cap=val('gl-cap'), fails=0;
+      for(var i=0;i<files.length;i++){
+        st.textContent='Uploading '+(i+1)+' of '+files.length+'…';
+        var file=files[i];
+        if(file.size>8*1024*1024){ fails++; continue; }
+        var path=album.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'/'+Date.now()+'_'+i+'_'+file.name.replace(/[^A-Za-z0-9._-]/g,'_');
+        var up=await sb().storage.from('gallery').upload(path,file);
+        if(up.error){ fails++; continue; }
+        var r=await sb().from('gallery_items').insert({ path:path, caption:(files.length>1&&cap)?cap+' ('+(i+1)+')':(cap||null), album:album, uploaded_by:u.id });
+        if(r.error) fails++;
+      }
+      add.disabled=false;
+      if(fails){ st.textContent=fails+' image'+(fails>1?'s':'')+' could not be added (over 8 MB, or not permitted).'; }
+      else { st.style.display='none'; }
+      document.getElementById('gl-file').value=''; document.getElementById('gl-cap').value='';
+      await loadGallery(document.querySelector('#gl-filters .bd-chip.on').dataset.album||'');
+    });
+  }
+
+  async function loadGallery(album){
+    var grid=document.getElementById('gl-grid'); if(!grid) return;
+    var u=await me();
+    var q=sb().from('gallery_items').select('*').order('created_at',{ascending:false}).limit(200);
+    if(album) q=q.eq('album',album);
+    var r=await q;
+    if(r.error){ grid.innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    if(!rows.length){ grid.innerHTML='<div class="dash-empty">No photographs in this album yet — add the first below.</div>'; return; }
+    // one short-lived signed URL per image; the bucket itself stays private
+    var signed={};
+    try{
+      var sg=await sb().storage.from('gallery').createSignedUrls(rows.map(function(x){return x.path;}), 3600);
+      (sg.data||[]).forEach(function(d){ if(d.signedUrl) signed[d.path]=d.signedUrl; });
+    }catch(e){}
+    grid.innerHTML=rows.map(function(g){
+      var url=signed[g.path]||'';
+      var canDel=(u&&g.uploaded_by===u.id)||tier>=2;
+      return '<figure class="gl-item" data-url="'+esc(url)+'" data-cap="'+esc(g.caption||g.album)+'">'+
+        (url?'<img src="'+esc(url)+'" alt="'+esc(g.caption||'')+'" loading="lazy">'
+            :'<span class="gl-ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></span>')+
+        '<figcaption>'+esc(g.caption||g.album)+'</figcaption>'+
+        (canDel?'<button class="gl-del" data-delimg="'+g.id+'" data-path="'+esc(g.path)+'" title="Remove" type="button">×</button>':'')+
+        '</figure>';
+    }).join('');
+    grid.querySelectorAll('.gl-item').forEach(function(el){
+      el.addEventListener('click',function(e){
+        if(e.target.classList.contains('gl-del')) return;
+        if(!el.dataset.url) return;
+        document.getElementById('gl-lb-img').src=el.dataset.url;
+        document.getElementById('gl-lb-cap').textContent=el.dataset.cap;
+        document.getElementById('gl-lb').classList.add('on');
+      });
+    });
+    grid.querySelectorAll('[data-delimg]').forEach(function(b){
+      b.addEventListener('click', async function(e){
+        e.stopPropagation();
+        if(!confirm('Remove this photograph?')) return;
+        await sb().from('gallery_items').delete().eq('id',b.dataset.delimg);
+        try{ await sb().storage.from('gallery').remove([b.dataset.path]); }catch(err){}
+        await loadGallery(document.querySelector('#gl-filters .bd-chip.on').dataset.album||'');
+      });
+    });
   }
 
   return { build:build, clear:clear };

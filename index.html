@@ -16,6 +16,7 @@
     --ink:#211a10;--ink-soft:#5b5241;--line:rgba(198,162,92,.28);
     --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
     --sans:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;--wrap:1160px;
+    --panel:860px; /* hero frame + slider share one width so they read as one unit */
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -45,10 +46,10 @@
   .btn-ghost:hover{border-color:var(--gold);color:var(--ivory)}
   .menu-toggle{display:none;background:none;border:1px solid var(--gold-dim);color:var(--gold-soft);width:42px;height:38px;border-radius:2px;cursor:pointer;font-size:17px}
 
-  .hero{position:relative;padding:50px 24px 54px;text-align:center;overflow:hidden;
-    background:radial-gradient(120% 80% at 50% -10%, rgba(198,162,92,.16), transparent 60%),linear-gradient(180deg,#0c1a30,#0a1526 70%)}
-  .frame{max-width:640px;margin:0 auto;position:relative;padding:32px 32px 28px;border:1px solid var(--gold-dim)}
-  .frame:before{content:"";position:absolute;inset:8px;border:1px solid rgba(198,162,92,.16);pointer-events:none}
+  .hero{position:relative;padding:50px 24px 0;text-align:center;overflow:hidden;
+    background:radial-gradient(120% 80% at 50% -10%, rgba(198,162,92,.16), transparent 60%),linear-gradient(180deg,#0c1a30,#0a1526 78%)}
+  .frame{max-width:var(--panel);margin:0 auto;position:relative;padding:32px 32px 30px;border:1px solid var(--gold-dim);border-bottom:none}
+  .frame:before{content:"";position:absolute;inset:8px 8px 0;border:1px solid rgba(198,162,92,.16);border-bottom:none;pointer-events:none}
   .hero .crest{width:66px;height:66px;margin:0 auto 12px;display:block}
   .kicker{font-family:var(--sans);font-size:11px;letter-spacing:.3em;color:var(--gold-soft);text-transform:uppercase;margin-bottom:11px}
   .hero h1{font-size:clamp(23px,4vw,40px);font-weight:500;letter-spacing:.005em}
@@ -150,15 +151,21 @@
   .event dt{color:#a6813a;font-weight:600}
   .event dd{margin:0;color:var(--ink-soft)}
 
-  .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:180px;gap:14px}
-  .gallery figure{margin:0;position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--gold-dim)}
-  .gallery figure.tall{grid-row:span 2}
-  .gallery figure.wide{grid-column:span 2}
-  .gallery .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#16294a,#0e1d36)}
-  .gallery .ph svg{width:44px;height:44px;color:rgba(198,162,92,.5)}
-  .gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px;font-size:12.5px;color:var(--ivory);background:linear-gradient(0deg,rgba(8,16,30,.88),transparent);opacity:0;transition:opacity .25s}
-  .gallery figure:hover figcaption{opacity:1}
-  .gallery figure:hover .ph svg{color:var(--gold-soft)}
+  /* ---------- members-only gallery teaser ---------- */
+  .gal-locked{display:grid;grid-template-columns:1.05fr 1fr;gap:0;border:1px solid var(--gold-dim);overflow:hidden;align-items:stretch}
+  .gal-plates{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:1px;background:rgba(198,162,92,.18);min-height:320px}
+  .gal-plates .plate{display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#16294a,#0d1c33)}
+  .gal-plates .plate:first-child{grid-column:span 2}
+  .gal-plates .plate svg{width:46px;height:46px;color:rgba(198,162,92,.42);transition:color .4s}
+  .gal-locked:hover .gal-plates .plate svg{color:rgba(226,205,151,.6)}
+  .gal-gate{padding:40px 38px;display:flex;flex-direction:column;justify-content:center;
+    background:radial-gradient(90% 70% at 70% 0%, rgba(198,162,92,.1), transparent 65%),rgba(255,255,255,.02)}
+  .gal-gate h3{font-size:clamp(23px,2.6vw,30px);color:var(--ivory);margin:6px 0 12px}
+  .gal-gate p{color:rgba(244,239,227,.7);margin:0;max-width:42ch}
+  .gal-lock{width:38px;height:38px;color:var(--gold);margin-bottom:16px}
+  @media(max-width:860px){.gal-locked{grid-template-columns:1fr}.gal-plates{min-height:200px;grid-auto-rows:100px}
+    .gal-plates .plate:first-child{grid-column:span 2}.gal-gate{padding:30px 22px}}
+  @media(max-width:480px){.gal-plates .plate svg{width:34px;height:34px}}
 
   /* ---------- brethren ---------- */
   .brethren{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
@@ -242,7 +249,7 @@
     .tenets{grid-template-columns:1fr 1fr}
     .tenet{border-right:none;border-bottom:1px solid var(--line);padding:24px 0}
     .tenet:nth-child(odd){padding-right:20px;border-right:1px solid var(--line)}
-    .gallery{grid-template-columns:repeat(2,1fr)}
+
     .contacts,.brethren,.tiles{grid-template-columns:1fr}
     .lodge{grid-template-columns:56px 1fr;gap:16px}
     .lodge .act{grid-column:1/-1}.lodge .no{font-size:32px}
@@ -255,8 +262,6 @@
   .pgm-card .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
   .bro .medallion img{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);border-radius:50%;object-fit:cover;z-index:1}
   .bro .medallion:before{z-index:2}
-  .gallery figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-  .gallery figcaption{z-index:3}
 
   /* ---------- calendar widget ---------- */
   .cal-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:start}
@@ -381,19 +386,26 @@
   @media(max-width:880px){.pf-grid{grid-template-columns:1fr}}
   @media(max-width:880px){.dash{grid-template-columns:1fr}.dash-nav{flex-direction:row;flex-wrap:wrap}.dash-form .row{grid-template-columns:1fr}}
   /* ---------- homepage slider ---------- */
-  .slider-band{position:relative;padding:10px 24px 2px;background:transparent}
-  .slider-inner{max-width:1112px;margin:0 auto;position:relative;height:clamp(170px,26vh,290px);overflow:hidden;border:1px solid rgba(198,162,92,.22)}
+  .slider-band{position:relative;padding:0 24px 48px;background:#0a1526}
+  .slider-inner{max-width:var(--panel);margin:0 auto;position:relative;height:clamp(108px,15vw,158px);overflow:hidden;
+    border:1px solid var(--gold-dim);border-top:none}
+  /* the band hangs off the hero frame: no seam between the two */
+  .slider-inner:before{content:"";position:absolute;inset:0 8px 8px;border:1px solid rgba(198,162,92,.14);border-top:none;pointer-events:none;z-index:4}
   .slider{position:absolute;inset:0}
   .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;background-size:cover;background-position:center;background-color:#0e1d33}
   .slide.on{opacity:1}
-  .slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,30,.35),rgba(8,16,30,.68))}
+  .slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,30,.30),rgba(8,16,30,.72))}
   .slide>*{position:relative;z-index:1}
-  .slide-cap{font-family:var(--serif);font-size:clamp(18px,2.7vw,30px);letter-spacing:.04em;color:var(--ivory);text-transform:uppercase;text-align:center;max-width:82%;padding:0 24px;text-shadow:0 2px 22px rgba(0,0,0,.55)}
-  .sl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:rgba(10,21,38,.42);border:1px solid var(--gold-dim);color:var(--gold-soft);width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:22px;line-height:1}
+  .slide.sym{flex-direction:row;gap:clamp(14px,3vw,30px)}
+  .slide .sl-emblem{width:clamp(44px,7vw,64px);height:clamp(44px,7vw,64px);color:var(--gold);opacity:.85;flex:none}
+  .slide.sym .slide-cap{text-align:left;max-width:none;padding:0}
+  .slide .sl-sub{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(198,162,92,.8);margin-bottom:5px;text-align:left}
+  .slide-cap{font-family:var(--serif);font-size:clamp(15px,2.1vw,23px);letter-spacing:.04em;color:var(--ivory);text-transform:uppercase;text-align:center;max-width:82%;padding:0 24px;text-shadow:0 2px 22px rgba(0,0,0,.55)}
+  .sl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(10,21,38,.42);border:1px solid var(--gold-dim);color:var(--gold-soft);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center}
   .sl-arrow:hover{background:rgba(10,21,38,.72);color:var(--ivory)}
-  .sl-prev{left:16px}.sl-next{right:16px}
-  .sl-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;gap:10px;justify-content:center;z-index:3}
-  .sl-dots button{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold-soft);background:transparent;cursor:pointer;padding:0}
+  .sl-prev{left:12px}.sl-next{right:12px}
+  .sl-dots{position:absolute;bottom:9px;left:0;right:0;display:flex;gap:7px;justify-content:center;z-index:5}
+  .sl-dots button{width:7px;height:7px;border-radius:50%;border:1px solid var(--gold-soft);background:transparent;cursor:pointer;padding:0}
   .sl-dots button.on{background:var(--gold-soft)}
   /* dues cards */
   .du-yearsel{background:rgba(255,255,255,.06);border:1px solid var(--gold-dim);color:var(--ivory);padding:3px 8px;border-radius:2px;font-size:14px}
@@ -407,7 +419,11 @@
   .dc-row input{width:96px;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:6px 8px;border-radius:2px;font-size:14px}
   .du-toggle.on{border-color:rgba(120,170,120,.6);color:#9fca9f}
   .dc-on{font-size:11px;color:rgba(244,239,227,.5);margin-top:8px}
-  @media(max-width:600px){.sl-arrow{width:34px;height:34px;font-size:18px}.slider-band{padding:8px 14px 0}}
+  @media(max-width:700px){.slider-band{padding:0 14px 32px}.slider-inner{height:clamp(112px,30vw,142px)}
+    .slide{padding-bottom:14px}.sl-dots{bottom:7px;gap:6px}
+    .sl-arrow{width:28px;height:28px;font-size:15px}.sl-prev{left:7px}.sl-next{right:7px}
+    .slide-cap{max-width:70%;padding:0 10px;letter-spacing:.03em}}
+  @media(max-width:700px){.hero{padding:38px 16px 0}.frame{padding:26px 20px 24px}}
 </style>
 </head>
 <body>
@@ -429,41 +445,88 @@
 </div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <!-- ============================================================
+       THE GRAND SYMBOLS OF THE IRISH ORDERS
+       One consistent set: 100x100 viewBox, 3.4 stroke, currentColor.
+       Used in the Orders section, the slider, section dividers,
+       the gallery fallbacks and the footer.
+       ============================================================ -->
+
+  <!-- The Craft — square & compasses with the letter G -->
   <g id="sc">
-    <path d="M50 8 L86 74 M50 8 L14 74" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="50" cy="10" r="4" fill="currentColor"/>
-    <path d="M20 44 L50 92 L80 44" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M20 44 L50 62 L80 44" fill="none" stroke="currentColor" stroke-width="2.4" opacity=".7"/>
-    <text x="50" y="66" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="26" font-style="italic" fill="currentColor">G</text>
+    <g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M50 18 L25 72"/>
+      <path d="M50 18 L75 72"/>
+      <path d="M20 50 L50 86 L80 50"/>
+      <path d="M20 50 L50 68 L80 50" stroke-width="2" opacity=".55"/>
+    </g>
+    <circle cx="50" cy="17" r="3.6" fill="currentColor"/>
+    <circle cx="25" cy="72" r="2.6" fill="currentColor"/>
+    <circle cx="75" cy="72" r="2.6" fill="currentColor"/>
+    <text x="50" y="62" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="25" font-style="italic" fill="currentColor">G</text>
   </g>
-  <!-- Royal Arch: triple tau within triangle & circle -->
+
+  <!-- Mark &amp; Royal Arch — the triple tau within triangle and circle -->
   <g id="tau">
-    <circle cx="50" cy="52" r="40" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/>
-    <path d="M24 74 L50 30 L76 74 Z" fill="none" stroke="currentColor" stroke-width="1.6" opacity=".45"/>
-    <path d="M34 48 H66 M50 48 V74" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"/>
-    <path d="M38 62 H62 M38 62 V74 M62 62 V74" fill="none" stroke="currentColor" stroke-width="4.4" stroke-linecap="round"/>
+    <g fill="none" stroke="currentColor" stroke-width="1.7" opacity=".45">
+      <circle cx="50" cy="50" r="41"/>
+      <path d="M50 14 L81 68 L19 68 Z" stroke-linejoin="round"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round">
+      <path d="M33 41 H67"/>
+      <path d="M50 41 V78"/>
+      <path d="M35 60 H65"/>
+      <path d="M35 60 V78"/>
+      <path d="M65 60 V78"/>
+    </g>
   </g>
-  <!-- Knight Masons: crossed swords -->
-  <g id="swords">
-    <path d="M28 22 L64 58" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M72 22 L36 58" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M64 58 L74 68 M60 72 L70 62" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-    <path d="M36 58 L26 68 M40 72 L30 62" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-    <circle cx="76" cy="70" r="3.4" fill="currentColor"/><circle cx="24" cy="70" r="3.4" fill="currentColor"/>
+
+  <!-- Knight Masonry — the crossed swords of the Council -->
+  <g id="swords" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke-width="3.4">
+      <path d="M24 78 L76 24"/>
+      <path d="M76 78 L24 24"/>
+      <path d="M29.6 60.5 L41.2 71.7"/>
+      <path d="M58.8 71.7 L70.4 60.5"/>
+    </g>
+    <path d="M76 24 L70 22 L74 30 Z" fill="currentColor" stroke="none"/>
+    <path d="M24 24 L30 22 L26 30 Z" fill="currentColor" stroke="none"/>
+    <circle cx="23" cy="79" r="3.4" fill="currentColor" stroke="none"/>
+    <circle cx="77" cy="79" r="3.4" fill="currentColor" stroke="none"/>
   </g>
-  <!-- Ancient & Accepted Rite: double-headed eagle, crowned -->
+
+  <!-- Ancient &amp; Accepted Rite — the crowned double-headed eagle (heraldic, displayed) -->
   <g id="eagle">
-    <path d="M40 15 L44 20 L50 12 L56 20 L60 15 L60 21 L40 21 Z" fill="currentColor"/>
-    <circle cx="40" cy="28" r="5.5" fill="currentColor"/><path d="M35 26 L28 24 L35 30 Z" fill="currentColor"/>
-    <circle cx="60" cy="28" r="5.5" fill="currentColor"/><path d="M65 26 L72 24 L65 30 Z" fill="currentColor"/>
-    <path d="M40 33 Q47 41 50 41 Q53 41 60 33" fill="none" stroke="currentColor" stroke-width="4"/>
-    <path d="M50 41 L45 72 L50 80 L55 72 Z" fill="currentColor"/>
-    <path d="M50 45 C34 45 24 55 22 74 C35 65 43 61 50 61 Z" fill="currentColor"/>
-    <path d="M50 45 C66 45 76 55 78 74 C65 65 57 61 50 61 Z" fill="currentColor"/>
+    <!-- crown -->
+    <path d="M41 24 L41 14 L45.5 18.5 L50 11 L54.5 18.5 L59 14 L59 24 Z" fill="currentColor"/>
+    <!-- heads, necks &amp; beaks -->
+    <path d="M50 41 Q41 41 35 34" fill="none" stroke="currentColor" stroke-width="5.2" stroke-linecap="round"/>
+    <path d="M50 41 Q59 41 65 34" fill="none" stroke="currentColor" stroke-width="5.2" stroke-linecap="round"/>
+    <circle cx="32.5" cy="30" r="6.2" fill="currentColor"/>
+    <path d="M27.5 27 L16 28.5 L27.5 33.5 Z" fill="currentColor"/>
+    <circle cx="67.5" cy="30" r="6.2" fill="currentColor"/>
+    <path d="M72.5 27 L84 28.5 L72.5 33.5 Z" fill="currentColor"/>
+    <!-- wings displayed: straight upper edge, tiered feather edge below -->
+    <path d="M47 45 L8 48 L13 57 L25 55 L28 65 L38 62 L41 73 L47 68 Z" fill="currentColor"/>
+    <path d="M53 45 L92 48 L87 57 L75 55 L72 65 L62 62 L59 73 L53 68 Z" fill="currentColor"/>
+    <!-- body &amp; tail -->
+    <path d="M50 42 L45.5 66 L50 90 L54.5 66 Z" fill="currentColor"/>
   </g>
-  <!-- Great Priory: cross patee (Knights Templar) -->
+
+  <!-- Knights Templar &amp; Malta — the cross patee -->
   <g id="cross">
-    <path d="M43 43 L36 16 L64 16 L57 43 L84 36 L84 64 L57 57 L64 84 L36 84 L43 57 L16 64 L16 36 Z" fill="currentColor"/>
+    <path d="M43 43 C41 30 38 18 34 10 C44 13 56 13 66 10 C62 18 59 30 57 43
+             C70 41 82 38 90 34 C87 44 87 56 90 66 C82 62 70 59 57 57
+             C59 70 62 82 66 90 C56 87 44 87 34 90 C38 82 41 70 43 57
+             C30 59 18 62 10 66 C13 56 13 44 10 34 C18 38 30 41 43 43 Z" fill="currentColor"/>
+  </g>
+
+  <!-- padlock, for the members-only gallery -->
+  <g id="lock" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="26" y="45" width="48" height="40" rx="4"/>
+    <path d="M37 45 V33 a13 13 0 0 1 26 0 V45"/>
+    <circle cx="50" cy="62" r="4.4" fill="currentColor" stroke="none"/>
+    <path d="M50 66 V73"/>
   </g>
 </defs></svg>
 
@@ -728,16 +791,27 @@
   <div class="wrap">
     <div class="lead-row reveal">
       <div><div class="eyebrow">The Province in pictures</div><h2 class="h-lead" style="color:var(--ivory)">Gallery</h2></div>
-      <p>Regalia, lodge rooms, installations and fellowship. Replace these tiles with the Province's own photographs.</p>
+      <p>Regalia, lodge rooms, installations and fellowship. The photograph album is kept within the members&rsquo; area, where brethren may add their own pictures of the Province.</p>
     </div>
-    <div class="gallery reveal">
-      <figure class="wide tall" data-cap="Installation of the Provincial Master"><img src="img/g-installation.jpg" alt="Installation of the Provincial Master" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Installation of the Provincial Master</figcaption></figure>
-      <figure data-cap="Lodge V regalia"><img src="img/g-regalia.jpg" alt="Lodge V regalia" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Lodge V regalia</figcaption></figure>
-      <figure data-cap="The Waterford Lodge Rooms"><img src="img/g-lodge-room.jpg" alt="The Waterford Lodge Rooms" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>The Waterford Lodge Rooms</figcaption></figure>
-      <figure data-cap="Summer BBQ, 2025"><img src="img/g-bbq.jpg" alt="Summer BBQ, 2025" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Summer BBQ, 2025</figcaption></figure>
-      <figure class="tall" data-cap="The Provincial Standard"><img src="https://www.pgl-secounties.com/images/PGL_Std01s.gif" referrerpolicy="no-referrer" alt="The Provincial Standard" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>The Provincial Standard</figcaption></figure>
-      <figure data-cap="Charity golf day"><img src="img/g-golf.jpg" alt="Charity golf day" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Charity golf day</figcaption></figure>
-      <figure class="wide" data-cap="District Chapter, Kilkenny"><img src="img/g-chapter.jpg" alt="District Chapter, Kilkenny" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>District Chapter, Kilkenny</figcaption></figure>
+
+    <div class="gal-locked reveal">
+      <div class="gal-plates" aria-hidden="true">
+        <span class="plate"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></span>
+        <span class="plate"><svg viewBox="0 0 100 100"><use href="#tau"/></svg></span>
+        <span class="plate"><svg viewBox="0 0 100 100"><use href="#swords"/></svg></span>
+        <span class="plate"><svg viewBox="0 0 100 100"><use href="#eagle"/></svg></span>
+        <span class="plate"><svg viewBox="0 0 100 100"><use href="#cross"/></svg></span>
+      </div>
+      <div class="gal-gate">
+        <svg class="gal-lock" viewBox="0 0 100 100" aria-hidden="true"><use href="#lock"/></svg>
+        <div class="step" style="color:var(--gold-soft)">Members only</div>
+        <h3>The Province album</h3>
+        <p>Installations, provincial meetings, the summer barbecue and the charity golf day &mdash; kept privately for the brethren. Sign in to view the album, or add photographs of your own lodge.</p>
+        <div class="cta" style="margin-top:20px;display:flex;gap:14px;flex-wrap:wrap">
+          <a class="btn btn-gold" href="app.html">Sign in to view</a>
+          <a class="btn btn-ghost" href="#contact">Request access</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -843,17 +917,8 @@
   </div>
 </footer>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="x" aria-label="Close">×</button>
-  <div class="frame-lb"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div>
-  <div class="cap" id="lb-cap"></div>
-</div>
-
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
-  const lb=document.getElementById('lightbox');
-  document.querySelectorAll('.gallery figure').forEach(f=>{ f.addEventListener('click',()=>{ document.getElementById('lb-cap').textContent=f.dataset.cap; lb.classList.add('on'); }); });
-  function closeLightbox(){ lb.classList.remove('on'); }
 
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
@@ -1011,14 +1076,24 @@ if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded
 <script>
 window.PGLSlider=(function(){
   var slides=[], idx=0, timer=null;
-  var DEF=[{caption:'Brotherly Love'},{caption:'Relief'},{caption:'Truth'}];
-  function emblem(){ return '<svg viewBox="0 0 100 100" style="width:92px;height:92px;color:var(--gold);opacity:.7"><use href="#sc"/></svg>'; }
+  // Fallback slides: the grand symbol of each Irish Order, in order of progression.
+  var DEF=[
+    {sym:'sc',     step:'The foundation',            caption:'The Craft'},
+    {sym:'tau',    step:'Completion of the Craft',   caption:'Mark &amp; Royal Arch'},
+    {sym:'swords', step:'Peculiar to Ireland',       caption:'Knight Masonry'},
+    {sym:'eagle',  step:'The philosophic degrees',   caption:'Ancient &amp; Accepted Rite'},
+    {sym:'cross',  step:'The chivalric Orders',      caption:'Knights Templar &amp; Malta'}
+  ];
+  function emblem(id){ return '<svg class="sl-emblem" viewBox="0 0 100 100" aria-hidden="true"><use href="#'+(id||'sc')+'"/></svg>'; }
   function render(){
     var track=document.getElementById('sl-track'), dots=document.getElementById('sl-dots'); if(!track) return;
     var list=slides.length?slides:DEF;
     track.innerHTML=list.map(function(s,i){
       var bg=s.image_url?'background-image:url('+s.image_url+')':'';
-      return '<div class="slide'+(i===0?' on':'')+'" style="'+bg+'">'+(s.image_url?'':emblem())+(s.caption?'<div class="slide-cap">'+s.caption+'</div>':'')+'</div>';
+      var isSym=!s.image_url;
+      var text=(s.step?'<div class="sl-sub">'+s.step+'</div>':'')+(s.caption?'<div class="slide-cap">'+s.caption+'</div>':'');
+      return '<div class="slide'+(i===0?' on':'')+(isSym?' sym':'')+'" style="'+bg+'">'+
+             (isSym?emblem(s.sym):'')+(text?'<div>'+text+'</div>':'')+'</div>';
     }).join('');
     if(dots){ dots.innerHTML=list.map(function(s,i){ return '<button type="button" data-i="'+i+'" class="'+(i===0?'on':'')+'"></button>'; }).join('');
       dots.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ go(parseInt(b.dataset.i,10)); }); }); }
