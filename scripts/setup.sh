@@ -49,16 +49,18 @@ step_github(){
   h "3 · GitHub repository"
   have gh || pkg_install gh
   gh auth status >/dev/null 2>&1 || { info "Log in to GitHub in your browser…"; gh auth login; }
+  # pre-trust github.com so SSH never blocks on a host-key prompt
+  mkdir -p ~/.ssh && ssh-keyscan -t ed25519,rsa github.com >> ~/.ssh/known_hosts 2>/dev/null || true
   git rev-parse HEAD >/dev/null 2>&1 || { warn "No commit yet — doing that first."; step_git; }
   if git remote get-url origin >/dev/null 2>&1; then
     ok "Remote 'origin' → $(git remote get-url origin)"
-    if gum confirm "Push 'main' to origin now?"; then gum spin --title "Pushing…" -- git push -u origin main && ok "Pushed."; fi
+    if gum confirm "Push 'main' to origin now?"; then git push -u origin main && ok "Pushed."; fi
     return
   fi
   local name vis; name=$(gum input --header "Repository name" --value "pgl-secounties" --width 40)
   vis=$(gum choose --header "Visibility" "public" "private")
   [ "$vis" = private ] && md "> Note: GitHub Pages on a **private** repo requires a paid GitHub plan."
-  gum spin --title "Creating $name on GitHub…" -- gh repo create "$name" --"$vis" --source=. --remote=origin --push
+  gh repo create "$name" --"$vis" --source=. --remote=origin --push
   ok "Repository created and pushed."
 }
 
@@ -132,7 +134,7 @@ step_deploy(){
   local msg; msg=$(gum input --header "Commit message" --value "Update site" --width 50)
   git commit -m "$msg" >/dev/null
   git remote get-url origin >/dev/null 2>&1 || { warn "No 'origin' remote — run step 3 first."; return; }
-  gum spin --title "Pushing to GitHub…" -- git push origin main
+  git push origin main
   ok "Deployed. GitHub Pages rebuilds in ~30–60 seconds."
 }
 
