@@ -715,6 +715,7 @@
       <div class="note">New requests are held for approval. A Secretary or the Webmaster confirms your lodge and rank before access is granted.</div>
       <div class="field"><label>Full name</label><input type="text" required placeholder="Bro. John Smith"></div>
       <div class="field"><label>Email</label><input type="email" required placeholder="you@example.ie"></div>
+      <div class="field"><label>Choose a password</label><input type="password" required minlength="8" placeholder="at least 8 characters"></div>
       <div class="field"><label>Your lodge</label><select required><option value="">Select…</option><option>Lodge V — Waterford</option><option>Lodge 32 — Waterford</option><option>Lodge 44 — Clonmel</option><option>Lodge 116 — Carlow</option><option>Lodge 642 — Kilkenny</option></select></div>
       <div class="field"><label>Rank / degree</label><select required><option value="">Select…</option><option>Entered Apprentice</option><option>Fellow Craft</option><option>Master Mason</option><option>Installed Master / Past Master</option><option>Provincial Officer</option></select></div>
       <button class="btn btn-gold" type="submit">Submit request</button>
@@ -826,6 +827,65 @@
     else{ window.addEventListener('load', function(){ setTimeout(hide,600); }); }
     setTimeout(hide,4000); // safety net so it never sticks
   })();
+</script>
+
+<!-- ===== Supabase (real auth). Reads js/config.js; falls back to demo if absent. ===== -->
+<script src="js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  var cfg = window.PGL_CONFIG || {};
+  var live = cfg.SUPABASE_URL && /^https:\/\//.test(cfg.SUPABASE_URL)
+          && cfg.SUPABASE_ANON_KEY && cfg.SUPABASE_URL.indexOf('YOUR') === -1;
+  if(!live || !window.supabase) return;            // no real keys -> keep the demo login
+
+  var sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
+  window.sbClient = sb;
+  try{ localStorage.removeItem('pgl_user'); }catch(_){}          // clear any demo session
+  var dh = document.querySelector('.demo-hint'); if(dh) dh.style.display='none';
+
+  function rankName(l){ return l>=3?'Provincial Webmaster':l>=2?'Provincial Officer':'Master Mason'; }
+
+  async function showFromProfile(){
+    var u = (await sb.auth.getUser()).data.user; if(!u) return false;
+    var r = await sb.from('profiles').select('full_name,masonic_rank,rank_level,approved').eq('id', u.id).single();
+    var p = r.data;
+    if(!p){ alert('No membership record was found for this account. Please contact the Provincial Grand Secretary.'); return false; }
+    if(!p.approved){ alert('Your account is registered and is awaiting approval by a Secretary.'); return false; }
+    renderMembers({ name: p.full_name || ('Bro. ' + u.email), rank: p.masonic_rank || rankName(p.rank_level), tier: p.rank_level || 1 });
+    return true;
+  }
+
+  doLogin = async function(e){
+    e.preventDefault();
+    var email = document.getElementById('li-email').value.trim();
+    var pass  = document.getElementById('li-pass').value;
+    var res = await sb.auth.signInWithPassword({ email: email, password: pass });
+    if(res.error){ alert(res.error.message); return false; }
+    if(await showFromProfile()){ closeModal(); document.getElementById('members').scrollIntoView({behavior:'smooth'}); }
+    return false;
+  };
+
+  doRegister = async function(e){
+    e.preventDefault();
+    var els = document.getElementById('reg-form').querySelectorAll('input,select');
+    var name=els[0].value.trim(), email=els[1].value.trim(), pass=els[2].value, lodge=els[3].value, rank=els[4].value;
+    var res = await sb.auth.signUp({ email: email, password: pass,
+      options: { data: { full_name: name, requested_lodge: lodge, requested_rank: rank } } });
+    if(res.error){ alert(res.error.message); return false; }
+    closeModal();
+    alert('Thank you, ' + name + '. Your request has been received.\n\nIf email confirmation is on, please confirm via the link we sent. A Secretary will then approve your access.');
+    return false;
+  };
+
+  signOut = async function(){
+    await sb.auth.signOut();
+    document.getElementById('members').style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+
+  sb.auth.getSession().then(function(s){ if(s.data.session) showFromProfile(); });
+})();
 </script>
 </body>
 </html>
