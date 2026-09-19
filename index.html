@@ -369,6 +369,33 @@
   .btn-sm.danger:hover{background:rgba(176,64,58,.15);color:#e0857e}
   .dash-note{font-size:13px;color:rgba(244,239,227,.6);background:rgba(198,162,92,.07);border:1px solid rgba(198,162,92,.2);padding:12px 14px;border-radius:2px;line-height:1.5}
   @media(max-width:880px){.dash{grid-template-columns:1fr}.dash-nav{flex-direction:row;flex-wrap:wrap}.dash-form .row{grid-template-columns:1fr}}
+  /* ---------- homepage slider ---------- */
+  .slider-band{position:relative;height:clamp(320px,52vh,560px);background:#0a1526;overflow:hidden;border-bottom:1px solid rgba(198,162,92,.18)}
+  .slider{position:absolute;inset:0}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;background-size:cover;background-position:center;background-color:#0e1d33}
+  .slide.on{opacity:1}
+  .slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,30,.35),rgba(8,16,30,.68))}
+  .slide>*{position:relative;z-index:1}
+  .slide-cap{font-family:var(--serif);font-size:clamp(28px,5vw,58px);letter-spacing:.05em;color:var(--ivory);text-transform:uppercase;text-align:center;padding:0 24px;text-shadow:0 2px 22px rgba(0,0,0,.55)}
+  .sl-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:rgba(10,21,38,.42);border:1px solid var(--gold-dim);color:var(--gold-soft);width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:22px;line-height:1}
+  .sl-arrow:hover{background:rgba(10,21,38,.72);color:var(--ivory)}
+  .sl-prev{left:22px}.sl-next{right:22px}
+  .sl-dots{position:absolute;bottom:20px;left:0;right:0;display:flex;gap:10px;justify-content:center;z-index:3}
+  .sl-dots button{width:10px;height:10px;border-radius:50%;border:1px solid var(--gold-soft);background:transparent;cursor:pointer;padding:0}
+  .sl-dots button.on{background:var(--gold-soft)}
+  /* dues cards */
+  .du-yearsel{background:rgba(255,255,255,.06);border:1px solid var(--gold-dim);color:var(--ivory);padding:3px 8px;border-radius:2px;font-size:14px}
+  .dues-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-bottom:8px}
+  .dues-card{border:1px solid var(--line);background:rgba(255,255,255,.02);padding:16px 18px}
+  .dues-card.paid{border-color:rgba(120,170,120,.45);background:rgba(120,170,120,.06)}
+  .dc-name{font-family:var(--serif);font-size:19px;color:var(--ivory)}
+  .dc-lodge{font-size:12px;color:rgba(244,239,227,.6);margin-bottom:12px}
+  .dc-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .dc-row label{font-size:12px;color:var(--gold-soft)}
+  .dc-row input{width:96px;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:6px 8px;border-radius:2px;font-size:14px}
+  .du-toggle.on{border-color:rgba(120,170,120,.6);color:#9fca9f}
+  .dc-on{font-size:11px;color:rgba(244,239,227,.5);margin-top:8px}
+  @media(max-width:600px){.sl-arrow{width:38px;height:38px}}
 </style>
 </head>
 <body>
@@ -466,6 +493,13 @@
     </div>
     <div class="estd">Constituted 1870</div>
   </div>
+</section>
+
+<section class="slider-band" id="slider">
+  <div class="slider" id="sl-track"></div>
+  <button class="sl-arrow sl-prev" id="sl-prev" type="button" aria-label="Previous">&lsaquo;</button>
+  <button class="sl-arrow sl-next" id="sl-next" type="button" aria-label="Next">&rsaquo;</button>
+  <div class="sl-dots" id="sl-dots"></div>
 </section>
 
 <section class="light pad" id="welcome">
@@ -1125,7 +1159,10 @@ window.PGLDash = (function(){
     {id:'overview',  label:'Overview',  min:1},
     {id:'notices',   label:'Notices',   min:1},
     {id:'calendar',  label:'Calendar',  min:1},
+    {id:'documents', label:'Documents', min:1},
+    {id:'dues',      label:'Dues',      min:2},
     {id:'directory', label:'Directory', min:1},
+    {id:'media',     label:'Slider',    min:2},
     {id:'approvals', label:'Approvals', min:3}
   ];
 
@@ -1145,7 +1182,10 @@ window.PGLDash = (function(){
     if(id==='overview')  return overview();
     if(id==='notices')   return notices();
     if(id==='calendar')  return calendar();
+    if(id==='documents') return documents();
+    if(id==='dues')      return dues();
     if(id==='directory') return directory();
+    if(id==='media')     return media();
     if(id==='approvals') return approvals();
   }
 
@@ -1272,8 +1312,188 @@ window.PGLDash = (function(){
     });
   }
 
+  // ---------- documents ----------
+  async function documents(){
+    var canUp=tier>=2;
+    var form=canUp?'<div class="dash-form"><h4>Upload a document</h4>'+
+      '<div class="field"><label>Title</label><input id="dc-title" type="text" placeholder="Summons \u2014 October meeting"></div>'+
+      '<div class="field"><label>File</label><input id="dc-file" type="file" accept="application/pdf,image/*"></div>'+
+      '<div class="field"><label>Visible to</label><select id="dc-level"><option value="1">Members</option><option value="2">Officers</option></select></div>'+
+      '<button class="btn btn-gold" id="dc-add" type="button">Upload</button><div class="dash-note" id="dc-status" style="margin-top:10px;display:none"></div></div>':'';
+    main('<h3 class="dash-h">Documents</h3><p class="dash-sub">Summonses, minutes and circulars \u2014 download by rank.</p><ul class="dash-list" id="dc-list"><li class="dash-empty">Loading\u2026</li></ul>'+form);
+    if(!sb()){ document.getElementById('dc-list').innerHTML='<li>'+noConn('access documents')+'</li>'; return; }
+    await loadDocs();
+    var add=document.getElementById('dc-add');
+    if(add) add.addEventListener('click', async function(){
+      var file=document.getElementById('dc-file').files[0];
+      if(!val('dc-title')||!file){ alert('A title and a file are required.'); return; }
+      var st=document.getElementById('dc-status'); st.style.display='block'; st.textContent='Uploading\u2026'; add.disabled=true;
+      var path='docs/'+Date.now()+'_'+file.name.replace(/[^A-Za-z0-9._-]/g,'_');
+      var up=await sb().storage.from('documents').upload(path,file);
+      if(up.error){ st.textContent=up.error.message; add.disabled=false; return; }
+      var meta={ title:val('dc-title'), path:path, min_level:parseInt(val('dc-level'),10)||1 };
+      try{ var u=(await sb().auth.getUser()).data.user; if(u) meta.uploaded_by=u.id; }catch(e){}
+      var r=await sb().from('documents').insert(meta); add.disabled=false;
+      if(r.error){ st.textContent=r.error.message; return; }
+      st.style.display='none'; document.getElementById('dc-title').value=''; document.getElementById('dc-file').value='';
+      await loadDocs();
+    });
+  }
+  async function loadDocs(){
+    var ul=document.getElementById('dc-list'); if(!ul)return;
+    var r=await sb().from('documents').select('*').order('created_at',{ascending:false});
+    var rows=r.data||[];
+    ul.innerHTML=rows.map(function(d){
+      return '<li><div class="t">'+esc(d.title)+'<span class="badge">'+(LVL[d.min_level]||'Members')+'</span></div>'+
+        '<div style="margin-top:9px;display:flex;gap:8px"><button class="btn-sm" data-dl="'+esc(d.path)+'">Download</button>'+
+        (tier>=2?'<button class="btn-sm danger" data-deldoc="'+d.id+'" data-path="'+esc(d.path)+'">Delete</button>':'')+'</div></li>';
+    }).join('')||'<li class="dash-empty">No documents yet.</li>';
+    ul.querySelectorAll('[data-dl]').forEach(function(b){ b.addEventListener('click', async function(){
+      var s2=await sb().storage.from('documents').createSignedUrl(b.dataset.dl,120);
+      if(s2.error){ alert(s2.error.message); return; } window.open(s2.data.signedUrl,'_blank');
+    }); });
+    ul.querySelectorAll('[data-deldoc]').forEach(function(b){ b.addEventListener('click', async function(){
+      await sb().storage.from('documents').remove([b.dataset.path]);
+      await sb().from('documents').delete().eq('id',b.dataset.deldoc); await loadDocs();
+    }); });
+  }
+
+  // ---------- dues ----------
+  async function dues(){
+    var yr=window.__duesYear||new Date().getFullYear(); window.__duesYear=yr;
+    main('<h3 class="dash-h">Membership &amp; dues</h3><p class="dash-sub">Track yearly dues by member. Year: <select id="du-year" class="du-yearsel"></select></p>'+
+      '<div class="stat-row" id="du-stats"></div><div class="dues-cards" id="du-cards"><div class="dash-empty">Loading\u2026</div></div>'+
+      '<div class="dash-form"><h4>Add a member</h4><div class="row"><div class="field"><label>Full name</label><input id="du-name" type="text" placeholder="Bro. John Smith"></div>'+
+      '<div class="field"><label>Lodge</label><select id="du-lodge"><option value="">\u2014</option><option value="5">Lodge V</option><option value="32">Lodge 32</option><option value="44">Lodge 44</option><option value="116">Lodge 116</option><option value="642">Lodge 642</option></select></div></div>'+
+      '<button class="btn btn-gold" id="du-add" type="button">Add member</button></div>');
+    if(!sb()){ document.getElementById('du-cards').innerHTML=noConn('manage dues'); return; }
+    var sel=document.getElementById('du-year'), y=new Date().getFullYear(), o='';
+    for(var i=y+1;i>=y-4;i--) o+='<option value="'+i+'"'+(i===yr?' selected':'')+'>'+i+'</option>';
+    sel.innerHTML=o; sel.addEventListener('change',function(){ window.__duesYear=parseInt(sel.value,10); dues(); });
+    var add=document.getElementById('du-add');
+    if(add) add.addEventListener('click', async function(){
+      if(!val('du-name')){ alert('A name is required.'); return; }
+      var m={ full_name:val('du-name') }; var l=val('du-lodge'); if(l) m.lodge_id=parseInt(l,10);
+      var r=await sb().from('dues_members').insert(m); if(r.error){ alert(r.error.message); return; }
+      document.getElementById('du-name').value=''; dues();
+    });
+    await loadDues(yr);
+  }
+  async function loadDues(yr){
+    var wrap=document.getElementById('du-cards'); if(!wrap)return;
+    var mr=await sb().from('dues_members').select('id,full_name,lodges(name)').eq('active',true).order('full_name');
+    if(mr.error){ wrap.innerHTML='<div class="dash-note">'+esc(mr.error.message)+'</div>'; return; }
+    var members=mr.data||[];
+    var dr=await sb().from('dues').select('*').eq('year',yr);
+    var map={}; (dr.data||[]).forEach(function(d){ map[d.member_id]=d; });
+    var paid=0, collected=0;
+    wrap.innerHTML=members.map(function(m){
+      var d=map[m.id]||{paid:false,amount:''};
+      if(d.paid){ paid++; collected+=parseFloat(d.amount||0); }
+      return '<div class="dues-card'+(d.paid?' paid':'')+'" data-mid="'+m.id+'">'+
+        '<div class="dc-name">'+esc(m.full_name)+'</div><div class="dc-lodge">'+esc((m.lodges&&m.lodges.name)||'')+'</div>'+
+        '<div class="dc-row"><label>Amount \u20ac</label><input class="du-amt" type="number" step="0.01" value="'+(d.amount||'')+'"></div>'+
+        '<button class="btn-sm du-toggle '+(d.paid?'on':'')+'" type="button">'+(d.paid?'Paid \u2713':'Mark paid')+'</button>'+
+        (d.paid_on?'<div class="dc-on">Paid '+esc(d.paid_on)+'</div>':'')+'</div>';
+    }).join('')||'<div class="dash-empty">No members yet \u2014 add one below.</div>';
+    var st=document.getElementById('du-stats');
+    if(st) st.innerHTML='<div class="stat"><div class="n">'+members.length+'</div><div class="l">Members</div></div>'+
+      '<div class="stat"><div class="n">'+paid+'</div><div class="l">Paid '+yr+'</div></div>'+
+      '<div class="stat"><div class="n">'+(members.length-paid)+'</div><div class="l">Outstanding</div></div>'+
+      '<div class="stat"><div class="n">\u20ac'+collected.toFixed(0)+'</div><div class="l">Collected</div></div>';
+    wrap.querySelectorAll('.dues-card').forEach(function(card){
+      var mid=parseInt(card.dataset.mid,10), amt=card.querySelector('.du-amt'), tg=card.querySelector('.du-toggle');
+      tg.addEventListener('click', async function(){
+        var isPaid=!tg.classList.contains('on');
+        var p={ member_id:mid, year:yr, paid:isPaid, amount:parseFloat(amt.value||0)||0, paid_on:isPaid?new Date().toISOString().slice(0,10):null };
+        var r=await sb().from('dues').upsert(p,{onConflict:'member_id,year'});
+        if(r.error){ alert(r.error.message); return; } loadDues(yr);
+      });
+      amt.addEventListener('change', async function(){
+        var ex=map[mid];
+        var p={ member_id:mid, year:yr, amount:parseFloat(amt.value||0)||0, paid:ex?ex.paid:false, paid_on:ex?ex.paid_on:null };
+        await sb().from('dues').upsert(p,{onConflict:'member_id,year'});
+      });
+    });
+  }
+
+  // ---------- media / slider ----------
+  async function media(){
+    main('<h3 class="dash-h">Homepage slider</h3><p class="dash-sub">Images shown in the slider on the home page.</p><ul class="dash-list" id="sl-list"><li class="dash-empty">Loading\u2026</li></ul>'+
+      '<div class="dash-form"><h4>Add a slide</h4><div class="field"><label>Image</label><input id="slm-file" type="file" accept="image/*"></div>'+
+      '<div class="field"><label>Caption</label><input id="slm-cap" type="text" placeholder="Authentic Friendship"></div>'+
+      '<button class="btn btn-gold" id="slm-add" type="button">Add slide</button><div class="dash-note" id="slm-status" style="margin-top:10px;display:none"></div></div>');
+    if(!sb()){ document.getElementById('sl-list').innerHTML='<li>'+noConn('manage slides')+'</li>'; return; }
+    await loadSlidesAdmin();
+    var add=document.getElementById('slm-add');
+    if(add) add.addEventListener('click', async function(){
+      var file=document.getElementById('slm-file').files[0]; if(!file){ alert('Choose an image.'); return; }
+      var st=document.getElementById('slm-status'); st.style.display='block'; st.textContent='Uploading\u2026'; add.disabled=true;
+      var path='slides/'+Date.now()+'_'+file.name.replace(/[^A-Za-z0-9._-]/g,'_');
+      var up=await sb().storage.from('media').upload(path,file);
+      if(up.error){ st.textContent=up.error.message; add.disabled=false; return; }
+      var pub=sb().storage.from('media').getPublicUrl(path).data.publicUrl;
+      var r=await sb().from('slides').insert({ image_url:pub, caption:val('slm-cap')||null }); add.disabled=false;
+      if(r.error){ st.textContent=r.error.message; return; }
+      st.style.display='none'; document.getElementById('slm-cap').value=''; document.getElementById('slm-file').value='';
+      await loadSlidesAdmin(); if(window.PGLSlider) PGLSlider.load();
+    });
+  }
+  async function loadSlidesAdmin(){
+    var ul=document.getElementById('sl-list'); if(!ul)return;
+    var r=await sb().from('slides').select('*').order('sort').order('created_at');
+    var rows=r.data||[];
+    ul.innerHTML=rows.map(function(sl){
+      return '<li style="display:flex;gap:14px;align-items:center"><img src="'+esc(sl.image_url)+'" alt="" style="width:84px;height:52px;object-fit:cover;border:1px solid var(--gold-dim)">'+
+        '<div style="flex:1"><div class="t">'+esc(sl.caption||'(no caption)')+'</div></div>'+
+        '<button class="btn-sm danger" data-delslide="'+sl.id+'" type="button">Remove</button></li>';
+    }).join('')||'<li class="dash-empty">No slides yet \u2014 add one below.</li>';
+    ul.querySelectorAll('[data-delslide]').forEach(function(b){ b.addEventListener('click', async function(){ await sb().from('slides').delete().eq('id',b.dataset.delslide); await loadSlidesAdmin(); if(window.PGLSlider) PGLSlider.load(); }); });
+  }
+
   return { build:build, clear:clear };
 })();
+</script>
+<!-- ===== homepage slider (reads slides table; falls back to emblem slides) ===== -->
+<script>
+window.PGLSlider=(function(){
+  var slides=[], idx=0, timer=null;
+  var DEF=[{caption:'Brotherly Love'},{caption:'Relief'},{caption:'Truth'}];
+  function emblem(){ return '<svg viewBox="0 0 100 100" style="width:92px;height:92px;color:var(--gold);opacity:.7"><use href="#sc"/></svg>'; }
+  function render(){
+    var track=document.getElementById('sl-track'), dots=document.getElementById('sl-dots'); if(!track) return;
+    var list=slides.length?slides:DEF;
+    track.innerHTML=list.map(function(s,i){
+      var bg=s.image_url?'background-image:url('+s.image_url+')':'';
+      return '<div class="slide'+(i===0?' on':'')+'" style="'+bg+'">'+(s.image_url?'':emblem())+(s.caption?'<div class="slide-cap">'+s.caption+'</div>':'')+'</div>';
+    }).join('');
+    if(dots){ dots.innerHTML=list.map(function(s,i){ return '<button type="button" data-i="'+i+'" class="'+(i===0?'on':'')+'"></button>'; }).join('');
+      dots.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ go(parseInt(b.dataset.i,10)); }); }); }
+    idx=0; auto();
+  }
+  function go(n){
+    var track=document.getElementById('sl-track'), dots=document.getElementById('sl-dots'); if(!track) return;
+    var s=track.querySelectorAll('.slide'); if(!s.length) return;
+    idx=(n+s.length)%s.length;
+    s.forEach(function(el,i){ el.classList.toggle('on',i===idx); });
+    if(dots) dots.querySelectorAll('button').forEach(function(el,i){ el.classList.toggle('on',i===idx); });
+    auto();
+  }
+  function auto(){ if(timer) clearTimeout(timer); timer=setTimeout(function(){ go(idx+1); },5000); }
+  async function load(){
+    slides=[];
+    if(window.sbClient){ try{ var r=await window.sbClient.from('slides').select('*').eq('active',true).order('sort').order('created_at'); slides=r.data||[]; }catch(e){} }
+    render();
+  }
+  function init(){
+    var p=document.getElementById('sl-prev'), n=document.getElementById('sl-next');
+    if(p) p.addEventListener('click',function(){ go(idx-1); });
+    if(n) n.addEventListener('click',function(){ go(idx+1); });
+    load();
+  }
+  return { init:init, load:load };
+})();
+if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', PGLSlider.init); } else { PGLSlider.init(); }
 </script>
 </body>
 </html>
