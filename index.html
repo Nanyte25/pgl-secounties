@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Masonic Province of the South Eastern Counties</title>
-<meta name="description" content="The Provincial Lodge of the South Eastern Counties, under the Lodge of Ancient Free and Accepted Masons of Ireland.">
+<meta name="description" content="The Masonic Province of the South Eastern Counties, under the Lodge of Ancient Free and Accepted Masons of Ireland.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -258,6 +258,57 @@
   .gallery figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
   .gallery figcaption{z-index:3}
 
+  /* ---------- calendar widget ---------- */
+  .cal-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:start}
+  .cal-widget{border:1px solid var(--line);background:#fff;padding:20px 22px}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .cal-head button{background:none;border:1px solid var(--gold-dim);color:#a6813a;width:34px;height:34px;border-radius:2px;cursor:pointer;font-size:18px;line-height:1}
+  .cal-head button:hover{border-color:var(--gold);color:var(--navy)}
+  .cal-title{font-family:var(--serif);font-size:22px;color:var(--navy)}
+  .cal-dow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+  .cal-dow span{text-align:center;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#a6813a}
+  .cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .cal-day{position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:13.5px;color:var(--ink-soft);border:1px solid transparent;border-radius:2px}
+  .cal-day.pad{color:transparent}
+  .cal-day.today{border-color:var(--gold-dim);color:var(--navy);font-weight:600}
+  .cal-day.has{cursor:pointer;color:var(--navy)}
+  .cal-day.has:hover{background:rgba(198,162,92,.08)}
+  .cal-day.sel{background:rgba(198,162,92,.16)}
+  .cal-day .dots{position:absolute;bottom:5px;left:0;right:0;display:flex;gap:3px;justify-content:center}
+  .cal-day .dot{width:5px;height:5px;border-radius:50%}
+  .dot.meet,.lg-meet{background:var(--gold)}
+  .dot.event,.lg-event{background:#b0403a}
+  .cal-legend{margin-top:14px;font-size:11.5px;color:var(--ink-soft);display:flex;gap:16px;flex-wrap:wrap}
+  .cal-legend .lg-meet,.cal-legend .lg-event{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}
+  .cal-up-h{font-family:var(--serif);font-size:24px;color:var(--navy);margin-bottom:10px}
+  .light .upcoming li{border-color:rgba(198,162,92,.25)}
+  .light .upcoming .date{border-color:var(--gold-dim)}
+  .light .upcoming .date .d{color:#a6813a}
+  .light .upcoming .date .m{color:var(--ink-soft)}
+  .light .upcoming .what{color:var(--navy)}
+  .light .upcoming .what small{color:var(--ink-soft)}
+  .gcal{margin-top:40px;border:1px solid var(--line);background:#fff;overflow:hidden}
+  .gcal iframe{display:block;width:100%;border:0;height:520px}
+  .gcal .ph2{padding:30px;text-align:center;color:var(--ink-soft);font-size:14px;line-height:1.6}
+  /* ---------- calendar manager ---------- */
+  #cal-manager{margin-top:26px;border-top:1px solid rgba(198,162,92,.2);padding-top:26px}
+  .mgr-h{font-family:var(--serif);font-size:24px;color:var(--ivory);margin-bottom:16px}
+  .mgr-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+  .mgr-form .field.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mgr-form textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:11px 13px;font-family:var(--sans);font-size:14px;border-radius:2px;resize:vertical}
+  .mgr-form textarea:focus{outline:none;border-color:var(--gold)}
+  .mgr-form .btn-gold{width:100%;margin-top:4px;padding:12px}
+  .mgr-list h4{font-family:var(--serif);font-size:19px;color:var(--gold-soft);margin:0 0 12px;font-weight:500}
+  .mgr-list ul{list-style:none;margin:0;padding:0}
+  .mgr-list li{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid rgba(198,162,92,.18)}
+  .mgr-list .ev-when{font-size:12px;letter-spacing:.03em;color:var(--gold-soft)}
+  .mgr-list .ev-t{font-family:var(--serif);font-size:18px;color:var(--ivory);margin-top:2px}
+  .mgr-list .ev-meta{font-size:12.5px;color:rgba(244,239,227,.6);margin-top:2px}
+  .mgr-badge{font-size:10px;letter-spacing:.08em;border:1px solid var(--gold-dim);color:var(--gold-soft);padding:1px 8px;border-radius:20px;margin-left:8px;text-transform:uppercase}
+  .mgr-list button.del{background:none;border:1px solid rgba(176,64,58,.55);color:#e0857e;border-radius:2px;cursor:pointer;font-size:12px;padding:5px 11px;flex:none}
+  .mgr-list button.del:hover{background:rgba(176,64,58,.16)}
+  @media(max-width:880px){.mgr-grid{grid-template-columns:1fr}}
+
   /* ---------- preloader ---------- */
   #loader{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
     background:radial-gradient(120% 90% at 50% 42%, #0e1d33, #070f1e 72%);transition:opacity .8s ease,visibility .8s ease}
@@ -283,6 +334,41 @@
     .ld-draw{animation:none;stroke-dashoffset:0}
     .ld-hinge,.ld-g,.loader-text,.loader-motto{animation:none;opacity:1}
   }
+  /* ---------- members dashboard ---------- */
+  .dash{display:grid;grid-template-columns:200px 1fr;gap:28px;margin-top:6px}
+  .dash-nav{display:flex;flex-direction:column;gap:4px}
+  .dash-nav button{text-align:left;background:none;border:1px solid transparent;border-left:2px solid transparent;color:rgba(244,239,227,.7);font-family:var(--sans);font-size:14px;padding:11px 14px;cursor:pointer;letter-spacing:.02em;border-radius:2px}
+  .dash-nav button:hover{color:var(--ivory);background:rgba(198,162,92,.06)}
+  .dash-nav button.on{color:var(--gold-soft);border-left-color:var(--gold);background:rgba(198,162,92,.1)}
+  .dash-main{min-height:300px}
+  .dash-h{font-family:var(--serif);font-size:27px;color:var(--ivory);margin:0 0 4px}
+  .dash-sub{font-size:13px;color:rgba(244,239,227,.6);margin:0 0 22px}
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:8px}
+  .stat{border:1px solid var(--line);background:rgba(255,255,255,.02);padding:18px 20px}
+  .stat .n{font-family:var(--serif);font-size:36px;color:var(--gold-soft);line-height:1}
+  .stat .l{font-size:12px;letter-spacing:.05em;color:rgba(244,239,227,.6);margin-top:6px}
+  .dash-list{list-style:none;margin:0;padding:0}
+  .dash-list li{padding:13px 0;border-bottom:1px solid rgba(198,162,92,.16)}
+  .dash-list .t{font-family:var(--serif);font-size:18px;color:var(--ivory)}
+  .dash-list .m{font-size:12.5px;color:rgba(244,239,227,.62);margin-top:3px;line-height:1.5}
+  .dash-list .badge,.dash .badge{font-size:10px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--gold-dim);color:var(--gold-soft);padding:1px 8px;border-radius:20px;margin-left:8px}
+  .dash-form{border:1px solid var(--line);background:rgba(255,255,255,.02);padding:18px 20px;margin-top:22px}
+  .dash-form h4{font-family:var(--serif);font-size:19px;color:var(--gold-soft);margin:0 0 12px;font-weight:500}
+  .dash-form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .dash-form textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:10px 12px;font-family:var(--sans);font-size:14px;border-radius:2px;resize:vertical}
+  .dash-form textarea:focus{outline:none;border-color:var(--gold)}
+  .dash-form .btn-gold{margin-top:6px}
+  .dash-table{width:100%;border-collapse:collapse;font-size:14px}
+  .dash-table th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-soft);padding:8px 10px;border-bottom:1px solid var(--gold-dim);font-weight:500}
+  .dash-table td{padding:11px 10px;border-bottom:1px solid rgba(198,162,92,.14);color:rgba(244,239,227,.85);vertical-align:middle}
+  .dash-table select{background:rgba(255,255,255,.04);border:1px solid var(--gold-dim);color:var(--ivory);padding:6px 8px;font-family:var(--sans);font-size:13px;border-radius:2px}
+  .dash-empty{color:rgba(244,239,227,.5);font-size:14px;padding:18px 0}
+  .btn-sm{font-size:12.5px;padding:6px 12px;border-radius:2px;cursor:pointer;border:1px solid var(--gold-dim);background:none;color:var(--gold-soft);font-family:var(--sans)}
+  .btn-sm:hover{border-color:var(--gold);color:var(--ivory)}
+  .btn-sm.danger{border-color:rgba(176,64,58,.5);color:#e0857e}
+  .btn-sm.danger:hover{background:rgba(176,64,58,.15);color:#e0857e}
+  .dash-note{font-size:13px;color:rgba(244,239,227,.6);background:rgba(198,162,92,.07);border:1px solid rgba(198,162,92,.2);padding:12px 14px;border-radius:2px;line-height:1.5}
+  @media(max-width:880px){.dash{grid-template-columns:1fr}.dash-nav{flex-direction:row;flex-wrap:wrap}.dash-form .row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -518,17 +604,30 @@
 <section class="light pad" id="calendar">
   <div class="wrap">
     <div class="lead-row reveal">
-      <div><div class="eyebrow">Diary of the Province</div><h2 class="h-lead">Forthcoming meetings</h2></div>
-      <p>Provincial and District dates, generated automatically. On the live site these sync from a shared Google Calendar the Secretary keeps up to date.</p>
+      <div><div class="eyebrow">Diary of the Province</div><h2 class="h-lead">The calendar</h2></div>
+      <p>Provincial and District meeting dates are generated automatically; special events are added by officers in the members’ area. A shared Google Calendar can also be embedded below.</p>
     </div>
     <div class="cal-grid">
-      <ul class="upcoming reveal" id="upcoming"></ul>
-      <div class="cal-embed reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        <p style="color:var(--ink-soft)">The full month view embeds a shared <b style="color:#a6813a">Google Calendar</b>. Brethren can tap <em>+ Add</em> to subscribe on their own phone.</p>
-        <p style="font-size:12.5px;color:var(--ink-soft)">Drop the Secretary's calendar ID into <code style="color:#8a6a2a">&lt;iframe src="calendar.google.com/…"&gt;</code> and it appears here.</p>
+      <div class="cal-widget reveal">
+        <div class="cal-head">
+          <button id="cal-prev" type="button" aria-label="Previous month">&lsaquo;</button>
+          <div id="cal-title" class="cal-title"></div>
+          <button id="cal-next" type="button" aria-label="Next month">&rsaquo;</button>
+        </div>
+        <div class="cal-dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+        <div id="cal-days" class="cal-days"></div>
+        <div class="cal-legend"><span><span class="lg-meet"></span>Provincial / District meeting</span><span><span class="lg-event"></span>Event</span></div>
+      </div>
+      <div class="reveal">
+        <h3 class="cal-up-h">Upcoming</h3>
+        <ul class="upcoming" id="upcoming"></ul>
       </div>
     </div>
+    <div class="gcal reveal" id="gcal">
+      <div class="ph2">A shared <b style="color:#a6813a">Google Calendar</b> can be embedded here for a full month view brethren can subscribe to. Paste its ID into the iframe in <code style="color:#8a6a2a">index.html</code> (see the comment in this section).</div>
+    </div>
+    <!-- Google Calendar: replace the <div class="ph2"> above with this and set your calendar ID:
+    <iframe src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID&ctz=Europe/Dublin&mode=MONTH" style="border:0;width:100%;height:520px"></iframe> -->
   </div>
 </section>
 
@@ -656,8 +755,10 @@
       <div class="who"><div class="n" id="m-name">Welcome, Brother</div><div class="r" id="m-rank">Master Mason</div></div>
       <button class="btn btn-ghost" onclick="signOut()">Sign out</button>
     </div>
-    <div class="tiles" id="m-tiles"></div>
-    <p style="font-size:12.5px;color:rgba(244,239,227,.45);margin-top:22px">Access shown here is illustrative. On the live site each tile is gated server-side by your rank, so restricted material never reaches a browser that isn't entitled to it.</p>
+    <div class="dash">
+      <aside class="dash-nav" id="dash-nav"></aside>
+      <div class="dash-main" id="dash-main"></div>
+    </div>
   </div>
 </section>
 
@@ -683,7 +784,7 @@
     <div class="foot">
       <div>
         <svg class="emblem" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg>
-        <p>The Provincial Lodge of the South Eastern Counties, under the Lodge of Ancient Free &amp; Accepted Masons of Ireland.</p>
+        <p>The Masonic Province of the South Eastern Counties, under the Lodge of Ancient Free &amp; Accepted Masons of Ireland.</p>
       </div>
       <div><h5>The Province</h5><ul>
         <li><a href="#about">About Freemasonry</a></li>
@@ -765,20 +866,14 @@
     {min:1, title:'Summonses', body:'Download the summons for each forthcoming meeting of your lodge.'},
     {min:1, title:'Member Directory', body:'Contact details for the officers and brethren of the Province.'},
     {min:2, title:'Officer Resources', body:'Ritual aids, installation guidance and the roll of Provincial officers.'},
-    {min:2, title:'Meeting Minutes', body:'Minutes and agendas of the Province’s meetings.'},
+    {min:2, title:'Meeting Minutes', body:'Minutes and agendas of the Province\u2019s meetings.'},
     {min:3, title:'Administration', body:'Approve new registrations, manage members, edit events and pages.'}
   ];
   function renderMembers(user){
     document.getElementById('m-name').textContent = 'Welcome, ' + user.name;
     document.getElementById('m-rank').textContent = user.rank;
-    const wrap = document.getElementById('m-tiles'); wrap.innerHTML = '';
-    TILES.forEach(t=>{
-      const ok = user.tier >= t.min;
-      const lvl = t.min===1?'Open to all members':t.min===2?'Officers & above':'Administrators only';
-      wrap.insertAdjacentHTML('beforeend',
-        `<div class="tile ${ok?'':'locked'}"><div class="lvl">${ok?lvl:'🔒 '+lvl}</div><h4>${t.title}</h4><p>${ok?t.body:'Restricted — your rank does not grant access to this material.'}</p></div>`);
-    });
     document.getElementById('members').style.display='block';
+    if(window.PGLDash) PGLDash.build({tier:user.tier||1, name:user.name});
   }
   function doLogin(e){
     e.preventDefault();
@@ -802,23 +897,7 @@
   }
   try{ const saved=JSON.parse(localStorage.getItem('pgl_user')||'null'); if(saved) renderMembers(saved); }catch(_){}
 
-  function lastThursday(year, month){ const d=new Date(year, month+1, 0); while(d.getDay()!==4) d.setDate(d.getDate()-1); return d; }
-  (function buildUpcoming(){
-    const now=new Date(), out=[];
-    const pgl=[ {m:0,loc:'Waterford Lodge Rooms'},{m:3,loc:'Carlow / Clonmel / Kilkenny (rotating)'},{m:5,loc:'Waterford Lodge Rooms'},{m:9,loc:'Carlow / Clonmel / Kilkenny (rotating)'} ];
-    for(let y=now.getFullYear(); y<=now.getFullYear()+1; y++){
-      pgl.forEach(p=>{ const dt=lastThursday(y,p.m); if(dt>=now) out.push({dt, title:'Provincial Meeting', sub:p.loc}); });
-    }
-    const rac=[ {m:2,loc:'Waterford'},{m:8,loc:'Kilkenny'},{m:10,loc:'Clonmel'} ];
-    for(let y=now.getFullYear(); y<=now.getFullYear()+1; y++){
-      rac.forEach(r=>{ const dt=new Date(y,r.m,15); if(dt>=now) out.push({dt, title:'District Royal Arch Chapter', sub:r.loc+' — date confirmed by summons'}); });
-    }
-    out.sort((a,b)=>a.dt-b.dt);
-    const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    document.getElementById('upcoming').innerHTML = out.slice(0,5).map(o=>`
-      <li><div class="date"><div class="d">${o.dt.getDate()}</div><div class="m">${M[o.dt.getMonth()]}</div></div>
-      <div class="what">${o.title}<small>${o.dt.toLocaleDateString('en-IE',{weekday:'long'})} · ${o.sub}</small></div></li>`).join('');
-  })();
+/* calendar handled by PGLCal (see script below) */
 
   const lb=document.getElementById('lightbox');
   document.querySelectorAll('.gallery figure').forEach(f=>{ f.addEventListener('click',()=>{ document.getElementById('lb-cap').textContent=f.dataset.cap; lb.classList.add('on'); }); });
@@ -863,6 +942,7 @@
     if(!p){ alert('No membership record was found for this account. Please contact the Provincial Secretary.'); return false; }
     if(!p.approved){ alert('Your account is registered and is awaiting approval by a Secretary.'); return false; }
     renderMembers({ name: p.full_name || ('Bro. ' + u.email), rank: p.masonic_rank || rankName(p.rank_level), tier: p.rank_level || 1 });
+    if(window.PGLCal) PGLCal.onLogin(p.rank_level||1);
     return true;
   }
 
@@ -890,11 +970,309 @@
 
   signOut = async function(){
     await sb.auth.signOut();
+    if(window.PGLCal) PGLCal.onLogout();
+    if(window.PGLDash) PGLDash.clear();
     document.getElementById('members').style.display='none';
     window.scrollTo({top:0,behavior:'smooth'});
   };
 
   sb.auth.getSession().then(function(s){ if(s.data.session) showFromProfile(); });
+})();
+</script>
+<!-- ===== calendar + manager (native events via Supabase; falls back to computed meetings) ===== -->
+<script>
+window.PGLCal = (function(){
+  var viewY, viewM, selectedKey=null, userTier=0, dbEvents=[];
+  var M=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var LVL={0:'Public',1:'Members',2:'Officers'};
+
+  function lastThursday(y,m){var d=new Date(y,m+1,0);while(d.getDay()!==4)d.setDate(d.getDate()-1);return d;}
+  function meetings(){
+    var out=[], y0=new Date().getFullYear();
+    var pgl=[{m:0,loc:'Waterford Lodge Rooms'},{m:3,loc:'Carlow / Clonmel / Kilkenny (rotating)'},{m:5,loc:'Waterford Lodge Rooms'},{m:9,loc:'Carlow / Clonmel / Kilkenny (rotating)'}];
+    var rac=[{m:2,loc:'Waterford'},{m:8,loc:'Kilkenny'},{m:10,loc:'Clonmel'}];
+    for(var y=y0;y<=y0+2;y++){
+      pgl.forEach(function(p){out.push({dt:lastThursday(y,p.m),title:'Provincial Meeting',sub:p.loc,kind:'meet'});});
+      rac.forEach(function(r){out.push({dt:new Date(y,r.m,15),title:'District Royal Arch Chapter',sub:r.loc+' \u2014 date confirmed by summons',kind:'meet'});});
+    }
+    return out;
+  }
+  function all(){ return meetings().concat(dbEvents); }
+
+  async function loadDb(){
+    dbEvents=[];
+    if(!window.sbClient) return;
+    try{
+      var r=await window.sbClient.from('events').select('*').order('starts_at');
+      (r.data||[]).forEach(function(e){
+        dbEvents.push({id:e.id, dt:new Date(e.starts_at), title:e.title, sub:e.location||'', body:e.body||'', min_level:e.min_level||0, kind:'event'});
+      });
+    }catch(_){}
+  }
+
+  function renderGrid(){
+    var host=document.getElementById('cal-days'); if(!host) return;
+    document.getElementById('cal-title').textContent=M[viewM]+' '+viewY;
+    var first=new Date(viewY,viewM,1);
+    var startDow=(first.getDay()+6)%7;
+    var days=new Date(viewY,viewM+1,0).getDate();
+    var tkey=(function(d){return d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();})(new Date());
+    var map={};
+    all().forEach(function(e){ if(e.dt.getFullYear()===viewY && e.dt.getMonth()===viewM){ (map[e.dt.getDate()]=map[e.dt.getDate()]||[]).push(e); } });
+    var html='';
+    for(var i=0;i<startDow;i++) html+='<div class="cal-day pad"></div>';
+    for(var d=1;d<=days;d++){
+      var evs=map[d]||[], cls='cal-day'+(evs.length?' has':''), kd=viewY+'-'+viewM+'-'+d;
+      if(kd===tkey) cls+=' today';
+      if(kd===selectedKey) cls+=' sel';
+      var dots='';
+      if(evs.some(function(e){return e.kind==='meet';})) dots+='<span class="dot meet"></span>';
+      if(evs.some(function(e){return e.kind==='event';})) dots+='<span class="dot event"></span>';
+      html+='<div class="'+cls+'" data-day="'+d+'">'+d+(dots?'<span class="dots">'+dots+'</span>':'')+'</div>';
+    }
+    host.innerHTML=html;
+    host.querySelectorAll('.cal-day.has').forEach(function(c){
+      c.addEventListener('click',function(){ selectedKey=viewY+'-'+viewM+'-'+c.dataset.day; renderGrid(); renderUpcoming(new Date(viewY,viewM,parseInt(c.dataset.day,10))); });
+    });
+  }
+
+  function renderUpcoming(fromDate){
+    var ul=document.getElementById('upcoming'); if(!ul) return;
+    var from=fromDate?new Date(fromDate):new Date(); from.setHours(0,0,0,0);
+    var list=all().filter(function(e){return e.dt>=from;}).sort(function(a,b){return a.dt-b.dt;}).slice(0,6);
+    ul.innerHTML=list.map(function(o){
+      return '<li><div class="date"><div class="d">'+o.dt.getDate()+'</div><div class="m">'+MS[o.dt.getMonth()]+'</div></div>'+
+        '<div class="what">'+o.title+'<small>'+o.dt.toLocaleDateString('en-IE',{weekday:'long'})+(o.sub?' \u00b7 '+o.sub:'')+'</small></div></li>';
+    }).join('') || '<li style="color:var(--ink-soft)">No dates to show.</li>';
+  }
+
+  function renderManager(){
+    var box=document.getElementById('cal-manager'); if(!box) return;
+    if(userTier<2){ box.style.display='none'; return; }
+    box.style.display='block';
+    var ul=document.getElementById('ev-list');
+    var now=new Date(); now.setHours(0,0,0,0);
+    var evs=dbEvents.filter(function(e){return e.dt>=now;}).sort(function(a,b){return a.dt-b.dt;});
+    ul.innerHTML=evs.map(function(e){
+      return '<li><div><div class="ev-when">'+e.dt.toLocaleDateString('en-IE',{day:'numeric',month:'short',year:'numeric'})+' \u00b7 '+e.dt.toLocaleTimeString('en-IE',{hour:'2-digit',minute:'2-digit'})+'</div>'+
+        '<div class="ev-t">'+e.title+'<span class="mgr-badge">'+(LVL[e.min_level]||'Public')+'</span></div>'+
+        (e.sub?'<div class="ev-meta">'+e.sub+'</div>':'')+'</div>'+
+        '<button class="del" type="button" data-id="'+e.id+'">Delete</button></li>';
+    }).join('') || '<li style="color:rgba(244,239,227,.5)">No events yet \u2014 add one on the left.</li>';
+    ul.querySelectorAll('button.del').forEach(function(b){
+      b.addEventListener('click',async function(){
+        if(!window.sbClient) return;
+        b.disabled=true;
+        var r=await window.sbClient.from('events').delete().eq('id', b.dataset.id);
+        if(r.error){ alert(r.error.message); b.disabled=false; return; }
+        await reload();
+      });
+    });
+  }
+
+  async function addEvent(e){
+    e.preventDefault();
+    if(!window.sbClient){ alert('Please sign in first.'); return false; }
+    var date=document.getElementById('ev-date').value;
+    if(!date) return false;
+    var time=document.getElementById('ev-time').value||'19:30';
+    var payload={
+      title:document.getElementById('ev-title').value.trim(),
+      starts_at:new Date(date+'T'+time).toISOString(),
+      location:document.getElementById('ev-loc').value.trim()||null,
+      body:document.getElementById('ev-body').value.trim()||null,
+      min_level:parseInt(document.getElementById('ev-level').value,10)
+    };
+    try{ var u=(await window.sbClient.auth.getUser()).data.user; if(u) payload.created_by=u.id; }catch(_){}
+    var r=await window.sbClient.from('events').insert(payload);
+    if(r.error){ alert(r.error.message); return false; }
+    document.getElementById('ev-form').reset();
+    document.getElementById('ev-time').value='19:30';
+    await reload();
+    return false;
+  }
+
+  async function reload(){ await loadDb(); renderGrid(); renderUpcoming(); renderManager(); }
+
+  function init(){
+    var now=new Date(); viewY=now.getFullYear(); viewM=now.getMonth();
+    var p=document.getElementById('cal-prev'), n=document.getElementById('cal-next'), form=document.getElementById('ev-form');
+    if(p) p.addEventListener('click',function(){ viewM--; if(viewM<0){viewM=11;viewY--;} renderGrid(); });
+    if(n) n.addEventListener('click',function(){ viewM++; if(viewM>11){viewM=0;viewY++;} renderGrid(); });
+    if(form) form.addEventListener('submit',addEvent);
+    renderGrid(); renderUpcoming();
+    loadDb().then(function(){ renderGrid(); renderUpcoming(); renderManager(); });
+  }
+
+  return { init:init,
+    onLogin:function(tier){ userTier=tier||0; reload(); },
+    onLogout:function(){ userTier=0; reload(); } };
+})();
+if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', PGLCal.init); } else { PGLCal.init(); }
+</script>
+<!-- ===== members dashboard (Supabase-backed; rank-gated tabs) ===== -->
+<script>
+window.PGLDash = (function(){
+  var tier=0, active='overview';
+  function sb(){ return window.sbClient; }
+  function val(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+  function esc(x){ return String(x==null?'':x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function main(html){ var m=document.getElementById('dash-main'); if(m) m.innerHTML=html; return m; }
+  var LVL={0:'Public',1:'Members',2:'Officers'};
+
+  var TABS=[
+    {id:'overview',  label:'Overview',  min:1},
+    {id:'notices',   label:'Notices',   min:1},
+    {id:'calendar',  label:'Calendar',  min:1},
+    {id:'directory', label:'Directory', min:1},
+    {id:'approvals', label:'Approvals', min:3}
+  ];
+
+  function build(o){ tier=(o&&o.tier)||0; if(!TABS.some(function(t){return t.id===active && tier>=t.min;})) active='overview'; renderNav(); show(active); }
+  function clear(){ var n=document.getElementById('dash-nav'), m=document.getElementById('dash-main'); if(n)n.innerHTML=''; if(m)m.innerHTML=''; }
+
+  function renderNav(){
+    var n=document.getElementById('dash-nav'); if(!n) return;
+    n.innerHTML=TABS.filter(function(t){return tier>=t.min;}).map(function(t){
+      return '<button type="button" data-tab="'+t.id+'" class="'+(t.id===active?'on':'')+'">'+t.label+'</button>';
+    }).join('');
+    n.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ active=b.dataset.tab; renderNav(); show(active); }); });
+  }
+  function noConn(where){ return '<div class="dash-note">Sign in on the live site to '+where+'. (The preview can\u2019t reach the database.)</div>'; }
+
+  function show(id){
+    if(id==='overview')  return overview();
+    if(id==='notices')   return notices();
+    if(id==='calendar')  return calendar();
+    if(id==='directory') return directory();
+    if(id==='approvals') return approvals();
+  }
+
+  async function overview(){
+    main('<h3 class="dash-h">Overview</h3><p class="dash-sub">A snapshot of the Province.</p><div class="stat-row" id="ov"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('ov').innerHTML=noConn('see live figures'); return; }
+    var stats=[];
+    try{ var m=await sb().from('profiles').select('id',{count:'exact',head:true}).eq('approved',true); stats.push({n:m.count||0,l:'Members'}); }catch(e){}
+    try{ var ev=await sb().from('events').select('id',{count:'exact',head:true}).gte('starts_at',new Date().toISOString()); stats.push({n:ev.count||0,l:'Upcoming events'}); }catch(e){}
+    try{ var nz=await sb().from('notices').select('id',{count:'exact',head:true}); stats.push({n:nz.count||0,l:'Notices'}); }catch(e){}
+    if(tier>=3){ try{ var p=await sb().from('profiles').select('id',{count:'exact',head:true}).eq('approved',false); stats.push({n:p.count||0,l:'Pending approvals'}); }catch(e){} }
+    var el=document.getElementById('ov');
+    el.innerHTML=stats.length? stats.map(function(s){return '<div class="stat"><div class="n">'+s.n+'</div><div class="l">'+s.l+'</div></div>';}).join('')
+      : '<div class="dash-note">No data yet \u2014 add events and notices from the tabs on the left.</div>';
+  }
+
+  async function notices(){
+    var form = tier>=2 ? '<div class="dash-form"><h4>Post a notice</h4>'+
+      '<div class="field"><label>Title</label><input id="nz-title" type="text" placeholder="Provincial Communication"></div>'+
+      '<div class="field"><label>Body</label><textarea id="nz-body" rows="3" placeholder="Message to the brethren\u2026"></textarea></div>'+
+      '<div class="row"><div class="field"><label>Visible to</label><select id="nz-level"><option value="1">Members</option><option value="2">Officers</option><option value="0">Everyone</option></select></div>'+
+      '<div class="field"><label>Date (optional)</label><input id="nz-date" type="date"></div></div>'+
+      '<button class="btn btn-gold" id="nz-add" type="button">Post notice</button></div>' : '';
+    main('<h3 class="dash-h">Notices</h3><p class="dash-sub">Circulars and communications, shown according to your rank.</p><ul class="dash-list" id="nz-list"><li class="dash-empty">Loading\u2026</li></ul>'+form);
+    if(!sb()){ document.getElementById('nz-list').innerHTML='<li>'+noConn('read notices')+'</li>'; return; }
+    await loadNotices();
+    var add=document.getElementById('nz-add');
+    if(add) add.addEventListener('click', async function(){
+      if(!val('nz-title')){ alert('A title is required.'); return; }
+      var p={ title:val('nz-title'), body:val('nz-body')||null, min_level:parseInt(val('nz-level'),10)||1, category:'notice' };
+      var d=val('nz-date'); if(d) p.event_date=d;
+      add.disabled=true;
+      var r=await sb().from('notices').insert(p); add.disabled=false;
+      if(r.error){ alert(r.error.message); return; }
+      document.getElementById('nz-title').value=''; document.getElementById('nz-body').value='';
+      await loadNotices();
+    });
+  }
+  async function loadNotices(){
+    var ul=document.getElementById('nz-list'); if(!ul) return;
+    var r=await sb().from('notices').select('*').order('created_at',{ascending:false});
+    var rows=r.data||[];
+    ul.innerHTML=rows.map(function(n){
+      return '<li><div class="t">'+esc(n.title)+'<span class="badge">'+(LVL[n.min_level]||'Members')+'</span></div>'+
+        (n.body?'<div class="m">'+esc(n.body)+'</div>':'')+
+        (n.event_date?'<div class="m">'+esc(n.event_date)+'</div>':'')+
+        (tier>=3?'<button class="btn-sm danger" data-del="'+n.id+'" style="margin-top:9px">Delete</button>':'')+'</li>';
+    }).join('') || '<li class="dash-empty">No notices yet.</li>';
+    ul.querySelectorAll('[data-del]').forEach(function(b){ b.addEventListener('click', async function(){ await sb().from('notices').delete().eq('id',b.dataset.del); await loadNotices(); }); });
+  }
+
+  async function calendar(){
+    var canManage=tier>=2;
+    var form = canManage ? '<div class="dash-form"><h4>Add an event</h4>'+
+      '<div class="field"><label>Title</label><input id="ce-title" type="text" placeholder="Summer BBQ"></div>'+
+      '<div class="row"><div class="field"><label>Date</label><input id="ce-date" type="date"></div><div class="field"><label>Time</label><input id="ce-time" type="time" value="19:30"></div></div>'+
+      '<div class="field"><label>Location</label><input id="ce-loc" type="text" placeholder="1 Waterside, Waterford"></div>'+
+      '<div class="field"><label>Visible to</label><select id="ce-level"><option value="0">Everyone</option><option value="1">Members</option><option value="2">Officers</option></select></div>'+
+      '<button class="btn btn-gold" id="ce-add" type="button">Add to calendar</button></div>' : '';
+    main('<h3 class="dash-h">Calendar</h3><p class="dash-sub">'+(canManage?'Add or remove events \u2014 they appear on the public calendar.':'Upcoming events across the Province.')+'</p><ul class="dash-list" id="ce-list"><li class="dash-empty">Loading\u2026</li></ul>'+form);
+    if(!sb()){ document.getElementById('ce-list').innerHTML='<li>'+noConn('manage events')+'</li>'; return; }
+    await loadCe();
+    var add=document.getElementById('ce-add');
+    if(add) add.addEventListener('click', async function(){
+      var date=val('ce-date'); if(!date){ alert('A date is required.'); return; }
+      if(!val('ce-title')){ alert('A title is required.'); return; }
+      var p={ title:val('ce-title'), starts_at:new Date(date+'T'+(val('ce-time')||'19:30')).toISOString(), location:val('ce-loc')||null, min_level:parseInt(val('ce-level'),10)||0 };
+      try{ var u=(await sb().auth.getUser()).data.user; if(u) p.created_by=u.id; }catch(e){}
+      add.disabled=true;
+      var r=await sb().from('events').insert(p); add.disabled=false;
+      if(r.error){ alert(r.error.message); return; }
+      document.getElementById('ce-title').value=''; document.getElementById('ce-loc').value='';
+      await loadCe(); if(window.PGLCal) PGLCal.onLogin(tier);
+    });
+  }
+  async function loadCe(){
+    var ul=document.getElementById('ce-list'); if(!ul) return;
+    var r=await sb().from('events').select('*').gte('starts_at',new Date(Date.now()-864e5).toISOString()).order('starts_at');
+    var rows=r.data||[];
+    ul.innerHTML=rows.map(function(e){
+      var d=new Date(e.starts_at);
+      return '<li><div class="t">'+esc(e.title)+'<span class="badge">'+(LVL[e.min_level]||'Public')+'</span></div>'+
+        '<div class="m">'+d.toLocaleDateString('en-IE',{weekday:'short',day:'numeric',month:'short',year:'numeric'})+' \u00b7 '+d.toLocaleTimeString('en-IE',{hour:'2-digit',minute:'2-digit'})+(e.location?' \u00b7 '+esc(e.location):'')+'</div>'+
+        (tier>=2?'<button class="btn-sm danger" data-del="'+e.id+'" style="margin-top:9px">Delete</button>':'')+'</li>';
+    }).join('') || '<li class="dash-empty">No events scheduled.</li>';
+    ul.querySelectorAll('[data-del]').forEach(function(b){ b.addEventListener('click', async function(){ await sb().from('events').delete().eq('id',b.dataset.del); await loadCe(); if(window.PGLCal) PGLCal.onLogin(tier); }); });
+  }
+
+  async function directory(){
+    main('<h3 class="dash-h">Member directory</h3><p class="dash-sub">Approved brethren of the Province.</p><div id="dir"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('dir').innerHTML=noConn('view the directory'); return; }
+    var r=await sb().from('profiles').select('full_name,masonic_rank,rank_level,lodges(name)').eq('approved',true).order('rank_level',{ascending:false});
+    if(r.error){ document.getElementById('dir').innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    document.getElementById('dir').innerHTML = rows.length ?
+      '<table class="dash-table"><thead><tr><th>Name</th><th>Rank</th><th>Lodge</th></tr></thead><tbody>'+
+      rows.map(function(p){ return '<tr><td>'+esc(p.full_name||'\u2014')+'</td><td>'+esc(p.masonic_rank||'')+'</td><td>'+esc((p.lodges&&p.lodges.name)||'')+'</td></tr>'; }).join('')+
+      '</tbody></table>' : '<div class="dash-empty">No members listed yet.</div>';
+  }
+
+  async function approvals(){
+    main('<h3 class="dash-h">Approvals</h3><p class="dash-sub">New registrations awaiting confirmation.</p><div id="ap"><div class="dash-empty">Loading\u2026</div></div>');
+    if(!sb()){ document.getElementById('ap').innerHTML=noConn('manage approvals'); return; }
+    await loadAp();
+  }
+  async function loadAp(){
+    var wrap=document.getElementById('ap'); if(!wrap) return;
+    var r=await sb().from('profiles').select('id,full_name,rank_level,lodges(name)').eq('approved',false).order('created_at');
+    if(r.error){ wrap.innerHTML='<div class="dash-note">'+esc(r.error.message)+'</div>'; return; }
+    var rows=r.data||[];
+    if(!rows.length){ wrap.innerHTML='<div class="dash-empty">No pending registrations.</div>'; return; }
+    wrap.innerHTML='<table class="dash-table"><thead><tr><th>Name</th><th>Grant rank</th><th></th></tr></thead><tbody>'+
+      rows.map(function(p){ return '<tr data-id="'+p.id+'"><td>'+esc(p.full_name||'\u2014')+'</td>'+
+        '<td><select class="ap-rank"><option value="1">Member</option><option value="2">Officer</option><option value="3">Admin</option></select></td>'+
+        '<td><button class="btn-sm ap-ok" type="button">Approve</button></td></tr>'; }).join('')+'</tbody></table>';
+    wrap.querySelectorAll('.ap-ok').forEach(function(b){
+      b.addEventListener('click', async function(){
+        var tr=b.closest('tr'), id=tr.dataset.id, rank=parseInt(tr.querySelector('.ap-rank').value,10);
+        b.disabled=true;
+        var r=await sb().from('profiles').update({approved:true, rank_level:rank}).eq('id',id);
+        if(r.error){ alert(r.error.message); b.disabled=false; return; }
+        await loadAp();
+      });
+    });
+  }
+
+  return { build:build, clear:clear };
 })();
 </script>
 </body>
