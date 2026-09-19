@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Provincial Grand Lodge of the South Eastern Counties</title>
-<meta name="description" content="The Provincial Grand Lodge of the South Eastern Counties, under the Grand Lodge of Ancient Free and Accepted Masons of Ireland.">
+<title>Masonic Province of the South Eastern Counties</title>
+<meta name="description" content="The Provincial Lodge of the South Eastern Counties, under the Lodge of Ancient Free and Accepted Masons of Ireland.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -113,7 +113,9 @@
   .orders{border-top:1px solid var(--line)}
   .order{display:grid;grid-template-columns:130px 1fr;gap:32px;padding:36px 0;border-bottom:1px solid var(--line);align-items:start}
   .order .sigil{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+  .order .sigil .emblem{position:relative;width:66px;height:66px;display:flex;align-items:center;justify-content:center}
   .order .sigil svg{width:66px;height:66px;color:var(--gold)}
+  .order .sigil .emblem img.obadge{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
   .order .sigil .colour{font-size:11px;letter-spacing:.06em;color:rgba(244,239,227,.7);display:flex;align-items:center;gap:7px}
   .order .sigil .dot{width:11px;height:11px;border-radius:50%;display:inline-block;border:1px solid rgba(255,255,255,.25)}
   .order .step{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gold-soft);opacity:.8}
@@ -297,7 +299,7 @@
       <text class="ld-g" x="60" y="82" text-anchor="middle">G</text>
     </svg>
   </div>
-  <div class="loader-text">Provincial Grand Lodge</div>
+  <div class="loader-text">Masonic Province</div>
   <div class="loader-motto">Audi &middot; Vide &middot; Tace</div>
 </div>
 
@@ -340,13 +342,13 @@
   </g>
 </defs></svg>
 
-<div class="ribbon">Under the Grand Lodge of Ancient Free &amp; Accepted Masons of Ireland</div>
+<div class="ribbon">Under the Lodge of Ancient Free &amp; Accepted Masons of Ireland</div>
 
 <header>
   <div class="wrap bar">
     <a class="brand" href="#top">
       <svg class="emblem" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg>
-      <span style="line-height:1.1"><b>South Eastern Counties</b><span>Provincial Grand Lodge</span></span>
+      <span style="line-height:1.1"><b>South Eastern Counties</b><span>Masonic Province</span></span>
     </a>
     <nav class="main" id="nav">
       <a href="#welcome">Home</a>
@@ -369,7 +371,7 @@
   <div class="frame reveal">
     <svg class="crest" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg>
     <div class="kicker">Freemasons of Ireland</div>
-    <h1>Provincial Grand Lodge of the<br><em>South Eastern Counties</em></h1>
+    <h1>The Masonic Province of the<br><em>South Eastern Counties</em></h1>
     <div class="rule"></div>
     <p class="sub">Carlow &middot; Kilkenny &middot; Tipperary &middot; Waterford — five lodges united in one ancient and honourable fraternity.</p>
     <div class="cta" style="margin-top:34px">
@@ -385,15 +387,15 @@
     <div class="welcome">
       <div class="reveal">
         <div class="eyebrow">A word of welcome</div>
-        <h2 class="h-lead" style="margin-bottom:26px">From the Provincial Grand Master</h2>
-        <p class="drop">Welcome to the Provincial Grand Lodge of the South Eastern Counties. Within these pages you will find the five lodges meeting in this Province, our forthcoming meetings and events, and a doorway to the further Orders of Irish Freemasonry.</p>
-        <p>The Provincial Grand Lodge meets four times a year, once each quarter, and every Brother who has received his Master Mason degree is welcome to attend. I encourage the brethren to enjoy the opportunity of visiting other lodges, within this Province and beyond it — for the visitor is always made welcome.</p>
+        <h2 class="h-lead" style="margin-bottom:26px">From the Provincial Master</h2>
+        <p class="drop">Welcome to the Masonic Province of the South Eastern Counties. Within these pages you will find the five lodges meeting in this Province, our forthcoming meetings and events, and a doorway to the further Orders of Irish Freemasonry.</p>
+        <p>The Province meets four times a year, once each quarter, and every Brother who has received his Master Mason degree is welcome to attend. I encourage the brethren to enjoy the opportunity of visiting other lodges, within this Province and beyond it — for the visitor is always made welcome.</p>
         <p>We were to celebrate our 150th anniversary in 2020. The pandemic set that celebration aside, but against the distress of those years it was a small price to bear. If you are reading this with the thought of joining our fraternity, the pages that follow give an honest outline of who we are and what we believe.</p>
       </div>
       <div class="pgm-card reveal">
         <div class="portrait"><img src="https://www.pgl-secounties.com/images/IanDevonport_180x240.gif" referrerpolicy="no-referrer" alt="Rt. W. Bro. Ian Devonport" loading="lazy" onerror="this.remove()"><svg viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg></div>
         <div class="cap">
-          <div class="role">Rt. Worshipful Provincial Grand Master</div>
+          <div class="role">Rt. Worshipful Provincial Master</div>
           <div class="name">Ian Devonport<small>Presiding over the Province and its five constituent lodges.</small></div>
         </div>
       </div>
@@ -414,7 +416,7 @@
       <div class="tenet"><div class="g">iv.</div><h4>Faith</h4><p>A belief in a Supreme Being is the one unalterable requirement of membership.</p></div>
     </div>
     <div style="margin-top:20px">
-      <details class="about" open><summary>Origins <span class="plus">+</span></summary><p>Freemasonry is many centuries old, and most scholars trace it to the great cathedral-builders of medieval Europe. The skilled travelling craftsmen who raised those structures formed themselves into Guilds — professional societies that maintained the standard of their work and protected the secrets of their trade. In the 17th century, leading citizens who were not stonemasons began to be admitted as honorary, or "speculative", members. As their numbers grew, the lodges came to be composed entirely of such Freemasons. All regular Grand Lodges in the world descend from the three "Mother" Grand Lodges — Ireland, England and Scotland.</p></details>
+      <details class="about" open><summary>Origins <span class="plus">+</span></summary><p>Freemasonry is many centuries old, and most scholars trace it to the great cathedral-builders of medieval Europe. The skilled travelling craftsmen who raised those structures formed themselves into Guilds — professional societies that maintained the standard of their work and protected the secrets of their trade. In the 17th century, leading citizens who were not stonemasons began to be admitted as honorary, or "speculative", members. As their numbers grew, the lodges came to be composed entirely of such Freemasons. All regular Lodges in the world descend from the three "Mother" Lodges — Ireland, England and Scotland.</p></details>
       <details class="about"><summary>Religion &amp; Politics <span class="plus">+</span></summary><p>Freemasonry is neither anti-religious nor politically orientated. A belief in a Supreme Being is required of every member without exception, and in every lodge the Volume of the Sacred Law lies open. Yet a Mason's relationship with his God is held to be a purely personal matter: the Craft never enquires into it, and no discussion of religion or politics is permitted at a Masonic gathering. Our meetings open and close with prayer that, though sincere, is non-denominational. Freemasonry asks only that its members be peaceable, law-abiding citizens.</p></details>
       <details class="about"><summary>Membership &amp; "Secrecy" <span class="plus">+</span></summary><p>A candidate is admitted by degrees, each a colourful ceremony handed down from the distant past, and each accompanied by a solemn promise. What is genuinely secret is only the means by which one Mason may prove himself to another — a survival from the days when membership cards did not exist and men relied on word and sign. Freemasonry is therefore a society <em>with</em> secrets, not a "secret society": its constitution, rules, meeting places and members are well known, and its headquarters in Molesworth Street, Dublin, stand within a hundred yards of the seat of government.</p></details>
       <details class="about"><summary>What &amp; Who <span class="plus">+</span></summary><p>Freemasons are ordinary people who try to live by high moral principles and to be good citizens. The Craft teaches kindness, honesty, decency, courtesy, fairness and concern, and holds above all that we are part of the Brotherhood of Man under the Fatherhood of God. Its members are drawn from every walk of life and every social station — men, in other words, perhaps much like yourself.</p></details>
@@ -448,16 +450,16 @@
   <div class="wrap">
     <div class="lead-row reveal">
       <div><div class="eyebrow">The path of the Mason</div><h2 class="h-lead">The Orders of Irish Freemasonry</h2></div>
-      <p>In Ireland the Craft is the foundation. From it a Brother may progress, by degrees, through five further Orders — each self-governing, each with its own colour and symbol, all in harmony with the Grand Lodge.</p>
+      <p>In Ireland the Craft is the foundation. From it a Brother may progress, by degrees, through five further Orders — each self-governing, each with its own colour and symbol, all in harmony with the Lodge.</p>
     </div>
     <div class="orders reveal">
 
       <div class="order">
-        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#sc"/></svg><span class="colour"><span class="dot" style="background:#4f79b8"></span>Blue</span></div>
+        <div class="sigil"><span class="emblem"><img class="obadge" src="img/order-craft.png" alt="" loading="lazy" onerror="this.remove()"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></span><span class="colour"><span class="dot" style="background:#4f79b8"></span>Blue</span></div>
         <div>
           <div class="step">The foundation</div>
           <h3>The Craft &mdash; Blue Masonry</h3>
-          <div class="govern">Governed by the Grand Lodge of Ireland</div>
+          <div class="govern">Governed by the Lodge of Ireland</div>
           <p>The three symbolic degrees worked in every lodge, and the doorway to all that follows. Every Freemason begins here, and no further Order may be entered without it. The square and compasses is its emblem; blue, its signature colour.</p>
           <div class="degrees"><span>Entered Apprentice</span><span>Fellow Craft</span><span>Master Mason</span></div>
           <div class="local">The Province's five Craft lodges are listed above.</div>
@@ -465,30 +467,30 @@
       </div>
 
       <div class="order">
-        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#tau"/></svg><span class="colour"><span class="dot" style="background:#b23b34"></span>Red</span></div>
+        <div class="sigil"><span class="emblem"><img class="obadge" src="img/order-royalarch.png" alt="" loading="lazy" onerror="this.remove()"><svg viewBox="0 0 100 100"><use href="#tau"/></svg></span><span class="colour"><span class="dot" style="background:#b23b34"></span>Red</span></div>
         <div>
           <div class="step">The completion of the Craft</div>
           <h3>Mark &amp; Royal Arch</h3>
-          <div class="govern">Governed by the Supreme Grand Royal Arch Chapter of Ireland</div>
-          <p>Regarded as the completion of pure ancient Masonry. A candidate is first advanced as a Mark Master Mason, then exalted to the Holy Royal Arch — a Chapter uniquely and directly recognised by the Grand Lodge of Ireland. Chapters are led not by a single Master but by three Principals, and members are styled Companions. The triple tau is its emblem; red, its colour.</p>
+          <div class="govern">Governed by the Supreme Royal Arch Chapter of Ireland</div>
+          <p>Regarded as the completion of pure ancient Masonry. A candidate is first advanced as a Mark Master Mason, then exalted to the Holy Royal Arch — a Chapter uniquely and directly recognised by the Lodge of Ireland. Chapters are led not by a single Master but by three Principals, and members are styled Companions. The triple tau is its emblem; red, its colour.</p>
           <div class="degrees"><span>Mark Master Mason</span><span>Excellent Master</span><span>Royal Arch</span></div>
-          <div class="local">District Grand Royal Arch Chapter of South Eastern — meets in March (Waterford), September (Kilkenny) and November (Clonmel). Chapters: <b>No. 32</b> Waterford · <b>No. 44</b> Clonmel · <b>No. 642</b> Ormond, Kilkenny.</div>
+          <div class="local">District Royal Arch Chapter of South Eastern — meets in March (Waterford), September (Kilkenny) and November (Clonmel). Chapters: <b>No. 32</b> Waterford · <b>No. 44</b> Clonmel · <b>No. 642</b> Ormond, Kilkenny.</div>
         </div>
       </div>
 
       <div class="order">
-        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#swords"/></svg><span class="colour"><span class="dot" style="background:#3f7a4f"></span>Green</span></div>
+        <div class="sigil"><span class="emblem"><img class="obadge" src="img/order-knightmasons.png" alt="" loading="lazy" onerror="this.remove()"><svg viewBox="0 0 100 100"><use href="#swords"/></svg></span><span class="colour"><span class="dot" style="background:#3f7a4f"></span>Green</span></div>
         <div>
           <div class="step">An Order peculiar to Ireland</div>
           <h3>Knight Masonry</h3>
-          <div class="govern">Governed by the Grand Council of Knight Masons of Ireland</div>
-          <p>Three remarkably elaborate degrees, distinctly Old Testament in character and built upon the legend of Zerubbabel and the return from Babylon. Long conferred in various bodies, they were normalised in 1923 under a Grand Council, and the Irish working is held to be the most complete in the world. Its members are Knights; green, its colour.</p>
+          <div class="govern">Governed by the Council of Knight Masons of Ireland</div>
+          <p>Three remarkably elaborate degrees, distinctly Old Testament in character and built upon the legend of Zerubbabel and the return from Babylon. Long conferred in various bodies, they were normalised in 1923 under a Council, and the Irish working is held to be the most complete in the world. Its members are Knights; green, its colour.</p>
           <div class="degrees"><span>Knight of the Sword</span><span>Knight of the East</span><span>Knight of the East &amp; West</span></div>
         </div>
       </div>
 
       <div class="order">
-        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#eagle"/></svg><span class="colour"><span class="dot" style="background:#6e2320"></span>Black &amp; Red</span></div>
+        <div class="sigil"><span class="emblem"><img class="obadge" src="img/order-aarite.png" alt="" loading="lazy" onerror="this.remove()"><svg viewBox="0 0 100 100"><use href="#eagle"/></svg></span><span class="colour"><span class="dot" style="background:#6e2320"></span>Black &amp; Red</span></div>
         <div>
           <div class="step">The philosophic degrees</div>
           <h3>Ancient &amp; Accepted Rite</h3>
@@ -499,7 +501,7 @@
       </div>
 
       <div class="order">
-        <div class="sigil"><svg viewBox="0 0 100 100"><use href="#cross"/></svg><span class="colour"><span class="dot" style="background:#c0392b"></span>White &amp; Red</span></div>
+        <div class="sigil"><span class="emblem"><img class="obadge" src="img/order-greatpriory.png" alt="" loading="lazy" onerror="this.remove()"><svg viewBox="0 0 100 100"><use href="#cross"/></svg></span><span class="colour"><span class="dot" style="background:#c0392b"></span>White &amp; Red</span></div>
         <div>
           <div class="step">The chivalric Orders</div>
           <h3>Knights Templar &amp; Malta</h3>
@@ -536,11 +538,11 @@
       <div class="reveal">
         <div class="eyebrow">Relief</div>
         <h2 class="h-lead" style="margin-bottom:24px;color:var(--ivory)">Charities &amp; festivals</h2>
-        <p style="color:rgba(244,239,227,.74);max-width:52ch">Lodges of the Province support both the Grand Lodge charities and a local provincial fund, raising money quietly throughout the year. Grand Lodge works with the Charity Regulator in Dublin and the Charity Commission of Northern Ireland to keep every Masonic charity fully compliant.</p>
+        <p style="color:rgba(244,239,227,.74);max-width:52ch">Lodges of the Province support both the Lodge charities and a local provincial fund, raising money quietly throughout the year. Lodge works with the Charity Regulator in Dublin and the Charity Commission of Northern Ireland to keep every Masonic charity fully compliant.</p>
       </div>
       <div class="reveal">
-        <div class="fund" style="border-color:var(--gold)"><h4 style="color:var(--ivory)">The Milne Watt Boyce Fund</h4><p style="color:rgba(244,239,227,.7)">Made up of donations from the brethren of the Province, this fund assists Brethren or their dependents in distress and provides Christmas gifts to our annuitants. Cases of need are brought to the Provincial Grand Almoner by the Lodge Almoner, once the lodge has first granted aid from its own funds.</p></div>
-        <div class="fund"><h4 style="color:var(--ivory)">Grand Lodge Charities</h4><p style="color:rgba(244,239,227,.7)">Information on the national charities and special fund-raising sits with Grand Lodge. See <a href="http://freemason.ie/charity/" style="color:var(--gold-soft)">The Grand Lodge Charities</a> and <a href="http://grandmastersfestival.ie/" style="color:var(--gold-soft)">The Grand Master's Festival</a>.</p></div>
+        <div class="fund" style="border-color:var(--gold)"><h4 style="color:var(--ivory)">The Milne Watt Boyce Fund</h4><p style="color:rgba(244,239,227,.7)">Made up of donations from the brethren of the Province, this fund assists Brethren or their dependents in distress and provides Christmas gifts to our annuitants. Cases of need are brought to the Provincial Almoner by the Lodge Almoner, once the lodge has first granted aid from its own funds.</p></div>
+        <div class="fund"><h4 style="color:var(--ivory)">Lodge Charities</h4><p style="color:rgba(244,239,227,.7)">Information on the national charities and special fund-raising sits with Lodge. See <a href="http://freemason.ie/charity/" style="color:var(--gold-soft)">The Lodge Charities</a> and <a href="http://grandmastersfestival.ie/" style="color:var(--gold-soft)">The Master's Festival</a>.</p></div>
       </div>
     </div>
   </div>
@@ -582,13 +584,13 @@
       <p>Regalia, lodge rooms, installations and fellowship. Replace these tiles with the Province's own photographs.</p>
     </div>
     <div class="gallery reveal">
-      <figure class="wide tall" data-cap="Installation of the Provincial Grand Master"><img src="img/g-installation.jpg" alt="Installation of the Provincial Grand Master" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Installation of the Provincial Grand Master</figcaption></figure>
+      <figure class="wide tall" data-cap="Installation of the Provincial Master"><img src="img/g-installation.jpg" alt="Installation of the Provincial Master" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Installation of the Provincial Master</figcaption></figure>
       <figure data-cap="Lodge V regalia"><img src="img/g-regalia.jpg" alt="Lodge V regalia" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Lodge V regalia</figcaption></figure>
       <figure data-cap="The Waterford Lodge Rooms"><img src="img/g-lodge-room.jpg" alt="The Waterford Lodge Rooms" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>The Waterford Lodge Rooms</figcaption></figure>
       <figure data-cap="Summer BBQ, 2025"><img src="img/g-bbq.jpg" alt="Summer BBQ, 2025" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Summer BBQ, 2025</figcaption></figure>
       <figure class="tall" data-cap="The Provincial Standard"><img src="https://www.pgl-secounties.com/images/PGL_Std01s.gif" referrerpolicy="no-referrer" alt="The Provincial Standard" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>The Provincial Standard</figcaption></figure>
       <figure data-cap="Charity golf day"><img src="img/g-golf.jpg" alt="Charity golf day" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>Charity golf day</figcaption></figure>
-      <figure class="wide" data-cap="District Grand Chapter, Kilkenny"><img src="img/g-chapter.jpg" alt="District Grand Chapter, Kilkenny" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>District Grand Chapter, Kilkenny</figcaption></figure>
+      <figure class="wide" data-cap="District Chapter, Kilkenny"><img src="img/g-chapter.jpg" alt="District Chapter, Kilkenny" loading="lazy" onerror="this.remove()"><div class="ph"><svg viewBox="0 0 100 100"><use href="#sc"/></svg></div><figcaption>District Chapter, Kilkenny</figcaption></figure>
     </div>
   </div>
 </section>
@@ -612,8 +614,8 @@
         <div class="medallion"><img src="img/rosse.jpg" alt="Richard Parsons, Earl of Rosse" loading="lazy" onerror="this.remove()"><span class="mono">R</span></div>
         <h4>Richard Parsons, Earl of Rosse</h4>
         <div class="dates">c. 1682 – 1741</div>
-        <div class="lodge-line">First Grand Master of Ireland, 1725</div>
-        <p>Installed as the first recorded Grand Master of the Grand Lodge of Ireland in June 1725 — the moment organised Freemasonry in Ireland steps into the historical record. His election marks the beginning of the second-oldest Grand Lodge in the world.</p>
+        <div class="lodge-line">First Master of Ireland, 1725</div>
+        <p>Installed as the first recorded Master of the Lodge of Ireland in June 1725 — the moment organised Freemasonry in Ireland steps into the historical record. His election marks the beginning of the second-oldest Lodge in the world.</p>
       </div>
       <div class="bro">
         <div class="medallion"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Arthur%20Wellesley%2C%201st%20Duke%20of%20Wellington%20by%20John%20Jackson.jpg?width=500" referrerpolicy="no-referrer" alt="The Duke of Wellington" loading="lazy" onerror="this.remove()"><span class="mono">W</span></div>
@@ -663,10 +665,10 @@
   <div class="wrap">
     <div class="lead-row reveal">
       <div><div class="eyebrow">How to reach us</div><h2 class="h-lead">Contact</h2></div>
-      <p>Any non-member wishing to contact a lodge may write directly, or through the Provincial Grand Secretary.</p>
+      <p>Any non-member wishing to contact a lodge may write directly, or through the Provincial Secretary.</p>
     </div>
     <div class="contacts reveal">
-      <div class="c"><div class="who">Provincial Grand Secretary</div><a href="mailto:marcusnotley@gmail.com">marcusnotley@gmail.com</a></div>
+      <div class="c"><div class="who">Provincial Secretary</div><a href="mailto:marcusnotley@gmail.com">marcusnotley@gmail.com</a></div>
       <div class="c"><div class="who">Waterford — Lodge V</div><a href="mailto:secretary@lodgev.com">secretary@lodgev.com</a></div>
       <div class="c"><div class="who">Waterford — Lodge 32</div><a href="mailto:Waterford.Lodge32@gmail.com">Waterford.Lodge32@gmail.com</a></div>
       <div class="c"><div class="who">Clonmel — Lodge 44</div><a href="mailto:Ian.Devonport@gmail.com">Ian.Devonport@gmail.com</a></div>
@@ -681,7 +683,7 @@
     <div class="foot">
       <div>
         <svg class="emblem" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#sc"/></svg>
-        <p>The Provincial Grand Lodge of the South Eastern Counties, under the Grand Lodge of Ancient Free &amp; Accepted Masons of Ireland.</p>
+        <p>The Provincial Lodge of the South Eastern Counties, under the Lodge of Ancient Free &amp; Accepted Masons of Ireland.</p>
       </div>
       <div><h5>The Province</h5><ul>
         <li><a href="#about">About Freemasonry</a></li>
@@ -690,14 +692,14 @@
         <li><a href="#brethren">Notable Brethren</a></li>
       </ul></div>
       <div><h5>Beyond the Province</h5><ul>
-        <li><a href="https://freemason.ie" target="_blank" rel="noopener">Grand Lodge of Ireland</a></li>
-        <li><a href="http://freemason.ie/charity/" target="_blank" rel="noopener">Grand Lodge Charities</a></li>
-        <li><a href="http://grandmastersfestival.ie/" target="_blank" rel="noopener">Grand Master's Festival</a></li>
+        <li><a href="https://freemason.ie" target="_blank" rel="noopener">Lodge of Ireland</a></li>
+        <li><a href="http://freemason.ie/charity/" target="_blank" rel="noopener">Lodge Charities</a></li>
+        <li><a href="http://grandmastersfestival.ie/" target="_blank" rel="noopener">Master's Festival</a></li>
         <li><a href="#contact">Contact us</a></li>
       </ul></div>
     </div>
     <div class="foot-base">
-      <span>© <span id="yr"></span> Provincial Grand Lodge, South Eastern Counties.</span>
+      <span>© <span id="yr"></span> Masonic Province, South Eastern Counties.</span>
       <span>Audi · Vide · Tace</span>
     </div>
   </div>
@@ -759,11 +761,11 @@
     'admin@demo':   {name:'Bro. Webmaster',       rank:'Provincial Webmaster',tier:3}
   };
   const TILES = [
-    {min:1, title:'Provincial Notices', body:'Circulars and communications from the Provincial Grand Secretary.'},
+    {min:1, title:'Provincial Notices', body:'Circulars and communications from the Provincial Secretary.'},
     {min:1, title:'Summonses', body:'Download the summons for each forthcoming meeting of your lodge.'},
     {min:1, title:'Member Directory', body:'Contact details for the officers and brethren of the Province.'},
     {min:2, title:'Officer Resources', body:'Ritual aids, installation guidance and the roll of Provincial officers.'},
-    {min:2, title:'Meeting Minutes', body:'Minutes and agendas of Provincial Grand Lodge meetings.'},
+    {min:2, title:'Meeting Minutes', body:'Minutes and agendas of the Province’s meetings.'},
     {min:3, title:'Administration', body:'Approve new registrations, manage members, edit events and pages.'}
   ];
   function renderMembers(user){
@@ -805,11 +807,11 @@
     const now=new Date(), out=[];
     const pgl=[ {m:0,loc:'Waterford Lodge Rooms'},{m:3,loc:'Carlow / Clonmel / Kilkenny (rotating)'},{m:5,loc:'Waterford Lodge Rooms'},{m:9,loc:'Carlow / Clonmel / Kilkenny (rotating)'} ];
     for(let y=now.getFullYear(); y<=now.getFullYear()+1; y++){
-      pgl.forEach(p=>{ const dt=lastThursday(y,p.m); if(dt>=now) out.push({dt, title:'Provincial Grand Lodge', sub:p.loc}); });
+      pgl.forEach(p=>{ const dt=lastThursday(y,p.m); if(dt>=now) out.push({dt, title:'Provincial Meeting', sub:p.loc}); });
     }
     const rac=[ {m:2,loc:'Waterford'},{m:8,loc:'Kilkenny'},{m:10,loc:'Clonmel'} ];
     for(let y=now.getFullYear(); y<=now.getFullYear()+1; y++){
-      rac.forEach(r=>{ const dt=new Date(y,r.m,15); if(dt>=now) out.push({dt, title:'District Grand Royal Arch Chapter', sub:r.loc+' — date confirmed by summons'}); });
+      rac.forEach(r=>{ const dt=new Date(y,r.m,15); if(dt>=now) out.push({dt, title:'District Royal Arch Chapter', sub:r.loc+' — date confirmed by summons'}); });
     }
     out.sort((a,b)=>a.dt-b.dt);
     const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -858,7 +860,7 @@
     var u = (await sb.auth.getUser()).data.user; if(!u) return false;
     var r = await sb.from('profiles').select('full_name,masonic_rank,rank_level,approved').eq('id', u.id).single();
     var p = r.data;
-    if(!p){ alert('No membership record was found for this account. Please contact the Provincial Grand Secretary.'); return false; }
+    if(!p){ alert('No membership record was found for this account. Please contact the Provincial Secretary.'); return false; }
     if(!p.approved){ alert('Your account is registered and is awaiting approval by a Secretary.'); return false; }
     renderMembers({ name: p.full_name || ('Bro. ' + u.email), rank: p.masonic_rank || rankName(p.rank_level), tier: p.rank_level || 1 });
     return true;
